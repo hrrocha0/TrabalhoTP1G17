@@ -1,5 +1,10 @@
+# Intellij Idea
 .idea
-nbproject/private
-build
-out
 TrabalhoTP1G17.iml
+out
+
+# Netbeans
+nbproject/private
+nbproject/build-impl.xml
+build.xml
+build
