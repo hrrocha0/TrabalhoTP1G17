@@ -11,11 +11,16 @@ public class Funcionario extends Pessoa {
         this.loja = loja;
     }
 
-    public Funcionario(String nome, String cpf, Loja loja, Veiculo veiculo, Ticket ticket, double gastoTotal) {
-        super(veiculo, ticket, gastoTotal);
+    public Funcionario(String nome, String cpf, Loja loja, Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {
+        super(veiculo, ticket, localizacao, gastoTotal);
         this.nome = nome;
         this.cpf = cpf;
         this.loja = loja;
+    }
+
+    @Override
+    public double getValorIsencao() {
+        return 0.0;
     }
 
     public String getNome() {

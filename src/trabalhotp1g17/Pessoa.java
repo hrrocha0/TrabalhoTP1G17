@@ -1,56 +1,59 @@
 package trabalhotp1g17;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public abstract class Pessoa {
-    /* TODO:
-        - A relação entre cliente e loja/shopping poderia ser unidirecional;
-        - Não é necessário que o cliente tenha o método comprar e a loja o metodo vender ao mesmo tempo;
-        - O atributo tipo não parece ser necessário. Se for, um enum seria melhor;
-        - Essa classe ser abstrata só serve para impedir a instanciação, já que todas as subclasses implementam
-        os métodos de maneira igual;
-        - Os métodos entrar() e sair() deveriam estar aqui;
-        - O atributo que armazena o valor mínimo para a isenção do estacionamento deveria estar aqui, como protected.
-        Poderia ser um método abstrato a ser implementado pelas subclasses também;
-    */
-    //private String tipo;
     protected Veiculo veiculo;
     protected Ticket ticket;
     protected double gastoTotal;
-    protected final ArrayList<Produto> produtosComprados = new ArrayList<>();
+    protected Estabelecimento localizacao;
+    protected ArrayList<Produto> produtosComprados = new ArrayList<>();
 
     public Pessoa() {
-        this(null, null, 0.0);
+        this(null, null, null, 0.0);
     }
 
-    public Pessoa(Veiculo veiculo, Ticket ticket, double gastoTotal) {
+    public Pessoa(Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {
         this.veiculo = veiculo;
         this.ticket = ticket;
+        this.localizacao = localizacao;
         this.gastoTotal = gastoTotal;
     }
+
+    abstract double getValorIsencao();
 
     public void comprar(Produto produto) {
         Loja loja = produto.getLoja();
         Shopping shopping = loja.getShopping();
 
-        if (!loja.isAberto() || !shopping.isAberto()) {
-            System.out.println("Não foi possível efetuar a compra.");
+        if (loja.isAberto() && shopping.isAberto() && localizacao == loja) {
+            produtosComprados.add(produto);
+            gastoTotal += produto.getPreco();
+            loja.vender(this, produto);
+        }
+        System.out.println("Não foi possível efetuar a compra.");
+    }
+
+    public void entrar(Estabelecimento estabelecimento) {
+        if (localizacao == estabelecimento) {
+            System.out.println("A pessoa já está no estabelecimento.");
             return;
         }
-        produtosComprados.add(produto);
-        gastoTotal += produto.getPreco();
-        loja.vender(this, produto);
+        localizacao = estabelecimento;
+        estabelecimento.aoEntrar(this);
+        System.out.println("A pessoa entrou no estabelecimento.");
     }
 
-    /*
-    public String getTipo() {
-        return tipo;
+    public void sair(Estabelecimento estabelecimento) {
+        if (localizacao != estabelecimento) {
+            System.out.println("A pessoa não está no estabelecimento.");
+            return;
+        }
+        localizacao = null;
+        estabelecimento.aoSair(this);
+        System.out.println("A pessoa saiu do estabelecimento.");
     }
-
-    public void setTipo() {
-        this.tipo = tipo;
-    }
-    */
 
     public Veiculo getVeiculo() {
         return veiculo;
@@ -76,7 +79,19 @@ public abstract class Pessoa {
         this.gastoTotal = gastoTotal;
     }
 
-    public ArrayList<Produto> getProdutosComprados() {
-        return produtosComprados;
+    public Estabelecimento getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(Estabelecimento localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public Produto[] getProdutosComprados() {
+        return produtosComprados.toArray(new Produto[0]);
+    }
+
+    public void setProdutosComprados(Produto[] produtosComprados) {
+        Collections.addAll(this.produtosComprados, produtosComprados);
     }
 }

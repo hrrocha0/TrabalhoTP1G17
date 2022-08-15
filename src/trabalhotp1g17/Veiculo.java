@@ -1,26 +1,23 @@
 package trabalhotp1g17;
 
 public class Veiculo {
-    /* TODO:
-        - Um enum seria melhor para o atributo tipo;
-    */
-    private String tipo;
+    private TipoVeiculo tipo;
     private String marca;
     private String modelo;
     private String placa;
 
-    public Veiculo(String tipo, String marca, String modelo, String placa) {
+    public Veiculo(TipoVeiculo tipo, String marca, String modelo, String placa) {
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
         this.placa = placa;
     }
 
-    public String getTipo() {
+    public TipoVeiculo getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoVeiculo tipo) {
         this.tipo = tipo;
     }
 

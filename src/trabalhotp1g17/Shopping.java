@@ -1,7 +1,5 @@
 package trabalhotp1g17;
 
-import trabalhotp1g17.telas.Estabelecimento;
-
 public class Shopping implements Estabelecimento {
     @Override
     public boolean isAberto() {
@@ -9,12 +7,12 @@ public class Shopping implements Estabelecimento {
     }
 
     @Override
-    public void abre() {
+    public void aoEntrar(Pessoa pessoa) {
         // TODO
     }
 
     @Override
-    public void fecha() {
+    public void aoSair(Pessoa pessoa) {
         // TODO
     }
 }

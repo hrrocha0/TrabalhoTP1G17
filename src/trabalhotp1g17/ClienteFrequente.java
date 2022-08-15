@@ -1,10 +1,6 @@
 package trabalhotp1g17;
 
 public class ClienteFrequente extends Pessoa {
-    /* TODO:
-        - É um pouco estranho que tanto essa classe quanto a Funcionario tenham os atributos nome e cpf, sem
-        que exista uma interface;
-    */
     private String nome;
     private String cpf;
 
@@ -13,10 +9,15 @@ public class ClienteFrequente extends Pessoa {
         this.cpf = cpf;
     }
 
-    public ClienteFrequente(String nome, String cpf, Veiculo veiculo, Ticket ticket, double gastoTotal) {
-        super(veiculo, ticket, gastoTotal);
+    public ClienteFrequente(String nome, String cpf, Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {
+        super(veiculo, ticket, localizacao, gastoTotal);
         this.nome = nome;
         this.cpf = cpf;
+    }
+
+    @Override
+    public double getValorIsencao() {
+        return 50.0;
     }
 
     public String getNome() {
