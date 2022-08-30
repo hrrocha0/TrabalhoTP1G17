@@ -4,76 +4,80 @@ import java.util.ArrayList;
 
 
 public class Shopping implements Estabelecimento {
-    private String nome;
-    private int[] vagasCarro;                                                        //vagas de carro { ocupadas, totais }
-    private int[] vagasMoto;                                                         //vagas de moto { ocupadas, totais }
+    private int[] vagasCarro = {0, 200};                                                        //vagas de carro { ocupadas, totais } 
+    private int[] vagasMoto = {0, 200};                                                         //vagas de moto { ocupadas, totais }
 
     private boolean aberto = false;
-
-    private final ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();               //listas que vão manter os registros de quem está no shopping, divididas por tipo de pessoa
-    private final ArrayList<ClienteFrequente> clientesFrequentes = new ArrayList<>();
-    private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
-
-    public Shopping(String nome, int[] vagasCarro, int[] vagasMoto) {
-        this.nome = nome;
-        this.vagasCarro = vagasCarro.clone();
-        this.vagasMoto = vagasMoto.clone();
-    }
-
+    
+    private ClienteEsporadico dummyCE = new ClienteEsporadico();                                //Um objeto de cada tipo de cliente, usados apenas para descobrir que tipo de pessoa entra
+    private ClienteFrequente dummyCF = new ClienteFrequente(null, null, null, null, null, 0);   //no shopping. a pessoa pode ser um cliente esporádico, frequente ou funcionário de lá
+    private Funcionario dummyF = new Funcionario(null, null, null, null, null, null, 0);        //
+        
+    private ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();               //listas que vão manter os registros de quem está no shopping, divididas por tipo de pessoa
+    private ArrayList<ClienteFrequente> clientesFrequentes = new ArrayList<>();                 
+    private ArrayList<Funcionario> funcionarios = new ArrayList<>();
+    
     @Override
-    public void aoEntrar(Pessoa pessoa) {
+    public boolean aoEntrar(Pessoa pessoa){
         TipoVeiculo tipoDoVeiculo = pessoa.getVeiculo().getTipo();
-
-        if (tipoDoVeiculo == null) {
+        
+        if (tipoDoVeiculo == null){
             System.out.println("Chegou uma nova pessoa a pé.");
-        } else {
+        } 
+        else{
             System.out.print("Chegou uma nova pessoa dirigindo");
-            if ((tipoDoVeiculo == TipoVeiculo.CARRO) && (vagasCarro[0] < vagasCarro[1])) {
+            if((tipoDoVeiculo == TipoVeiculo.CARRO) && (vagasCarro[0] < vagasCarro[1])){
                 System.out.println(" um carro.");
                 this.vagasCarro[0]++;
-            } else if ((tipoDoVeiculo == TipoVeiculo.MOTO) && (vagasMoto[0] < vagasMoto[1])) {
+            }
+            else if((tipoDoVeiculo == TipoVeiculo.MOTO) && (vagasMoto[0] < vagasMoto[1])){
                 System.out.println(" uma moto.");
                 this.vagasMoto[0]++;
-            } else {
+            }
+            else {
                 System.out.println(", mas ela não pode estacionar. Não há vagas para o veículo dela (" + tipoDoVeiculo + ").");
-                return;
+                return false;
             }
         }
-        adicionarPessoa(pessoa);
+        add(pessoa);
+        return true;
     }
 
     @Override
-    public void aoSair(Pessoa pessoa) {
-        if (!contemPessoa(pessoa)) {
+    public boolean aoSair(Pessoa pessoa){
+        if(!contains(pessoa)){
             System.out.println("O cliente especificado não está no shopping.");
-            return;
+            return false;
         }
 
         TipoVeiculo tipoDoVeiculo = pessoa.getVeiculo().getTipo();
         System.out.print("A pessoa foi embora");
-
-        if (tipoDoVeiculo == null) {
+        
+        if (tipoDoVeiculo == null){
             System.out.println(" a pé.");
-        } else {
-            if (tipoDoVeiculo == TipoVeiculo.CARRO) {
+        } 
+        else{
+            if(tipoDoVeiculo == TipoVeiculo.CARRO){
                 System.out.println(" de carro.");
                 this.vagasCarro[0]--;
-            } else if (tipoDoVeiculo == TipoVeiculo.MOTO) {
+            }
+            else if(tipoDoVeiculo == TipoVeiculo.MOTO){
                 System.out.println(" de moto.");
                 this.vagasMoto[0]--;
             }
         }
-        removerPessoa(pessoa);
+        remove(pessoa);
+        return true;
     }
-
+    
     @Override
-    public boolean isAberto() {
+    public boolean isAberto(){
         return this.aberto;
     }
 
     @Override
-    public boolean abrir() {
-        if (this.aberto) {
+    public boolean abrir(){
+        if(this.aberto){
             System.out.println("O Shopping já está aberto.");
             return false;
         }
@@ -83,66 +87,57 @@ public class Shopping implements Estabelecimento {
     }
 
     @Override
-    public boolean fechar() {
-        if (getTotalDePessoas() == 0) {
+    public boolean fechar(){
+        if (getTotalDePessoas() == 0){
             System.out.println("O Shopping fechou.");
             this.aberto = false;
             return true;
         }
-
+         
         System.out.println("O Shopping não pode ser fechado, ainda há " + getTotalDePessoas() + " pessoas dentro.");
         return false;
     }
-
-    public boolean adicionarVagas(TipoVeiculo tipo, int quantidade) {
-        return true; // TODO
-    }
-
-    public boolean removerVagas(TipoVeiculo tipo, int quantidade) {
-        // É necessário verificar se é possível remover a quantidade de vagas informada.
-        return true; // TODO
-    }
-
+    
+    
     //Métodos privados////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Adiciona a pessoa ao contingente inserido no shopping.
-     * @param pessoa a pessoa a ser adicionada.
-     */
-    private void adicionarPessoa(Pessoa pessoa) {
-        if (pessoa instanceof ClienteEsporadico) {
-            this.clientesEsporadicos.add((ClienteEsporadico) pessoa);
-        } else if (pessoa instanceof ClienteFrequente) {
-            this.clientesFrequentes.add((ClienteFrequente) pessoa);
-        } else if (pessoa instanceof Funcionario) {
-            this.funcionarios.add((Funcionario) pessoa);
+    
+    
+    private void add(Pessoa pessoa){                                            //efetivamente adiciona a pessoa ao contingente inserido no shopping
+        if (pessoa.getClass() == this.dummyCE.getClass()){
+            this.clientesEsporadicos.add((ClienteEsporadico)pessoa);
+            return;
         }
+        else if (pessoa.getClass() == this.dummyCF.getClass()){
+            this.clientesFrequentes.add((ClienteFrequente)pessoa);
+            return;
+        }
+        this.funcionarios.add((Funcionario)pessoa);
     }
-
-    private void removerPessoa(Pessoa pessoa) {
-        if (pessoa instanceof ClienteEsporadico) {
-            this.clientesEsporadicos.remove(pessoa);
-        } else if (pessoa instanceof ClienteFrequente) {
-            this.clientesFrequentes.remove(pessoa);
-        } else if (pessoa instanceof Funcionario) {
-            this.funcionarios.remove(pessoa);
+    
+    private void remove(Pessoa pessoa){
+        if (pessoa.getClass() == this.dummyCE.getClass()){
+            this.clientesEsporadicos.remove((ClienteEsporadico)pessoa);
+            return;
         }
+        else if (pessoa.getClass() == this.dummyCF.getClass()){
+            this.clientesFrequentes.remove((ClienteFrequente)pessoa);
+            return;
+        }
+        this.funcionarios.remove((Funcionario)pessoa);
     }
-
-    private boolean contemPessoa(Pessoa pessoa) {
-        if (pessoa instanceof ClienteEsporadico) {
-            return this.clientesEsporadicos.contains(pessoa);
+    
+    private boolean contains(Pessoa pessoa){
+        if(pessoa.getClass()==this.dummyCE.getClass()){
+            return this.clientesEsporadicos.contains((ClienteEsporadico)pessoa);            
         }
-        if (pessoa instanceof ClienteFrequente) {
-            return this.clientesFrequentes.contains(pessoa);
+        else if(pessoa.getClass() == this.dummyCF.getClass()){
+            return this.clientesFrequentes.contains((ClienteFrequente)pessoa);
         }
-        if (pessoa instanceof Funcionario) {
-            return this.funcionarios.contains((Funcionario) pessoa);
-        }
-        return false;
+        return this.funcionarios.contains((Funcionario)pessoa);
     }
-
-    private int getTotalDePessoas() {
+    
+    private int getTotalDePessoas(){
+        //
         return (this.clientesEsporadicos.size() + this.clientesFrequentes.size() + this.funcionarios.size());
     }
 }
