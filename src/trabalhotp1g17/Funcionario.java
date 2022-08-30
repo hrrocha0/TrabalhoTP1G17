@@ -1,10 +1,17 @@
 package trabalhotp1g17;
 
+/*
+Subclasse de Pessoa. Tem como atributos o nome e o CPF do funcionário, além da loja onde ele trabalha
+e um boolean que indica se o funcionário está trabalhando. Essa classe também possui duas funcionalidades
+adicionais: iniciar e finalizar o trabalho.
+ */
 public class Funcionario extends Pessoa {
-    private String nome;
-    private String cpf;
-    private Loja loja;
-    private boolean trabalhando;                                                //precisamos saber se o funcionario está trabalhando para saber se a loja abre ou não
+    private String nome;    // O nome do funcionário
+    private String cpf;     // O CPF do funcionário
+    private Loja loja;      // A loja onde o funcionário trabalha
+    private boolean trabalhando;    // Indica se o funcionário está trabalhando
+
+    // Construtores
 
     public Funcionario(String nome, String cpf, Loja loja) {
         this.nome = nome;
@@ -19,10 +26,13 @@ public class Funcionario extends Pessoa {
         this.loja = loja;
     }
 
+    // Método abstrato de Pessoa
     @Override
     public double getValorIsencao() {
         return 0.0;
     }
+
+    // Getters e Setters
 
     public String getNome() {
         return nome;
@@ -47,28 +57,36 @@ public class Funcionario extends Pessoa {
     public void setLoja(Loja loja) {
         this.loja = loja;
     }
-    
-    public boolean isTrabalhando(){
-        return this.trabalhando;
+
+    public boolean isTrabalhando() {
+        return trabalhando;
     }
-    
-    public boolean startTrabalho(){
-        if(!this.trabalhando){
-            this.trabalhando = true;
-            System.out.println("O funcionário " + this.nome + " começou a trabalhar.");
-            return true;
-        }
-        System.out.println("O funcionário " + this.nome + " já está trabalhando");
-        return false;
-    }
-    
-    public boolean endTrabalho(){
-        if(!this.trabalhando){
-            System.out.println("O funcionário " + this.nome + " não está trabalhando.");
+
+    /*
+    Verifica se o funcionário já está trabalhando. Caso esteja, retorna false,
+    senão define o atributo trabalhando como true e retorna true.
+     */
+    public boolean iniciarTrabalho() {
+        if (trabalhando) {
+            System.out.println("O funcionário " + nome + " já está trabalhando");
             return false;
         }
-        this.trabalhando = false;
-        System.out.println("O funcionário " + this.nome + " terminou de trabalhar.");
+        trabalhando = true;
+        System.out.println("O funcionário " + nome + " começou a trabalhar.");
+        return true;
+    }
+
+    /*
+    Verifica se o funcionário já está trabalhando. Se não estiver, retorna false,
+    no contrário define o atributo trabalhando como false e retorna true.
+    */
+    public boolean finalizarTrabalho() {
+        if (!trabalhando) {
+            System.out.println("O funcionário " + nome + " não está trabalhando.");
+            return false;
+        }
+        trabalhando = false;
+        System.out.println("O funcionário " + nome + " terminou de trabalhar.");
         return true;
     }
 }

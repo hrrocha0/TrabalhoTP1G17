@@ -1,8 +1,11 @@
 package trabalhotp1g17;
 
+//Subclasse de Pessoa. Armazena o nome e o CPF do cliente, e o valor de isenção é de R$50,00.
 public class ClienteFrequente extends Pessoa {
-    private String nome;
-    private String cpf;
+    private String nome;    // O nome do cliente
+    private String cpf;     // O CPF do cliente
+
+    // Construtores
 
     public ClienteFrequente(String nome, String cpf) {
         this.nome = nome;
@@ -15,10 +18,13 @@ public class ClienteFrequente extends Pessoa {
         this.cpf = cpf;
     }
 
+    // Método abstrato de Pessoa
     @Override
     public double getValorIsencao() {
         return 50.0;
     }
+
+    // Getters e Setters
 
     public String getNome() {
         return nome;

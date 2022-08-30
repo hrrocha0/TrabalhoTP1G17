@@ -1,19 +1,26 @@
 package trabalhotp1g17;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
+/*
+ Classe abstrata responsável pela lógica compartilhada entre ClienteEsporadico, ClienteFrequente e Funcionario.
+ Pode ou não possuir um veículo e um ticket, e também armazena como argumentos o gasto total do cliente em produtos,
+ a sua localização no shopping, e os produtos comprados. Além de getters e setters para alguns dos atributos,
+ também possui métodos que realizam as ações de entrada e saída de um estabelecimento.
+ */
 public abstract class Pessoa {
-    protected Veiculo veiculo;
-    protected Ticket ticket;
-    protected double gastoTotal;
-    protected Estabelecimento localizacao;
-    protected ArrayList<Produto> produtosComprados = new ArrayList<>();
+    protected Veiculo veiculo;  // O veículo da pessoa
+    protected Ticket ticket;    // O ticket de estacionamento
+    protected double gastoTotal;    // O gasto total da pessoa em produtos
+    protected Estabelecimento localizacao;  // A localização da pessoa
+    protected ArrayList<Produto> produtosComprados = new ArrayList<>(); // Os produtos comprados pela pessoa
 
+    // Construtor simplificado, que inicializa o objeto com valores padrão
     public Pessoa() {
         this(null, null, null, 0.0);
     }
 
+    // Construtor completo, que recebe como parâmetros a maioria dos atributos
     public Pessoa(Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {
         this.veiculo = veiculo;
         this.ticket = ticket;
@@ -21,27 +28,58 @@ public abstract class Pessoa {
         this.gastoTotal = gastoTotal;
     }
 
+    // Método abstrato que retorna o valor que a pessoa deve gastar em produtos para receber isenção
     abstract double getValorIsencao();
 
+    /*
+    Retorna se a loja ou o shopping não estiveren abertos, se a localização da pessoa
+    não for a loja que vende o produto, ou se a venda não for possível. Na possibilidade
+    de compra, adiciona o produto à lista de produtos comprados e aumenta o gasto total
+    no preço do produto.
+     */
     public void comprar(Produto produto, Loja loja, Shopping shopping) {
-        if (loja.isAberto() && shopping.isAberto() && localizacao == loja) {
-            produtosComprados.add(produto);
-            gastoTotal += produto.getPreco();
-            loja.vender(produto);
+        if (!loja.isAberto()) {
+            System.out.println("A loja está fechada.");
+            return;
         }
-        System.out.println("Não foi possível efetuar a compra.");
+        if (!shopping.isAberto()) {
+            System.out.println("O shopping está fechado.");
+            return;
+        }
+        if (localizacao != loja) {
+            System.out.println("A pessoa não está na loja.");
+            return;
+        }
+        if (!loja.vender(produto)) {
+            System.out.println("Não foi possível efetuar a compra.");
+            return;
+        }
+        produtosComprados.add(produto);
+        gastoTotal += produto.getPreco();
+        System.out.println("A compra foi realizada com sucesso.");
     }
 
-    public void entrar(Estabelecimento estabelecimento) {
+    /*
+     Verifica se a pessoa está no estabelecimento. Caso esteja, retorna false,
+     e no contrário define a localização da pessoa como o estabelecimento. Depois,
+     delega a lógica para o estabelecimento e retorna true.
+     */
+    public boolean entrar(Estabelecimento estabelecimento) {
         if (localizacao == estabelecimento) {
             System.out.println("A pessoa já está no estabelecimento.");
-            return;
+            return false;
         }
         localizacao = estabelecimento;
         estabelecimento.aoEntrar(this);
         System.out.println("A pessoa entrou no estabelecimento.");
+        return true;
     }
 
+    /*
+     Verifica se a pessoa está no estabelecimento. Caso não esteja, retorna false,
+     senão define a localização como nula e delega a lógica para o estabelecimento,
+     retornando true.
+     */
     public void sair(Estabelecimento estabelecimento) {
         if (localizacao != estabelecimento) {
             System.out.println("A pessoa não está no estabelecimento.");
@@ -51,6 +89,8 @@ public abstract class Pessoa {
         estabelecimento.aoSair(this);
         System.out.println("A pessoa saiu do estabelecimento.");
     }
+
+    // Getters e Setters
 
     public Veiculo getVeiculo() {
         return veiculo;
@@ -82,13 +122,5 @@ public abstract class Pessoa {
 
     public void setLocalizacao(Estabelecimento localizacao) {
         this.localizacao = localizacao;
-    }
-
-    public Produto[] getProdutosComprados() {
-        return produtosComprados.toArray(new Produto[0]);
-    }
-
-    public void setProdutosComprados(Produto[] produtosComprados) {
-        Collections.addAll(this.produtosComprados, produtosComprados);
     }
 }
