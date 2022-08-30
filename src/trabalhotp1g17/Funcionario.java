@@ -4,7 +4,7 @@ public class Funcionario extends Pessoa {
     private String nome;
     private String cpf;
     private Loja loja;
-    private boolean trabalhando;                                                //precisamos saber se o funcionario está trabalhando para saber se a loja abre ou não
+    private boolean trabalhando;
 
     public Funcionario(String nome, String cpf, Loja loja) {
         this.nome = nome;
@@ -47,13 +47,13 @@ public class Funcionario extends Pessoa {
     public void setLoja(Loja loja) {
         this.loja = loja;
     }
-    
-    public boolean isTrabalhando(){
+
+    public boolean isTrabalhando() {
         return this.trabalhando;
     }
-    
-    public boolean startTrabalho(){
-        if(!this.trabalhando){
+
+    public boolean startTrabalho() {
+        if (!this.trabalhando) {
             this.trabalhando = true;
             System.out.println("O funcionário " + this.nome + " começou a trabalhar.");
             return true;
@@ -61,9 +61,9 @@ public class Funcionario extends Pessoa {
         System.out.println("O funcionário " + this.nome + " já está trabalhando");
         return false;
     }
-    
-    public boolean endTrabalho(){
-        if(!this.trabalhando){
+
+    public boolean endTrabalho() {
+        if (!this.trabalhando) {
             System.out.println("O funcionário " + this.nome + " não está trabalhando.");
             return false;
         }

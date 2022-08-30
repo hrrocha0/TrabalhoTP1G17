@@ -23,14 +23,11 @@ public abstract class Pessoa {
 
     abstract double getValorIsencao();
 
-    public void comprar(Produto produto) {
-        Loja loja = produto.getLoja();
-        Shopping shopping = loja.getShopping();
-
+    public void comprar(Produto produto, Loja loja, Shopping shopping) {
         if (loja.isAberto() && shopping.isAberto() && localizacao == loja) {
             produtosComprados.add(produto);
             gastoTotal += produto.getPreco();
-            loja.vender(this, produto);
+            loja.vender(produto);
         }
         System.out.println("Não foi possível efetuar a compra.");
     }

@@ -4,6 +4,6 @@ public interface Estabelecimento {
     boolean abrir();
     boolean fechar();
     boolean isAberto();
-    boolean aoEntrar(Pessoa p);
-    boolean aoSair(Pessoa p);
+    void aoEntrar(Pessoa pessoa);
+    void aoSair(Pessoa pessoa);
 }
