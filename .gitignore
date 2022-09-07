@@ -8,3 +8,4 @@ nbproject/private
 nbproject/build-impl.xml
 build.xml
 build
+/dist/
