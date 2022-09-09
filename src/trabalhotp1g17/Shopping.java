@@ -1,6 +1,7 @@
 package trabalhotp1g17;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 
 
 public class Shopping implements Estabelecimento {
@@ -16,6 +17,8 @@ public class Shopping implements Estabelecimento {
     private ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();               //listas que vão manter os registros de quem está no shopping, divididas por tipo de pessoa
     private ArrayList<ClienteFrequente> clientesFrequentes = new ArrayList<>();                 
     private ArrayList<Funcionario> funcionarios = new ArrayList<>();
+    
+    private ArrayList<Veiculo> veiculos = new ArrayList<>();
     
     @Override
     public boolean aoEntrar(Pessoa pessoa){
@@ -96,6 +99,22 @@ public class Shopping implements Estabelecimento {
          
         System.out.println("O Shopping não pode ser fechado, ainda há " + getTotalDePessoas() + " pessoas dentro.");
         return false;
+    }
+    
+    public Veiculo[] getVeiculos() {
+        return (Veiculo[]) veiculos.toArray();
+    }
+    
+    // Usado para listar veículos, lojas, etc. na GUI
+    public <T> DefaultComboBoxModel<String> gerarModelo(T[] objetos) {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Nenhum(a)");
+        
+        for (T objeto: objetos) {
+            modelo.addElement(objeto.toString());
+        }
+        
+        return modelo;
     }
     
     

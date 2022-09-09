@@ -4,12 +4,17 @@
  */
 package telas;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import trabalhotp1g17.ClienteEsporadico;
+import trabalhotp1g17.ClienteFrequente;
+import trabalhotp1g17.Veiculo;
+
 /**
  *
  * @author Admin
  */
 public class TelaCadastroCliente extends javax.swing.JFrame {
-
     /**
      * Creates new form TelaCadastroCliente
      */
@@ -26,97 +31,153 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        botoesTipo = new javax.swing.ButtonGroup();
+        painelPrincipal = new javax.swing.JPanel();
+        titulo = new javax.swing.JLabel();
+        painelDados = new javax.swing.JPanel();
+        labelTipo = new javax.swing.JLabel();
+        botaoTipoEsporadico = new javax.swing.JRadioButton();
+        botaoTipoFrequente = new javax.swing.JRadioButton();
+        labelNome = new javax.swing.JLabel();
+        campoNome = new javax.swing.JTextField();
+        labelCpf = new javax.swing.JLabel();
+        campoCpf = new javax.swing.JTextField();
+        labelVeiculo = new javax.swing.JLabel();
+        caixaVeiculo = new javax.swing.JComboBox<>();
+        botaoCadastrar = new javax.swing.JButton();
+        botaoCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Cliente");
 
-        jPanel1.setBackground(new java.awt.Color(220, 220, 220));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
+        painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Cadastrar Cliente");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        titulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        titulo.setText("Cadastrar Cliente");
+        titulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel4.setText("Nome:");
+        labelTipo.setText("Tipo:");
 
-        jLabel2.setText("CPF:");
+        botoesTipo.add(botaoTipoEsporadico);
+        botaoTipoEsporadico.setText("Esporádico");
+        botaoTipoEsporadico.setFocusable(false);
+        botaoTipoEsporadico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoTipoEsporadicoActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Veículo:");
+        botoesTipo.add(botaoTipoFrequente);
+        botaoTipoFrequente.setSelected(true);
+        botaoTipoFrequente.setText("Frequente");
+        botaoTipoFrequente.setFocusable(false);
+        botaoTipoFrequente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoTipoFrequenteActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Cadastrar");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        labelNome.setText("Nome:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        labelCpf.setText("CPF:");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        labelVeiculo.setText("Veículo:");
+
+        caixaVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
+        caixaVeiculo.setFocusable(false);
+
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setFocusable(false);
+        botaoCadastrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarActionPerformed(evt);
+            }
+        });
+
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
+        painelDados.setLayout(painelDadosLayout);
+        painelDadosLayout.setHorizontalGroup(
+            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(painelDadosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoCadastrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoCancelar))
+                    .addGroup(painelDadosLayout.createSequentialGroup()
+                        .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelVeiculo)
+                            .addComponent(labelCpf)
+                            .addComponent(labelNome)
+                            .addComponent(labelTipo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addComponent(botaoTipoFrequente)
+                                .addGap(18, 18, 18)
+                                .addComponent(botaoTipoEsporadico)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(campoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                            .addComponent(campoNome)
+                            .addComponent(caixaVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        painelDadosLayout.setVerticalGroup(
+            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTipo)
+                    .addComponent(botaoTipoEsporadico)
+                    .addComponent(botaoTipoFrequente))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNome)
+                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCpf)
+                    .addComponent(campoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelVeiculo)
+                    .addComponent(caixaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCadastrar)
+                    .addComponent(botaoCancelar))
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
+        painelPrincipal.setLayout(painelPrincipalLayout);
+        painelPrincipalLayout.setHorizontalGroup(
+            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titulo)
+                    .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        painelPrincipalLayout.setVerticalGroup(
+            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -124,16 +185,61 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+                String placa = (String) caixaVeiculo.getSelectedItem();
+        Veiculo veiculo = placa.equals("Nenhum") ? null : null; // TODO
+        
+        if (botaoTipoFrequente.isSelected()) {
+            String nome = campoNome.getText();
+            String cpf = campoCpf.getText();
+            
+            if (nome.isEmpty() || cpf.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Cliente", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // TODO: verificar se já existe cliente com o mesmo cpf.
+            
+            ClienteFrequente cliente = new ClienteFrequente(nome, cpf);
+            cliente.setVeiculo(veiculo);
+            JOptionPane.showMessageDialog(this, "O cliente de nome " + nome + " foi cadastrado com sucesso.", "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
+            dispose();
+        } else {
+            ClienteEsporadico cliente = new ClienteEsporadico();
+            cliente.setVeiculo(veiculo);
+            JOptionPane.showMessageDialog(this, "O cliente foi cadastrado com sucesso como Cliente 1.", "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
+            dispose();
+        }
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
+
+    private void botaoTipoEsporadicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTipoEsporadicoActionPerformed
+        labelNome.setEnabled(false);
+        campoNome.setEnabled(false);
+        labelCpf.setEnabled(false);
+        campoCpf.setEnabled(false);
+    }//GEN-LAST:event_botaoTipoEsporadicoActionPerformed
+
+    private void botaoTipoFrequenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTipoFrequenteActionPerformed
+        labelNome.setEnabled(true);
+        campoNome.setEnabled(true);
+        labelCpf.setEnabled(true);
+        campoCpf.setEnabled(true);
+    }//GEN-LAST:event_botaoTipoFrequenteActionPerformed
+
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_botaoCancelarActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -147,15 +253,20 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton botaoCancelar;
+    private javax.swing.JRadioButton botaoTipoEsporadico;
+    private javax.swing.JRadioButton botaoTipoFrequente;
+    private javax.swing.ButtonGroup botoesTipo;
+    private javax.swing.JComboBox<String> caixaVeiculo;
+    private javax.swing.JTextField campoCpf;
+    private javax.swing.JTextField campoNome;
+    private javax.swing.JLabel labelCpf;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelTipo;
+    private javax.swing.JLabel labelVeiculo;
+    private javax.swing.JPanel painelDados;
+    private javax.swing.JPanel painelPrincipal;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
