@@ -86,6 +86,13 @@
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="painelDados">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -114,7 +121,7 @@
                                       <Component id="botaoTipoEsporadico" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="campoCpf" alignment="0" pref="368" max="32767" attributes="0"/>
+                                  <Component id="campoCpf" alignment="0" pref="362" max="32767" attributes="0"/>
                                   <Component id="campoNome" alignment="0" max="32767" attributes="0"/>
                                   <Component id="caixaVeiculo" alignment="0" max="32767" attributes="0"/>
                               </Group>

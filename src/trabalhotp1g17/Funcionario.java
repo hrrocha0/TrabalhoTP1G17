@@ -13,10 +13,11 @@ public class Funcionario extends Pessoa {
 
     // Construtores
 
-    public Funcionario(String nome, String cpf, Loja loja) {
+    public Funcionario(String nome, String cpf, Veiculo veiculo, Loja loja) {
         this.nome = nome;
         this.cpf = cpf;
         this.loja = loja;
+        this.veiculo = veiculo;
     }
 
     public Funcionario(String nome, String cpf, Loja loja, Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {

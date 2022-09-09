@@ -4,6 +4,12 @@
  */
 package telas;
 
+import javax.swing.JOptionPane;
+import trabalhotp1g17.Funcionario;
+import trabalhotp1g17.Loja;
+import trabalhotp1g17.TipoVeiculo;
+import trabalhotp1g17.Veiculo;
+
 /**
  *
  * @author Admin
@@ -15,6 +21,7 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
      */
     public TelaCadastroVeiculo() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -52,13 +59,17 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         titulo.setText("Cadastrar Veículo");
         titulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         labelTipo.setText("Tipo:");
 
         botoesTipo.add(botaoTipoCarro);
         botaoTipoCarro.setText("Carro");
+        botaoTipoCarro.setFocusable(false);
 
         botoesTipo.add(botaoTipoMoto);
         botaoTipoMoto.setText("Moto");
+        botaoTipoMoto.setFocusable(false);
 
         labelMarca.setText("Marca:");
 
@@ -69,6 +80,11 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         botaoCadastrar.setText("Cadastrar");
         botaoCadastrar.setFocusable(false);
         botaoCadastrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarActionPerformed(evt);
+            }
+        });
 
         botaoCancelar.setText("Cancelar");
         botaoCancelar.setFocusable(false);
@@ -97,7 +113,7 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
                                 .addComponent(botaoTipoCarro)
                                 .addGap(18, 18, 18)
                                 .addComponent(botaoTipoMoto)
-                                .addGap(0, 244, Short.MAX_VALUE))
+                                .addGap(0, 238, Short.MAX_VALUE))
                             .addComponent(campoMarca)
                             .addComponent(campoModelo)
                             .addComponent(campoPlaca)))
@@ -173,6 +189,22 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_botaoCancelarActionPerformed
+
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        TipoVeiculo tipo = botaoTipoCarro.isSelected() ? TipoVeiculo.CARRO : TipoVeiculo.MOTO;
+        
+        String marca = (String) campoMarca.getText();
+        String modelo = (String) campoModelo.getText();
+        String placa = (String) campoPlaca.getText();
+        
+        if (marca.isBlank() || modelo.isBlank() || placa.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Veículo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        Veiculo veiculo = new Veiculo(tipo, marca, modelo, placa);
+        dispose();
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     /**
      * @param args the command line arguments

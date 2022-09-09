@@ -7,9 +7,10 @@ public class ClienteFrequente extends Pessoa {
 
     // Construtores
 
-    public ClienteFrequente(String nome, String cpf) {
+    public ClienteFrequente(String nome, String cpf, Veiculo veiculo) {
         this.nome = nome;
         this.cpf = cpf;
+        this.veiculo = veiculo;
     }
 
     public ClienteFrequente(String nome, String cpf, Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {

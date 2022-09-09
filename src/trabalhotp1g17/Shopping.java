@@ -10,7 +10,9 @@ public class Shopping implements Estabelecimento {
 
     private boolean aberto = false;
     
-    private ClienteEsporadico dummyCE = new ClienteEsporadico();                                //Um objeto de cada tipo de cliente, usados apenas para descobrir que tipo de pessoa entra
+    // Trocar pelo instanceof
+    
+    private ClienteEsporadico dummyCE = new ClienteEsporadico(null);                                //Um objeto de cada tipo de cliente, usados apenas para descobrir que tipo de pessoa entra
     private ClienteFrequente dummyCF = new ClienteFrequente(null, null, null, null, null, 0);   //no shopping. a pessoa pode ser um cliente esporádico, frequente ou funcionário de lá
     private Funcionario dummyF = new Funcionario(null, null, null, null, null, null, 0);        //
         

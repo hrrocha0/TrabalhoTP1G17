@@ -4,7 +4,6 @@
  */
 package telas;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import trabalhotp1g17.ClienteEsporadico;
 import trabalhotp1g17.ClienteFrequente;
@@ -20,6 +19,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
      */
     public TelaCadastroCliente() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -56,6 +56,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         titulo.setText("Cadastrar Cliente");
         titulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         labelTipo.setText("Tipo:");
 
@@ -128,7 +130,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(botaoTipoEsporadico)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(campoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                            .addComponent(campoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                             .addComponent(campoNome)
                             .addComponent(caixaVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -196,27 +198,25 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-                String placa = (String) caixaVeiculo.getSelectedItem();
-        Veiculo veiculo = placa.equals("Nenhum") ? null : null; // TODO
+        String placa = (String) caixaVeiculo.getSelectedItem();
+        Veiculo veiculo = null; // TODO
         
         if (botaoTipoFrequente.isSelected()) {
             String nome = campoNome.getText();
             String cpf = campoCpf.getText();
             
-            if (nome.isEmpty() || cpf.isEmpty()) {
+            if (nome.isBlank() || cpf.isBlank()) {
                 JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Cliente", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
             // TODO: verificar se já existe cliente com o mesmo cpf.
             
-            ClienteFrequente cliente = new ClienteFrequente(nome, cpf);
-            cliente.setVeiculo(veiculo);
+            ClienteFrequente cliente = new ClienteFrequente(nome, cpf, veiculo);
             JOptionPane.showMessageDialog(this, "O cliente de nome " + nome + " foi cadastrado com sucesso.", "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
             dispose();
         } else {
-            ClienteEsporadico cliente = new ClienteEsporadico();
-            cliente.setVeiculo(veiculo);
+            ClienteEsporadico cliente = new ClienteEsporadico(veiculo);
             JOptionPane.showMessageDialog(this, "O cliente foi cadastrado com sucesso como Cliente 1.", "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
             dispose();
         }

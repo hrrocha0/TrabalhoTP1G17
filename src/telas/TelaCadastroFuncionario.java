@@ -4,6 +4,11 @@
  */
 package telas;
 
+import javax.swing.JOptionPane;
+import trabalhotp1g17.Funcionario;
+import trabalhotp1g17.Loja;
+import trabalhotp1g17.Veiculo;
+
 /**
  *
  * @author Admin
@@ -15,6 +20,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
      */
     public TelaCadastroFuncionario() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -50,6 +56,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         titulo.setText("Cadastrar Funcionário");
         titulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         labelNome.setText("Nome:");
 
         labelCpf.setText("CPF:");
@@ -65,6 +73,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         botaoCadastrar.setText("Cadastrar");
         botaoCadastrar.setFocusable(false);
         botaoCadastrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarActionPerformed(evt);
+            }
+        });
 
         botaoCancelar.setText("Cancelar");
         botaoCancelar.setFocusable(false);
@@ -94,7 +107,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                             .addComponent(labelNome))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                            .addComponent(campoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                             .addComponent(campoNome)
                             .addComponent(caixaVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(caixaLoja, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -141,7 +154,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -155,7 +168,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -164,6 +177,23 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_botaoCancelarActionPerformed
+
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        String nome = campoNome.getText();
+        String cpf = campoCpf.getText();
+        
+        if (nome.isBlank() || cpf.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Funcionário", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String placa = (String) caixaVeiculo.getSelectedItem();
+        Veiculo veiculo = null; // TODO
+        String nomeLoja = (String) caixaLoja.getSelectedItem();
+        Loja loja = null;   // TODO
+        
+        Funcionario funcionario = new Funcionario(nome, cpf, veiculo, loja);
+        dispose();
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
      
     /**
      * @param args the command line arguments
