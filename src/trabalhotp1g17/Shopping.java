@@ -6,19 +6,15 @@ import javax.swing.DefaultComboBoxModel;
 
 public class Shopping implements Estabelecimento {
     private int[] vagasCarro = {0, 200};                                                        //vagas de carro { ocupadas, totais } 
-    private int[] vagasMoto = {0, 200};                                                         //vagas de moto { ocupadas, totais }
+    private int[] vagasMoto = {0, 50};                                                         //vagas de moto { ocupadas, totais }
 
     private boolean aberto = false;
     
-    // Trocar pelo instanceof
-    
-    private ClienteEsporadico dummyCE = new ClienteEsporadico(null);                                //Um objeto de cada tipo de cliente, usados apenas para descobrir que tipo de pessoa entra
-    private ClienteFrequente dummyCF = new ClienteFrequente(null, null, null, null, null, 0);   //no shopping. a pessoa pode ser um cliente esporádico, frequente ou funcionário de lá
-    private Funcionario dummyF = new Funcionario(null, null, null, null, null, null, 0);        //
-        
     private ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();               //listas que vão manter os registros de quem está no shopping, divididas por tipo de pessoa
     private ArrayList<ClienteFrequente> clientesFrequentes = new ArrayList<>();                 
     private ArrayList<Funcionario> funcionarios = new ArrayList<>();
+    
+    private static ArrayList<Loja> lojas = new ArrayList<>();
 
     @Override
     public boolean aoEntrar(Pessoa pessoa){
@@ -104,42 +100,71 @@ public class Shopping implements Estabelecimento {
     //Métodos privados////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
-    private void add(Pessoa pessoa){                                            //efetivamente adiciona a pessoa ao contingente inserido no shopping
-        if (pessoa.getClass() == this.dummyCE.getClass()){
+    public void add(Loja loja){
+        this.lojas.add(loja);
+    }
+    
+    public boolean remove(Loja loja){
+        return this.lojas.remove(loja);
+    }
+    
+    public void add(Pessoa pessoa){                                            //efetivamente adiciona a pessoa ao contingente inserido no shopping
+        if (pessoa instanceof ClienteEsporadico){
             this.clientesEsporadicos.add((ClienteEsporadico)pessoa);
             return;
         }
-        else if (pessoa.getClass() == this.dummyCF.getClass()){
+        else if (pessoa instanceof ClienteFrequente){
             this.clientesFrequentes.add((ClienteFrequente)pessoa);
             return;
         }
         this.funcionarios.add((Funcionario)pessoa);
     }
     
-    private void remove(Pessoa pessoa){
-        if (pessoa.getClass() == this.dummyCE.getClass()){
+    public void remove(Pessoa pessoa){
+        if (pessoa instanceof ClienteEsporadico){
             this.clientesEsporadicos.remove((ClienteEsporadico)pessoa);
             return;
         }
-        else if (pessoa.getClass() == this.dummyCF.getClass()){
+        else if (pessoa instanceof ClienteFrequente){
             this.clientesFrequentes.remove((ClienteFrequente)pessoa);
             return;
         }
         this.funcionarios.remove((Funcionario)pessoa);
     }
     
-    private boolean contains(Pessoa pessoa){
-        if(pessoa.getClass()==this.dummyCE.getClass()){
+    public boolean contains(Pessoa pessoa){
+        if(pessoa instanceof ClienteEsporadico){
             return this.clientesEsporadicos.contains((ClienteEsporadico)pessoa);            
         }
-        else if(pessoa.getClass() == this.dummyCF.getClass()){
+        else if(pessoa instanceof ClienteFrequente){
             return this.clientesFrequentes.contains((ClienteFrequente)pessoa);
         }
         return this.funcionarios.contains((Funcionario)pessoa);
     }
     
     private int getTotalDePessoas(){
-        //
         return (this.clientesEsporadicos.size() + this.clientesFrequentes.size() + this.funcionarios.size());
+    }
+
+    public boolean setVagasTotais(int vagasDeCarro, int vagasDeMoto){
+        this.vagasCarro[1] = vagasDeCarro;
+        this.vagasMoto[1] = vagasDeMoto;
+        return true;
+    }
+    
+    public int[] getVagasCarro(){
+        return this.vagasCarro;
+    }
+    
+    public int[] getVagasMoto(){
+        return this.vagasMoto;
+    }
+    
+    public boolean temVagaCarro(){
+        return (this.vagasCarro[0] < this.vagasCarro[1])? true:false;
+    }
+    
+    public boolean temVagaMoto(){
+        return (this.vagasMoto[0] < this.vagasMoto[1])? true:false;
     }
 }
