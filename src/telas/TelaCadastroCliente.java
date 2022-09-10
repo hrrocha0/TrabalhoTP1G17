@@ -99,6 +99,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         });
 
         botaoCancelar.setText("Cancelar");
+        botaoCancelar.setFocusable(false);
         botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCancelarActionPerformed(evt);
