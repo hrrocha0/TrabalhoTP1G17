@@ -4,7 +4,10 @@
  */
 package telas;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import trabalhotp1g17.ClienteFrequente;
+import trabalhotp1g17.Pessoa;
 
 /**
  *
@@ -17,7 +20,27 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
      */
     public TelaRemoverCliente() {
         initComponents();
+        carregarListaClientes();
         setLocationRelativeTo(null);
+    }
+    
+    private void carregarListaClientes() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        
+        for (int i = 1; i <= TelaPrincipal.shopping.getQtdClientesEsporadicos(); i++) {
+            modelo.addElement("Cliente " + i);
+        }
+        for (String nome : TelaPrincipal.shopping.getNomesClientesFrequentes()) {
+            modelo.addElement(nome);
+        }
+        caixaCliente.setModel(modelo);
+        if (modelo.getSize() > 0) {
+            labelCliente.setEnabled(true);
+            caixaCliente.setEnabled(true);
+        } else {
+            labelCliente.setEnabled(false);
+            caixaCliente.setEnabled(false);
+        }
     }
 
     /**
@@ -35,6 +58,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         labelCliente = new javax.swing.JLabel();
         caixaCliente = new javax.swing.JComboBox<>();
         labelAviso = new javax.swing.JLabel();
+        labelInfoCE = new javax.swing.JLabel();
         botaoRemover = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
 
@@ -50,13 +74,16 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         labelCliente.setText("Cliente:");
+        labelCliente.setEnabled(false);
 
-        caixaCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        caixaCliente.setEnabled(false);
         caixaCliente.setFocusable(false);
 
         labelAviso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelAviso.setText("Atenção: Esta ação não pode ser desfeita.");
         labelAviso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        labelInfoCE.setText("Ao remover um cliente esporádico, os IDs de outros clientes esporádicos serão reajustados.");
 
         botaoRemover.setText("Remover");
         botaoRemover.setFocusable(false);
@@ -91,7 +118,8 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botaoRemover)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCancelar)))
+                        .addComponent(botaoCancelar))
+                    .addComponent(labelInfoCE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
@@ -103,6 +131,8 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
                     .addComponent(caixaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(labelAviso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelInfoCE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoRemover)
@@ -146,8 +176,25 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
-        JOptionPane.showMessageDialog(this, "O cliente " + caixaCliente.getSelectedItem() + " foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
-        dispose();  // TODO
+        if (!caixaCliente.isEnabled()) {
+            JOptionPane.showMessageDialog(this, "Não há clientes no shopping.", "Erro: Remover Cliente", JOptionPane.ERROR_MESSAGE);
+            dispose();
+            return;
+        }
+        Pessoa cliente;
+        
+        int id = caixaCliente.getSelectedIndex();
+        
+        if (caixaCliente.getSelectedIndex() < TelaPrincipal.shopping.getQtdClientesEsporadicos()) {
+            cliente = TelaPrincipal.shopping.getClienteEsporadico(id);
+            TelaPrincipal.shopping.remove(cliente);
+            JOptionPane.showMessageDialog(this, "O cliente esporádico foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            cliente = TelaPrincipal.shopping.getClienteFrequente((String) caixaCliente.getSelectedItem());
+            JOptionPane.showMessageDialog(this, "O cliente de nome " + ((ClienteFrequente) cliente).getNome() + " foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
+            TelaPrincipal.shopping.remove(cliente);
+        }
+        dispose(); 
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
@@ -172,6 +219,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> caixaCliente;
     private javax.swing.JLabel labelAviso;
     private javax.swing.JLabel labelCliente;
+    private javax.swing.JLabel labelInfoCE;
     private javax.swing.JPanel painelDados;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JLabel titulo;

@@ -5,7 +5,7 @@ public class ClienteEsporadico extends Pessoa {
     public ClienteEsporadico(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
-    
+
     // Método abstrato de Pessoa
     @Override
     public double getValorIsencao() {

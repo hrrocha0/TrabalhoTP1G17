@@ -4,7 +4,9 @@
  */
 package telas;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import trabalhotp1g17.Funcionario;
 
 /**
  *
@@ -17,7 +19,24 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
      */
     public TelaRemoverFuncionario() {
         initComponents();
+        carregarListaFuncionarios();
         setLocationRelativeTo(null);
+    }
+    
+    private void carregarListaFuncionarios() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        
+        for (String nome : TelaPrincipal.shopping.getNomesFuncionarios()) {
+            modelo.addElement(nome);
+        }
+        caixaFuncionario.setModel(modelo);
+        if (modelo.getSize() > 0) {
+            labelFuncionario.setEnabled(true);
+            caixaFuncionario.setEnabled(true);
+        } else {
+            labelFuncionario.setEnabled(false);
+            caixaFuncionario.setEnabled(false);
+        }
     }
 
     /**
@@ -44,14 +63,15 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titulo.setText("Remover Funcionario");
+        titulo.setText("Remover Funcionário");
         titulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         labelFuncionario.setText("Funcionário:");
+        labelFuncionario.setEnabled(false);
 
-        caixaFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        caixaFuncionario.setEnabled(false);
         caixaFuncionario.setFocusable(false);
 
         labelAviso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -83,15 +103,15 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelAviso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(painelDadosLayout.createSequentialGroup()
+                        .addComponent(labelFuncionario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(caixaFuncionario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botaoRemover)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCancelar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
-                        .addComponent(labelFuncionario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(caixaFuncionario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(botaoCancelar)))
                 .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
@@ -146,8 +166,15 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
-        JOptionPane.showMessageDialog(this, "O funcionário " + caixaFuncionario.getSelectedItem() + " foi removido com sucesso.", "Remover Funcionário", JOptionPane.PLAIN_MESSAGE);
-        dispose();  // TODO
+        if (!caixaFuncionario.isEnabled()) {
+            JOptionPane.showMessageDialog(this, "Não há funcionários no shopping.", "Erro: Remover Funcionário", JOptionPane.ERROR_MESSAGE);
+            dispose();
+            return;
+        }
+        Funcionario funcionario = TelaPrincipal.shopping.getFuncionario((String) caixaFuncionario.getSelectedItem());
+        TelaPrincipal.shopping.remove(funcionario);
+        JOptionPane.showMessageDialog(this, "O funcionário de nome " + funcionario.getNome() + " foi removido com sucesso.", "Remover Funcionário", JOptionPane.PLAIN_MESSAGE);        
+        dispose();
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed

@@ -92,7 +92,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labelAviso" max="32767" attributes="0"/>
@@ -107,6 +107,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="botaoCancelar" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="labelInfoCE" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -122,6 +123,8 @@
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Component id="labelAviso" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="labelInfoCE" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="botaoRemover" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -136,18 +139,15 @@
             <Component class="javax.swing.JLabel" name="labelCliente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cliente:"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="caixaCliente">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <AuxValues>
@@ -159,6 +159,11 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Aten&#xe7;&#xe3;o: Esta a&#xe7;&#xe3;o n&#xe3;o pode ser desfeita."/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelInfoCE">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ao remover um cliente espor&#xe1;dico, os IDs de outros clientes espor&#xe1;dicos ser&#xe3;o reajustados."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="botaoRemover">

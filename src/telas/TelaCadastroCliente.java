@@ -211,14 +211,16 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 return;
             }
             
-            // TODO: verificar se já existe cliente com o mesmo cpf.
+            // TODO: verificar se já existe cliente com o mesmo nome ou cpf.
             
             ClienteFrequente cliente = new ClienteFrequente(nome, cpf, veiculo);
+            TelaPrincipal.shopping.add(cliente);
             JOptionPane.showMessageDialog(this, "O cliente de nome " + nome + " foi cadastrado com sucesso.", "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
             dispose();
         } else {
             ClienteEsporadico cliente = new ClienteEsporadico(veiculo);
-            JOptionPane.showMessageDialog(this, "O cliente foi cadastrado com sucesso como Cliente 1.", "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
+            TelaPrincipal.shopping.add(cliente);
+            JOptionPane.showMessageDialog(this, "O cliente esporádico foi cadastrado com sucesso." , "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
             dispose();
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed

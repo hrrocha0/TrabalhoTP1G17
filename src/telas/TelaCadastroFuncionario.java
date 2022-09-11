@@ -187,11 +187,13 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             return;
         }
         String placa = (String) caixaVeiculo.getSelectedItem();
-        Veiculo veiculo = null; // TODO
+        Veiculo veiculo = null;
         String nomeLoja = (String) caixaLoja.getSelectedItem();
-        Loja loja = null;   // TODO
+        Loja loja = TelaPrincipal.shopping.getLoja(nomeLoja);
         
         Funcionario funcionario = new Funcionario(nome, cpf, veiculo, loja);
+        TelaPrincipal.shopping.add(funcionario);
+        
         dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
      

@@ -64,6 +64,7 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         labelTipo.setText("Tipo:");
 
         botoesTipo.add(botaoTipoCarro);
+        botaoTipoCarro.setSelected(true);
         botaoTipoCarro.setText("Carro");
         botaoTipoCarro.setFocusable(false);
 
@@ -203,6 +204,8 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         }
         
         Veiculo veiculo = new Veiculo(tipo, marca, modelo, placa);
+        TelaPrincipal.shopping.adicionarVeiculo(veiculo);
+                    JOptionPane.showMessageDialog(this, "O veículo de placa " + placa + " foi cadastrado com sucesso.", "Cadastrar Veículo", JOptionPane.PLAIN_MESSAGE);
         dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 

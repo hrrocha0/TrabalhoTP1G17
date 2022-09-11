@@ -4,7 +4,9 @@
  */
 package telas;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import trabalhotp1g17.Veiculo;
 
 /**
  *
@@ -17,7 +19,24 @@ public class TelaRemoverVeiculo extends javax.swing.JFrame {
      */
     public TelaRemoverVeiculo() {
         initComponents();
+        carregarListaVeiculos();
         setLocationRelativeTo(null);
+    }
+    
+    private void carregarListaVeiculos() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        
+        for (String placa : TelaPrincipal.shopping.getPlacasVeiculos()) {
+            modelo.addElement(placa);
+        }
+        caixaVeiculo.setModel(modelo);
+        if (modelo.getSize() > 0) {
+            labelVeiculo.setEnabled(true);
+            caixaVeiculo.setEnabled(true);
+        } else {
+            labelVeiculo.setEnabled(false);
+            caixaVeiculo.setEnabled(false);
+        }
     }
 
     /**
@@ -50,8 +69,9 @@ public class TelaRemoverVeiculo extends javax.swing.JFrame {
         painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         labelVeiculo.setText("Veículo:");
+        labelVeiculo.setEnabled(false);
 
-        caixaVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        caixaVeiculo.setEnabled(false);
         caixaVeiculo.setFocusable(false);
 
         labelAviso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -146,8 +166,15 @@ public class TelaRemoverVeiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
-        JOptionPane.showMessageDialog(this, "O veículo " + caixaVeiculo.getSelectedItem() + " foi removido com sucesso.", "Remover Veículo", JOptionPane.PLAIN_MESSAGE);
-        dispose();  // TODO
+        if (!caixaVeiculo.isEnabled()) {
+            JOptionPane.showMessageDialog(this, "Não há veículos no shopping.", "Erro: Remover Veículo", JOptionPane.ERROR_MESSAGE);
+            dispose();
+            return;
+        }
+        Veiculo veiculo = TelaPrincipal.shopping.getVeiculo((String) caixaVeiculo.getSelectedItem());
+        TelaPrincipal.shopping.removerVeiculo(veiculo);
+        JOptionPane.showMessageDialog(this, "O veículo de placa " + veiculo.getPlaca() + " foi removido com sucesso.", "Remover Veículo", JOptionPane.PLAIN_MESSAGE);
+        dispose();
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed

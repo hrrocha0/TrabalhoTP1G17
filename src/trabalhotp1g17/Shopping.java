@@ -13,7 +13,8 @@ public class Shopping implements Estabelecimento {
     private final ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();               //listas e mapas que vão manter os registros de quem está no shopping, divididas por tipo de pessoa
     private final HashMap<String, ClienteFrequente> clientesFrequentes = new HashMap<>();
     private final HashMap<String, Funcionario> funcionarios = new HashMap<>();
-
+    private final HashMap<String, Veiculo> veiculos = new HashMap<>();
+    
     private static final HashMap<String, Loja> lojas = new HashMap<>();
 
     @Override
@@ -91,9 +92,14 @@ public class Shopping implements Estabelecimento {
         System.out.println("O Shopping não pode ser fechado, ainda há " + getTotalDePessoas() + " pessoas dentro.");
         return false;
     }
+    
+    @Override
+    public String toString() {
+        return "Shopping";
+    }
 
     //Métodos privados////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 
     public void add(Loja loja) {
         lojas.put(loja.getNome(), loja);
@@ -133,6 +139,14 @@ public class Shopping implements Estabelecimento {
         }
         return this.funcionarios.containsKey(((Funcionario) pessoa).getNome());
     }
+    
+    public void adicionarVeiculo(Veiculo veiculo) {
+        this.veiculos.put(veiculo.getPlaca(), veiculo);
+    }
+    
+    public void removerVeiculo(Veiculo veiculo) {
+        this.veiculos.remove(veiculo.getPlaca());
+    }
 
     private int getTotalDePessoas() {
         return (this.clientesEsporadicos.size() + this.clientesFrequentes.size() + this.funcionarios.size());
@@ -159,7 +173,39 @@ public class Shopping implements Estabelecimento {
     public boolean temVagaMoto() {
         return this.vagasMoto[0] < this.vagasMoto[1];
     }
-
+    
+    public ClienteEsporadico getClienteEsporadico(int id) {
+        return clientesEsporadicos.get(id);
+    }
+    
+    public int getQtdClientesEsporadicos() {
+        return clientesEsporadicos.size();
+    }
+    
+    public ClienteFrequente getClienteFrequente(String nome) {
+        return clientesFrequentes.get(nome);
+    }
+    
+    public String[] getNomesClientesFrequentes() {
+        return clientesFrequentes.keySet().toArray(new String[0]);
+    }
+    
+    public Funcionario getFuncionario(String nome) {
+        return funcionarios.get(nome);
+    }
+    
+    public String[] getNomesFuncionarios() {
+        return funcionarios.keySet().toArray(new String[0]);
+    }
+    
+    public Veiculo getVeiculo(String placa) {
+        return veiculos.get(placa);
+    }
+    
+    public String[] getPlacasVeiculos() {
+        return veiculos.keySet().toArray(new String[0]);
+    }
+ 
     public Loja getLoja(String nome) {
         /*if (lojas.size() > 0) {
             for (int i = 0; i < lojas.size(); i++) {

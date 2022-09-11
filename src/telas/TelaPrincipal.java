@@ -84,12 +84,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -525,6 +528,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem11);
 
+        jMenuItem14.setText("Relatório de Clientes");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem14);
+
         jMenuBar1.add(jMenu1);
 
         jMenu4.setText("Funcionários");
@@ -545,6 +556,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem12);
 
+        jMenuItem15.setText("Relatório de Funcionários");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem15);
+
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Veículos");
@@ -564,6 +583,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem13);
+
+        jMenuItem16.setText("Relatório de Veículos");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem16);
 
         jMenuBar1.add(jMenu5);
 
@@ -699,15 +726,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        //new TelaRemoverCliente().setVisible(true);
+        new TelaRemoverCliente().setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        //new TelaRemoverFuncionario().setVisible(true);
+        new TelaRemoverFuncionario().setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        //new TelaRemoverVeiculo().setVisible(true);
+        new TelaRemoverVeiculo().setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void btnAtualizarVagasTotaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarVagasTotaisActionPerformed
@@ -715,7 +742,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarVagasTotaisActionPerformed
 
     private void nomesLojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomesLojasActionPerformed
-        Loja loja = shopping.getLoja(nomesLojas.getItemAt(nomesLojas.getSelectedIndex()));
+        Loja loja = shopping.getLoja((String) nomesLojas.getSelectedItem());
         if(loja != null){
             int[] estoque = loja.getEstoque();
             String status = (loja.isAberto())?"aberta":"fechada";
@@ -734,6 +761,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
             textStatusLoja.setText((shopping.fecharLoja(nomesLojas.getItemAt(nomesLojas.getSelectedIndex())))?"Status: aberta":"Status: fechada");
         }
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        new TelaRelatorioClientes().setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        new TelaRelatorioFuncionarios().setVisible(true);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        new TelaRelatorioVeiculos().setVisible(true);
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     public static void main(String args[]) {
 
@@ -781,6 +820,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
