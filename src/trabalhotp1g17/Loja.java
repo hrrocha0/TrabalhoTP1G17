@@ -119,4 +119,18 @@ public class Loja implements Estabelecimento {
         }
         return false;
     }
+    
+    public String getNome(){
+        return this.nome;
+    }
+    
+    public int[] getEstoque(){
+        int[] products = {produtos.size(), 0};              //primeira posição: itens em estoque
+        
+        for (Produto p : produtos){
+            products[1] += p.getQuantidade();               //segunda posição: quantidade de cada item em estoque
+        }
+        
+        return products;
+    }
 }

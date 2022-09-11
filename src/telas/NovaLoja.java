@@ -1,11 +1,13 @@
 
 package telas;
+import javax.swing.JOptionPane;
 import trabalhotp1g17.*;
 
 public class NovaLoja extends javax.swing.JFrame {
 
     public NovaLoja() {
         initComponents();
+        radioLoja.setSelected(true);
         setLocationRelativeTo(null);            //faz a tela nascer centralizada
     }
 
@@ -107,6 +109,9 @@ public class NovaLoja extends javax.swing.JFrame {
         String nomeLoja = textNomeLoja.getText();
         TipoLoja tipo = (radioLoja.isSelected())? TipoLoja.PRODUTOS : TipoLoja.RESTAURANTE;
         TelaPrincipal.shopping.add(new Loja(nomeLoja, tipo));
+        
+        dispose();
+        JOptionPane.showMessageDialog(null, "Loja \'" + nomeLoja + "\' cadastrada ao shopping!", "sucesso!", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btnCadastrarLojaActionPerformed
 
     private void radioRestauranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioRestauranteActionPerformed

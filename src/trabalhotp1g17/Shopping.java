@@ -1,7 +1,6 @@
 package trabalhotp1g17;
 
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
 
 
 public class Shopping implements Estabelecimento {
@@ -166,5 +165,49 @@ public class Shopping implements Estabelecimento {
     
     public boolean temVagaMoto(){
         return (this.vagasMoto[0] < this.vagasMoto[1])? true:false;
+    }
+
+    public Loja getLoja(String nome){
+        if(lojas.size() > 0){
+            for (int i = 0; i < lojas.size(); i++){
+                if(lojas.get(i).getNome().equals(nome)){
+                    return lojas.get(i);
+                }
+            }
+        }
+        return null;
+    }
+    
+    public boolean abrirLoja(String loja){
+        int index = 0;
+        for(int i = 0; i < lojas.size(); i++){
+            if(lojas.get(i).getNome().equals(loja)){
+                lojas.get(i).abrir();
+                index = i;
+                break;
+            }
+        }
+        return lojas.get(index).isAberto();
+    }
+    
+    public boolean fecharLoja(String loja){
+        int index = 0;
+        for(int i = 0; i < lojas.size(); i++){
+            if(lojas.get(i).getNome().equals(loja)){
+                lojas.get(i).fechar();
+                index = i;
+                break;
+            }
+        }
+        return lojas.get(index).isAberto();
+    }
+    
+    public String[] getLojas(){
+        String[] nomes = new String[lojas.size()];
+        
+        for(int i = 0; i < lojas.size();i++){
+            nomes[i] = lojas.get(i).getNome();
+        }
+        return nomes;
     }
 }
