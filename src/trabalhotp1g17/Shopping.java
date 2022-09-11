@@ -1,38 +1,36 @@
 package trabalhotp1g17;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Shopping implements Estabelecimento {
-    private int[] vagasCarro = {0, 200};                                                        //vagas de carro { ocupadas, totais } 
-    private int[] vagasMoto = {0, 50};                                                         //vagas de moto { ocupadas, totais }
+    private final int[] vagasCarro = {0, 200};                                                        //vagas de carro { ocupadas, totais }
+    private final int[] vagasMoto = {0, 50};                                                         //vagas de moto { ocupadas, totais }
 
     private boolean aberto = false;
-    
-    private ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();               //listas que vão manter os registros de quem está no shopping, divididas por tipo de pessoa
-    private ArrayList<ClienteFrequente> clientesFrequentes = new ArrayList<>();                 
-    private ArrayList<Funcionario> funcionarios = new ArrayList<>();
-    
-    private static ArrayList<Loja> lojas = new ArrayList<>();
+
+    private final ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();               //listas e mapas que vão manter os registros de quem está no shopping, divididas por tipo de pessoa
+    private final HashMap<String, ClienteFrequente> clientesFrequentes = new HashMap<>();
+    private final HashMap<String, Funcionario> funcionarios = new HashMap<>();
+
+    private static final HashMap<String, Loja> lojas = new HashMap<>();
 
     @Override
-    public boolean aoEntrar(Pessoa pessoa){
+    public boolean aoEntrar(Pessoa pessoa) {
         TipoVeiculo tipoDoVeiculo = pessoa.getVeiculo().getTipo();
-        
-        if (tipoDoVeiculo == null){
+
+        if (tipoDoVeiculo == null) {
             System.out.println("Chegou uma nova pessoa a pé.");
-        } 
-        else{
+        } else {
             System.out.print("Chegou uma nova pessoa dirigindo");
-            if((tipoDoVeiculo == TipoVeiculo.CARRO) && (vagasCarro[0] < vagasCarro[1])){
+            if ((tipoDoVeiculo == TipoVeiculo.CARRO) && (vagasCarro[0] < vagasCarro[1])) {
                 System.out.println(" um carro.");
                 this.vagasCarro[0]++;
-            }
-            else if((tipoDoVeiculo == TipoVeiculo.MOTO) && (vagasMoto[0] < vagasMoto[1])){
+            } else if ((tipoDoVeiculo == TipoVeiculo.MOTO) && (vagasMoto[0] < vagasMoto[1])) {
                 System.out.println(" uma moto.");
                 this.vagasMoto[0]++;
-            }
-            else {
+            } else {
                 System.out.println(", mas ela não pode estacionar. Não há vagas para o veículo dela (" + tipoDoVeiculo + ").");
                 return false;
             }
@@ -42,24 +40,22 @@ public class Shopping implements Estabelecimento {
     }
 
     @Override
-    public boolean aoSair(Pessoa pessoa){
-        if(!contains(pessoa)){
+    public boolean aoSair(Pessoa pessoa) {
+        if (!contains(pessoa)) {
             System.out.println("O cliente especificado não está no shopping.");
             return false;
         }
 
         TipoVeiculo tipoDoVeiculo = pessoa.getVeiculo().getTipo();
         System.out.print("A pessoa foi embora");
-        
-        if (tipoDoVeiculo == null){
+
+        if (tipoDoVeiculo == null) {
             System.out.println(" a pé.");
-        } 
-        else{
-            if(tipoDoVeiculo == TipoVeiculo.CARRO){
+        } else {
+            if (tipoDoVeiculo == TipoVeiculo.CARRO) {
                 System.out.println(" de carro.");
                 this.vagasCarro[0]--;
-            }
-            else if(tipoDoVeiculo == TipoVeiculo.MOTO){
+            } else if (tipoDoVeiculo == TipoVeiculo.MOTO) {
                 System.out.println(" de moto.");
                 this.vagasMoto[0]--;
             }
@@ -67,15 +63,15 @@ public class Shopping implements Estabelecimento {
         remove(pessoa);
         return true;
     }
-    
+
     @Override
-    public boolean isAberto(){
+    public boolean isAberto() {
         return this.aberto;
     }
 
     @Override
-    public boolean abrir(){
-        if(this.aberto){
+    public boolean abrir() {
+        if (this.aberto) {
             System.out.println("O Shopping já está aberto.");
             return false;
         }
@@ -85,129 +81,143 @@ public class Shopping implements Estabelecimento {
     }
 
     @Override
-    public boolean fechar(){
-        if (getTotalDePessoas() == 0){
+    public boolean fechar() {
+        if (getTotalDePessoas() == 0) {
             System.out.println("O Shopping fechou.");
             this.aberto = false;
             return true;
         }
-         
+
         System.out.println("O Shopping não pode ser fechado, ainda há " + getTotalDePessoas() + " pessoas dentro.");
         return false;
     }
 
     //Métodos privados////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    public void add(Loja loja){
-        this.lojas.add(loja);
+
+
+    public void add(Loja loja) {
+        lojas.put(loja.getNome(), loja);
     }
-    
-    public boolean remove(Loja loja){
-        return this.lojas.remove(loja);
+
+    public boolean remove(Loja loja) {
+        return lojas.remove(loja.getNome()) != null;
     }
-    
-    public void add(Pessoa pessoa){                                            //efetivamente adiciona a pessoa ao contingente inserido no shopping
-        if (pessoa instanceof ClienteEsporadico){
-            this.clientesEsporadicos.add((ClienteEsporadico)pessoa);
+
+    public void add(Pessoa pessoa) {                                            //efetivamente adiciona a pessoa ao contingente inserido no shopping
+        if (pessoa instanceof ClienteEsporadico) {
+            this.clientesEsporadicos.add((ClienteEsporadico) pessoa);
+            return;
+        } else if (pessoa instanceof ClienteFrequente) {
+            this.clientesFrequentes.put(((ClienteFrequente) pessoa).getNome(), (ClienteFrequente) pessoa);
             return;
         }
-        else if (pessoa instanceof ClienteFrequente){
-            this.clientesFrequentes.add((ClienteFrequente)pessoa);
+        this.funcionarios.put(((Funcionario) pessoa).getNome(),(Funcionario) pessoa);
+    }
+
+    public void remove(Pessoa pessoa) {
+        if (pessoa instanceof ClienteEsporadico) {
+            this.clientesEsporadicos.remove((ClienteEsporadico) pessoa);
+            return;
+        } else if (pessoa instanceof ClienteFrequente) {
+            this.clientesFrequentes.remove(((ClienteFrequente) pessoa).getNome());
             return;
         }
-        this.funcionarios.add((Funcionario)pessoa);
+        this.funcionarios.remove(((Funcionario) pessoa).getNome());
     }
-    
-    public void remove(Pessoa pessoa){
-        if (pessoa instanceof ClienteEsporadico){
-            this.clientesEsporadicos.remove((ClienteEsporadico)pessoa);
-            return;
+
+    public boolean contains(Pessoa pessoa) {
+        if (pessoa instanceof ClienteEsporadico) {
+            return this.clientesEsporadicos.contains((ClienteEsporadico) pessoa);
+        } else if (pessoa instanceof ClienteFrequente) {
+            return this.clientesFrequentes.containsKey(((ClienteFrequente) pessoa).getNome());
         }
-        else if (pessoa instanceof ClienteFrequente){
-            this.clientesFrequentes.remove((ClienteFrequente)pessoa);
-            return;
-        }
-        this.funcionarios.remove((Funcionario)pessoa);
+        return this.funcionarios.containsKey(((Funcionario) pessoa).getNome());
     }
-    
-    public boolean contains(Pessoa pessoa){
-        if(pessoa instanceof ClienteEsporadico){
-            return this.clientesEsporadicos.contains((ClienteEsporadico)pessoa);            
-        }
-        else if(pessoa instanceof ClienteFrequente){
-            return this.clientesFrequentes.contains((ClienteFrequente)pessoa);
-        }
-        return this.funcionarios.contains((Funcionario)pessoa);
-    }
-    
-    private int getTotalDePessoas(){
+
+    private int getTotalDePessoas() {
         return (this.clientesEsporadicos.size() + this.clientesFrequentes.size() + this.funcionarios.size());
     }
 
-    public boolean setVagasTotais(int vagasDeCarro, int vagasDeMoto){
+    public boolean setVagasTotais(int vagasDeCarro, int vagasDeMoto) {
         this.vagasCarro[1] = vagasDeCarro;
         this.vagasMoto[1] = vagasDeMoto;
         return true;
     }
-    
-    public int[] getVagasCarro(){
+
+    public int[] getVagasCarro() {
         return this.vagasCarro;
     }
-    
-    public int[] getVagasMoto(){
+
+    public int[] getVagasMoto() {
         return this.vagasMoto;
     }
-    
-    public boolean temVagaCarro(){
-        return (this.vagasCarro[0] < this.vagasCarro[1])? true:false;
-    }
-    
-    public boolean temVagaMoto(){
-        return (this.vagasMoto[0] < this.vagasMoto[1])? true:false;
+
+    public boolean temVagaCarro() {
+        return this.vagasCarro[0] < this.vagasCarro[1];
     }
 
-    public Loja getLoja(String nome){
-        if(lojas.size() > 0){
-            for (int i = 0; i < lojas.size(); i++){
-                if(lojas.get(i).getNome().equals(nome)){
+    public boolean temVagaMoto() {
+        return this.vagasMoto[0] < this.vagasMoto[1];
+    }
+
+    // Esse método não é mais necessário
+    /*
+    public Loja getLoja(String nome) {
+        if (lojas.size() > 0) {
+            for (int i = 0; i < lojas.size(); i++) {
+                if (lojas.get(i).getNome().equals(nome)) {
                     return lojas.get(i);
                 }
             }
         }
         return null;
-    }
-    
-    public boolean abrirLoja(String loja){
+    }*/
+
+    public boolean abrirLoja(String nome) {
+        // Não é mais necessário
+        /*
         int index = 0;
-        for(int i = 0; i < lojas.size(); i++){
-            if(lojas.get(i).getNome().equals(loja)){
+        for (int i = 0; i < lojas.size(); i++) {
+            if (lojas.get(i).getNome().equals(nome)) {
                 lojas.get(i).abrir();
                 index = i;
                 break;
             }
+        }*/
+        Loja loja = lojas.get(nome);
+
+        if (loja != null) {
+            return loja.abrir();
         }
-        return lojas.get(index).isAberto();
+        return false;
     }
-    
-    public boolean fecharLoja(String loja){
+
+    public boolean fecharLoja(String nome) {
+        /*
         int index = 0;
-        for(int i = 0; i < lojas.size(); i++){
-            if(lojas.get(i).getNome().equals(loja)){
+        for (int i = 0; i < lojas.size(); i++) {
+            if (lojas.get(i).getNome().equals(loja)) {
                 lojas.get(i).fechar();
                 index = i;
                 break;
             }
+        }*/
+        Loja loja = lojas.get(nome);
+
+        if (loja != null) {
+            return loja.fechar();
         }
-        return lojas.get(index).isAberto();
+        return false;
     }
-    
-    public String[] getLojas(){
+
+    public String[] getLojas() {
+        /*
         String[] nomes = new String[lojas.size()];
-        
-        for(int i = 0; i < lojas.size();i++){
+
+        for (int i = 0; i < lojas.size(); i++) {
             nomes[i] = lojas.get(i).getNome();
         }
-        return nomes;
+        return nomes;*/
+        return lojas.keySet().toArray(new String[0]);
     }
 }
