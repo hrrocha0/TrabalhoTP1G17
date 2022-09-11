@@ -160,18 +160,17 @@ public class Shopping implements Estabelecimento {
         return this.vagasMoto[0] < this.vagasMoto[1];
     }
 
-    // Esse método não é mais necessário
-    /*
     public Loja getLoja(String nome) {
-        if (lojas.size() > 0) {
+        /*if (lojas.size() > 0) {
             for (int i = 0; i < lojas.size(); i++) {
                 if (lojas.get(i).getNome().equals(nome)) {
                     return lojas.get(i);
                 }
             }
         }
-        return null;
-    }*/
+        return null;*/
+        return lojas.get(nome);
+    }
 
     public boolean abrirLoja(String nome) {
         // Não é mais necessário
