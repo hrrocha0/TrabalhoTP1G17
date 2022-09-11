@@ -6,10 +6,10 @@ package telas;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+
 import trabalhotp1g17.Funcionario;
 
 /**
- *
  * @author Admin
  */
 public class TelaRemoverFuncionario extends javax.swing.JFrame {
@@ -22,14 +22,15 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         carregarListaFuncionarios();
         setLocationRelativeTo(null);
     }
-    
+
     private void carregarListaFuncionarios() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         for (String nome : TelaPrincipal.shopping.getNomesFuncionarios()) {
             modelo.addElement(nome);
         }
         caixaFuncionario.setModel(modelo);
+
         if (modelo.getSize() > 0) {
             labelFuncionario.setEnabled(true);
             caixaFuncionario.setEnabled(true);
@@ -98,68 +99,68 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
         painelDados.setLayout(painelDadosLayout);
         painelDadosLayout.setHorizontalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAviso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelDadosLayout.createSequentialGroup()
-                        .addComponent(labelFuncionario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(caixaFuncionario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botaoRemover)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCancelar)))
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(labelAviso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                                .addComponent(labelFuncionario)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(caixaFuncionario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(botaoRemover)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(botaoCancelar)))
+                                .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelFuncionario)
-                    .addComponent(caixaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(labelAviso)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoRemover)
-                    .addComponent(botaoCancelar))
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(labelFuncionario)
+                                        .addComponent(caixaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(labelAviso)
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(botaoRemover)
+                                        .addComponent(botaoCancelar))
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo)
-                    .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(titulo)
+                                        .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(titulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -173,7 +174,7 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         }
         Funcionario funcionario = TelaPrincipal.shopping.getFuncionario((String) caixaFuncionario.getSelectedItem());
         TelaPrincipal.shopping.remove(funcionario);
-        JOptionPane.showMessageDialog(this, "O funcionário de nome " + funcionario.getNome() + " foi removido com sucesso.", "Remover Funcionário", JOptionPane.PLAIN_MESSAGE);        
+        JOptionPane.showMessageDialog(this, "O funcionário de nome " + funcionario.getNome() + " foi removido com sucesso.", "Remover Funcionário", JOptionPane.PLAIN_MESSAGE);
         dispose();
     }//GEN-LAST:event_botaoRemoverActionPerformed
 

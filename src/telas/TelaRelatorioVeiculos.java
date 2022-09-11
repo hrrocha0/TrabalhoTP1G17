@@ -4,15 +4,12 @@
  */
 package telas;
 
-import javax.swing.table.DefaultTableModel;
-import trabalhotp1g17.Estabelecimento;
-import trabalhotp1g17.Funcionario;
-import trabalhotp1g17.Loja;
 import trabalhotp1g17.TipoVeiculo;
 import trabalhotp1g17.Veiculo;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
- *
  * @author Admin
  */
 public class TelaRelatorioVeiculos extends javax.swing.JFrame {
@@ -24,21 +21,21 @@ public class TelaRelatorioVeiculos extends javax.swing.JFrame {
         carregarTabelaVeiculos();
         setLocationRelativeTo(null);
     }
-    
+
     private void carregarTabelaVeiculos() {
-        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Placa", "Tipo", "Marca", "Modelo"}, 0) {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Placa", "Tipo", "Marca", "Modelo"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        
+
         for (String placa : TelaPrincipal.shopping.getPlacasVeiculos()) {
-            Veiculo v = TelaPrincipal.shopping.getVeiculo(placa);
-            TipoVeiculo tipo = v.getTipo();
-            String marca = v.getMarca();
-            String modeloVeiculo = v.getModelo();
-            
+            Veiculo veiculo = TelaPrincipal.shopping.getVeiculo(placa);
+            TipoVeiculo tipo = veiculo.getTipo();
+            String marca = veiculo.getMarca();
+            String modeloVeiculo = veiculo.getModelo();
+
             Object[] linha = {placa, tipo, marca, modeloVeiculo};
             modelo.addRow(linha);
         }
@@ -72,29 +69,29 @@ public class TelaRelatorioVeiculos extends javax.swing.JFrame {
         painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tabelaVeiculos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Placa", "Tipo", "Marca", "Modelo"
-            }
+                new Object[][]{
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null}
+                },
+                new String[]{
+                        "Placa", "Tipo", "Marca", "Modelo"
+                }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+            Class[] types = new Class[]{
+                    java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         barraDeRolagem.setViewportView(tabelaVeiculos);
@@ -102,50 +99,50 @@ public class TelaRelatorioVeiculos extends javax.swing.JFrame {
         javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
         painelDados.setLayout(painelDadosLayout);
         painelDadosLayout.setHorizontalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo)
-                    .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(titulo)
+                                        .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(titulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

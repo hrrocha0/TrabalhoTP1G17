@@ -4,13 +4,12 @@
  */
 package telas;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
+import trabalhotp1g17.ClienteEsporadico;
 import trabalhotp1g17.ClienteFrequente;
-import trabalhotp1g17.Pessoa;
+
+import javax.swing.*;
 
 /**
- *
  * @author Admin
  */
 public class TelaRemoverCliente extends javax.swing.JFrame {
@@ -23,10 +22,10 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         carregarListaClientes();
         setLocationRelativeTo(null);
     }
-    
+
     private void carregarListaClientes() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         for (int i = 1; i <= TelaPrincipal.shopping.getQtdClientesEsporadicos(); i++) {
             modelo.addElement("Cliente " + i);
         }
@@ -34,6 +33,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             modelo.addElement(nome);
         }
         caixaCliente.setModel(modelo);
+
         if (modelo.getSize() > 0) {
             labelCliente.setEnabled(true);
             caixaCliente.setEnabled(true);
@@ -105,71 +105,71 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
         painelDados.setLayout(painelDadosLayout);
         painelDadosLayout.setHorizontalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAviso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelDadosLayout.createSequentialGroup()
-                        .addComponent(labelCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(caixaCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botaoRemover)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCancelar))
-                    .addComponent(labelInfoCE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(labelAviso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                                .addComponent(labelCliente)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(caixaCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(botaoRemover)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(botaoCancelar))
+                                        .addComponent(labelInfoCE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCliente)
-                    .addComponent(caixaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(labelAviso)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoCE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoRemover)
-                    .addComponent(botaoCancelar))
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(labelCliente)
+                                        .addComponent(caixaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(labelAviso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelInfoCE)
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(botaoRemover)
+                                        .addComponent(botaoCancelar))
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo)
-                    .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(titulo)
+                                        .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(titulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -181,20 +181,18 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             dispose();
             return;
         }
-        Pessoa cliente;
-        
         int id = caixaCliente.getSelectedIndex();
-        
+
         if (caixaCliente.getSelectedIndex() < TelaPrincipal.shopping.getQtdClientesEsporadicos()) {
-            cliente = TelaPrincipal.shopping.getClienteEsporadico(id);
-            TelaPrincipal.shopping.remove(cliente);
+            ClienteEsporadico clienteEsporadico = TelaPrincipal.shopping.getClienteEsporadico(id);
+            TelaPrincipal.shopping.remove(clienteEsporadico);
             JOptionPane.showMessageDialog(this, "O cliente esporádico foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
         } else {
-            cliente = TelaPrincipal.shopping.getClienteFrequente((String) caixaCliente.getSelectedItem());
-            JOptionPane.showMessageDialog(this, "O cliente de nome " + ((ClienteFrequente) cliente).getNome() + " foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
-            TelaPrincipal.shopping.remove(cliente);
+            ClienteFrequente clienteFrequente = TelaPrincipal.shopping.getClienteFrequente((String) caixaCliente.getSelectedItem());
+            JOptionPane.showMessageDialog(this, "O cliente de nome " + clienteFrequente.getNome() + " foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
+            TelaPrincipal.shopping.remove(clienteFrequente);
         }
-        dispose(); 
+        dispose();
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed

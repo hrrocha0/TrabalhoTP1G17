@@ -4,14 +4,12 @@
  */
 package telas;
 
-import javax.swing.JOptionPane;
-import trabalhotp1g17.Funcionario;
-import trabalhotp1g17.Loja;
 import trabalhotp1g17.TipoVeiculo;
 import trabalhotp1g17.Veiculo;
 
+import javax.swing.*;
+
 /**
- *
  * @author Admin
  */
 public class TelaCadastroVeiculo extends javax.swing.JFrame {
@@ -98,90 +96,90 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
         painelDados.setLayout(painelDadosLayout);
         painelDadosLayout.setHorizontalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
-                        .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelModelo)
-                            .addComponent(labelPlaca)
-                            .addComponent(labelMarca)
-                            .addComponent(labelTipo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDadosLayout.createSequentialGroup()
-                                .addComponent(botaoTipoCarro)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaoTipoMoto)
-                                .addGap(0, 238, Short.MAX_VALUE))
-                            .addComponent(campoMarca)
-                            .addComponent(campoModelo)
-                            .addComponent(campoPlaca)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botaoCadastrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCancelar)))
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
+                                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(labelModelo)
+                                                        .addComponent(labelPlaca)
+                                                        .addComponent(labelMarca)
+                                                        .addComponent(labelTipo))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                                                .addComponent(botaoTipoCarro)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(botaoTipoMoto)
+                                                                .addGap(0, 238, Short.MAX_VALUE))
+                                                        .addComponent(campoMarca)
+                                                        .addComponent(campoModelo)
+                                                        .addComponent(campoPlaca)))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(botaoCadastrar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(botaoCancelar)))
+                                .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelTipo)
-                    .addComponent(botaoTipoCarro)
-                    .addComponent(botaoTipoMoto))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMarca)
-                    .addComponent(campoMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelModelo)
-                    .addComponent(campoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPlaca)
-                    .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCadastrar)
-                    .addComponent(botaoCancelar))
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(labelTipo)
+                                        .addComponent(botaoTipoCarro)
+                                        .addComponent(botaoTipoMoto))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(labelMarca)
+                                        .addComponent(campoMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(labelModelo)
+                                        .addComponent(campoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(labelPlaca)
+                                        .addComponent(campoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(botaoCadastrar)
+                                        .addComponent(botaoCancelar))
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo)
-                    .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(titulo)
+                                        .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(titulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -193,19 +191,19 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         TipoVeiculo tipo = botaoTipoCarro.isSelected() ? TipoVeiculo.CARRO : TipoVeiculo.MOTO;
-        
-        String marca = (String) campoMarca.getText();
-        String modelo = (String) campoModelo.getText();
-        String placa = (String) campoPlaca.getText();
-        
+
+        String marca = campoMarca.getText();
+        String modelo = campoModelo.getText();
+        String placa = campoPlaca.getText();
+
         if (marca.isBlank() || modelo.isBlank() || placa.isBlank()) {
             JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Veículo", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         Veiculo veiculo = new Veiculo(tipo, marca, modelo, placa);
         TelaPrincipal.shopping.adicionarVeiculo(veiculo);
-                    JOptionPane.showMessageDialog(this, "O veículo de placa " + placa + " foi cadastrado com sucesso.", "Cadastrar Veículo", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, "O veículo de placa " + placa + " foi cadastrado com sucesso.", "Cadastrar Veículo", JOptionPane.PLAIN_MESSAGE);
         dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 

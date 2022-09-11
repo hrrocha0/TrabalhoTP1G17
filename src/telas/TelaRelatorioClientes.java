@@ -5,13 +5,13 @@
 package telas;
 
 import javax.swing.table.DefaultTableModel;
+
 import trabalhotp1g17.ClienteEsporadico;
 import trabalhotp1g17.ClienteFrequente;
 import trabalhotp1g17.Estabelecimento;
 import trabalhotp1g17.Veiculo;
 
 /**
- *
  * @author Admin
  */
 public class TelaRelatorioClientes extends javax.swing.JFrame {
@@ -23,33 +23,33 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
         carregarTabelaClientes();
         setLocationRelativeTo(null);
     }
-    
+
     private void carregarTabelaClientes() {
-        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Nome", "CPF", "Veículo", "Localização", "Gasto Total"}, 0) {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Nome", "CPF", "Veículo", "Localização", "Gasto Total"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        
+
         for (int i = 0; i < TelaPrincipal.shopping.getQtdClientesEsporadicos(); i++) {
-            ClienteEsporadico ce = TelaPrincipal.shopping.getClienteEsporadico(i);
+            ClienteEsporadico clienteEsporadico = TelaPrincipal.shopping.getClienteEsporadico(i);
             String nome = "Cliente " + (i + 1);
-            Veiculo veiculo = ce.getVeiculo();
-            Estabelecimento localizacao = ce.getLocalizacao();
-            double gastoTotal = ce.getGastoTotal();
-            
+            Veiculo veiculo = clienteEsporadico.getVeiculo();
+            Estabelecimento localizacao = clienteEsporadico.getLocalizacao();
+            double gastoTotal = clienteEsporadico.getGastoTotal();
+
             Object[] linha = {nome, null, veiculo, localizacao, gastoTotal};
             modelo.addRow(linha);
-      
+
         }
         for (String nome : TelaPrincipal.shopping.getNomesClientesFrequentes()) {
-            ClienteFrequente cf = TelaPrincipal.shopping.getClienteFrequente(nome);
-            String cpf = cf.getCpf();
-            Veiculo veiculo = cf.getVeiculo();
-            Estabelecimento localizacao = cf.getLocalizacao();
-            double gastoTotal = cf.getGastoTotal();
-            
+            ClienteFrequente clienteFrequente = TelaPrincipal.shopping.getClienteFrequente(nome);
+            String cpf = clienteFrequente.getCpf();
+            Veiculo veiculo = clienteFrequente.getVeiculo();
+            Estabelecimento localizacao = clienteFrequente.getLocalizacao();
+            double gastoTotal = clienteFrequente.getGastoTotal();
+
             Object[] linha = {nome, cpf, veiculo, localizacao, gastoTotal};
             modelo.addRow(linha);
         }
@@ -83,29 +83,29 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
         painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Nome", "CPF", "Veículo", "Localização", "Gasto Total"
-            }
+                new Object[][]{
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null}
+                },
+                new String[]{
+                        "Nome", "CPF", "Veículo", "Localização", "Gasto Total"
+                }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+            Class[] types = new Class[]{
+                    java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         barraDeRolagem.setViewportView(tabelaClientes);
@@ -113,50 +113,50 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
         javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
         painelDados.setLayout(painelDadosLayout);
         painelDadosLayout.setHorizontalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo)
-                    .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(titulo)
+                                        .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(titulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
