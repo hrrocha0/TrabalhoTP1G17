@@ -241,7 +241,45 @@ public class Shopping implements Estabelecimento {
         return false;
     }
 
-    public String[] getLojas() {
+    public boolean isLojaAberta(String nome){
+       Loja loja = lojas.get(nome);
+       if(loja != null){
+           return loja.isAberto();
+       }
+       return false;
+    }
+    
+    public String[] getLojas(boolean somenteLojasComProdutos) {
+        
+        if(somenteLojasComProdutos){                                            //o código faz este trecho se desejarmos saber a lista das lojas com produtos cadastrados
+            int i = 0;
+            String[] lojasComProdutos = new String[lojas.size()];
+            
+            System.out.print("Verificando quais lojas tem produtos... ");
+            for(String nome: lojas.keySet()){
+                Loja loja = lojas.get(nome);
+                
+                if(loja.getProdutos() != null){                                 //se há produtos cadastrados na loja, sendo inspecionada
+                    System.out.print("loja " + nome + " tem produtos! ");       
+                    lojasComProdutos[i] = nome;                                 //adiciona o nome da loja em questão ao arrayList de lojas que possuem produtos
+                    i++;
+                }
+            }                                                                   //o vetor final pode ter elementos null se nem todas as lojas tiverem produtos cadastrados
+                        
+            System.out.println("");
+            if(i == 0){                                                         //se i = 0, nenhuma loja dentre as cadastradas tem produtos registrados no estoque
+                System.out.println("Nenhuma loja tem produtos.");
+                return null;
+            }
+                      
+            String[] nomesLojas = new String[i];                                //se chagamos até aqui, criamos um novo vetor com apenas o tamanho correspondente ao número de lojas com produtos
+            for(int j = 0; j < i; j++){                                         //e populamos esse vetor com as informações obtidas na passagem mais acima
+                nomesLojas[j] = lojasComProdutos[j];
+                System.out.println("loja " + nomesLojas[j] + " incluida");
+            }
+            return nomesLojas;                                                  //o vetor final contém o nome SOMENTE das lojas que possuem produtos já cadastrados
+        }
+        
         String[] nomesLojas = new String[lojas.size()];
         int i = 0;
 
@@ -250,5 +288,13 @@ public class Shopping implements Estabelecimento {
             i++;
         }
         return nomesLojas;
+    }
+    
+    
+    public boolean abasteceEstoqueDaLoja(String nomeLoja, Produto produto){
+        lojas.get(nomeLoja).abastecer(produto);
+        int[] estoque = lojas.get(nomeLoja).getEstoque();
+        System.out.println("Estoque da loja " + nomeLoja + ": " + estoque[0] + " produtos, somando " + estoque[1] + " itens.");
+        return true;
     }
 }

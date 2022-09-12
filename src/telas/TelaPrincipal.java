@@ -2,8 +2,9 @@
 package telas;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
-import trabalhotp1g17.*;                //verificar se é possível mudar o nome deste pacote para "classes"
+import trabalhotp1g17.*;        
 
 public class TelaPrincipal extends javax.swing.JFrame {
 
@@ -12,18 +13,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         updateExibicao();
-        nomesLojas.addItem("Nenhuma loja cadastrada");
         setLocationRelativeTo(null);            //faz a tela nascer centralizada
-        
-        textStatusLoja.setText("Status: -");
-        textFuncionarios.setText("Funcionarios: -");
-        textProdutosEmEstoque.setText("Estoque: -");
-    }
+     }
+    
     
     public void updateExibicao(){
+        updateEstacionamento();
+        updateNomesLojas();
+    }
+    
+    public void updateEstacionamento(){
         int[] vagasCarro = shopping.getVagasCarro();
         int[] vagasMoto = shopping.getVagasMoto();
-        updateNomesLojas(true);
+        
         VagasCarroDisponiveis.setText("Disponiveis: " + (vagasCarro[1] - vagasCarro[0]));
         VagasCarroOcupadas.setText("Ocupadas: " + vagasCarro[0]);
         VagasMotoDisponiveis.setText("Disponiveis: " + (vagasMoto[1] - vagasMoto[0]));
@@ -37,6 +39,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jButton3 = new javax.swing.JButton();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -96,7 +101,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -106,6 +113,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem5.setText("jMenuItem5");
 
         jButton3.setText("jButton3");
+
+        jMenu6.setText("File");
+        jMenuBar2.add(jMenu6);
+
+        jMenu7.setText("Edit");
+        jMenuBar2.add(jMenu7);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento do shopping");
@@ -281,7 +294,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        btnAtualizarVagasTotais.setText("Atualizar vagas totais");
+        btnAtualizarVagasTotais.setText("Atualizar");
         btnAtualizarVagasTotais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtualizarVagasTotaisActionPerformed(evt);
@@ -379,7 +392,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Atualizar lojas");
+        jButton5.setText("Atualizar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -409,7 +422,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)))
                 .addContainerGap())
@@ -612,13 +625,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem6);
 
-        jMenuItem3.setText("Atualizar estoque");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenu8.setText("Atualizar estoque");
+
+        jMenuItem17.setText("Adicionar novo item");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItem17ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu8.add(jMenuItem17);
+
+        jMenuItem18.setText("Atualizar um item existente");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem18);
+
+        jMenu2.add(jMenu8);
 
         jMenuItem7.setText("Gerenciar funcionários");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
@@ -668,14 +693,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void updateNomesLojas(boolean limpaTudoAntes){
-        String[] nomes = shopping.getLojas();
+    private void updateNomesLojas(){
+        String[] nomes = shopping.getLojas(false);
         
         nomesLojas.removeAllItems();
-        for(int i = 0; i < nomes.length; i++){
-            nomesLojas.addItem(nomes[i]);
+        
+        if (nomes.length > 0){
+            for(int i = 0; i < nomes.length; i++){
+                nomesLojas.addItem(nomes[i]);
+            }
+            return;
         }
         
+        nomesLojas.addItem("Nenhuma loja cadastrada");
+        textStatusLoja.setText("Status: -");
+        textFuncionarios.setText("Funcionarios: -");
+        textProdutosEmEstoque.setText("Estoque: -");
     }
  
     
@@ -684,8 +717,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        if(shopping.getLojas().length > 0){
-            textStatusLoja.setText((shopping.abrirLoja(nomesLojas.getItemAt(nomesLojas.getSelectedIndex())))?"Status: aberta":"Status: fechada");
+        if(nomesLojas.getItemAt(0).equals("Nenhuma loja cadastrada")){
+            return;
+        }
+        if(shopping.getLojas(false).length > 0){
+            String nome = nomesLojas.getItemAt(nomesLojas.getSelectedIndex());
+            shopping.abrirLoja(nome);
+            textStatusLoja.setText((shopping.isLojaAberta(nome))?"Status: aberta":"Status: fechada");
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -694,6 +732,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        String[] nomesLojas = shopping.getLojas(false);
+        if((nomesLojas.length == 0)||(nomesLojas == null)){
+            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
         new RemoverLoja().setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
@@ -712,10 +755,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         new NovaLoja().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new AtualizarEstoque().setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         new TelaCadastroFuncionario().setVisible(true);
@@ -738,7 +777,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void btnAtualizarVagasTotaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarVagasTotaisActionPerformed
-        updateExibicao();
+        updateEstacionamento();
     }//GEN-LAST:event_btnAtualizarVagasTotaisActionPerformed
 
     private void nomesLojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomesLojasActionPerformed
@@ -746,19 +785,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if(loja != null){
             int[] estoque = loja.getEstoque();
             String status = (loja.isAberto())?"aberta":"fechada";
-            textStatusLoja.setText("Status: " + loja.isAberto());
-            textFuncionarios.setText("funcionários: 0");
+            String[] nomes = loja.getFuncionarios();
+            int funcionarios = (nomes == null)? 0: nomes.length;
+            
+            textStatusLoja.setText("Status: " + status);
+            textFuncionarios.setText("funcionários: " + funcionarios);
             textProdutosEmEstoque.setText("Estoque total: " + estoque[0] + " itens, totalizando " + estoque[1] + " peças");
         }
     }//GEN-LAST:event_nomesLojasActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        updateExibicao();
+        updateNomesLojas();        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        if(shopping.getLojas().length > 0){
-            textStatusLoja.setText((shopping.fecharLoja(nomesLojas.getItemAt(nomesLojas.getSelectedIndex())))?"Status: aberta":"Status: fechada");
+        if(nomesLojas.getItemAt(0).equals("Nenhuma loja cadastrada")){
+            return;
+        }
+        if(shopping.getLojas(false).length > 0){
+            String nome = nomesLojas.getItemAt(nomesLojas.getSelectedIndex());
+            shopping.fecharLoja(nome);
+            textStatusLoja.setText((shopping.isLojaAberta(nome))?"Status: aberta":"Status: fechada");
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -773,6 +820,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         new TelaRelatorioVeiculos().setVisible(true);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        String[] nomesLojas = shopping.getLojas(false);
+        if((nomesLojas.length == 0)||(nomesLojas == null)){
+            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        new IncluirEstoqueNovo().setVisible(true);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        String[] nomesLojas = shopping.getLojas(false);                                                             //primeiro vemos se temos lojas cadastradas
+        if(nomesLojas.length == 0){
+            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        String[] nomesLojas2 = shopping.getLojas(true);                                                                       //agora vemos se temos lojas com produtos cadastrados
+        if(nomesLojas2 == null){
+            JOptionPane.showMessageDialog(null, "Nenhuma das lojas possui produtos registrados!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        
+        new IncluirEstoqueExistente().setVisible(true);
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     public static void main(String args[]) {
 
@@ -814,7 +885,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
@@ -823,8 +898,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

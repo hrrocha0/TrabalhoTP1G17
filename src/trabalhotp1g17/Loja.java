@@ -81,9 +81,9 @@ public class Loja implements Estabelecimento {
     }
     
     public void abastecer(Produto produto){                                     //um objeto da classe Produto contém três atributos: nome, preço e quantidade.
-        String nome = produto.getNome();                                        //com esta função e estes três parâmetros é possível, de maneira relativamente elegante,
+                                                                                //com esta função e estes três parâmetros é possível, de maneira relativamente elegante,      
         for (Produto p : produtos){                                             //modificarmos o estoque e o preço de produtos já existentes de maneira unificada. 
-            if (nome.equals(p.getNome())){                                      //a função simplesmente soma o estoque atual com o do produto a ser inserido
+            if (p.getNome().equals(produto.getNome())){                         //a função simplesmente soma o estoque atual com o do produto a ser inserido
                 Produto prod = p;                                               //e substitui o preço vigente até então pelo passado no produto argumento da função.
                 produtos.remove(p);                                             //removemos a informação do estoque antigo para mais abaixo substituir pelo novo;
                 prod.setQuantidade(prod.getQuantidade() + produto.getQuantidade());   
@@ -92,6 +92,7 @@ public class Loja implements Estabelecimento {
                 return;
             }
         }
+        produtos.add(produto);
     }
     
     public boolean vender(Produto produto){
@@ -132,5 +133,29 @@ public class Loja implements Estabelecimento {
         }
         
         return products;
+    }
+    
+    public String[] getFuncionarios(){                          //retorna array com os nomes dos funcionarios
+        if (funcionarios.isEmpty()){
+            return null;
+        }
+  
+        String[] funcs = new String[funcionarios.size()];
+        for(int i = 0; i < funcionarios.size(); i++){
+            funcs[i] = funcionarios.get(i).getNome();
+        }
+        return funcs;
+    }
+    
+    public String[] getProdutos(){
+        if (produtos.isEmpty()){
+            return null;
+        }
+  
+        String[] prods = new String[produtos.size()];
+        for(int i = 0; i < produtos.size(); i++){
+            prods[i] = produtos.get(i).getNome();
+        }
+        return prods;
     }
 }
