@@ -70,7 +70,7 @@ public abstract class Pessoa {
             return false;
         }
         localizacao = estabelecimento;
-        estabelecimento.aoEntrar(this);
+        //estabelecimento.aoEntrar(this);
         System.out.println("A pessoa entrou no estabelecimento.");
         return true;
     }
@@ -86,7 +86,7 @@ public abstract class Pessoa {
             return;
         }
         localizacao = null;
-        estabelecimento.aoSair(this);
+        //estabelecimento.aoSair(this);
         System.out.println("A pessoa saiu do estabelecimento.");
     }
 

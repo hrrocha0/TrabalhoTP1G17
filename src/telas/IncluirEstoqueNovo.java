@@ -140,22 +140,22 @@ public class IncluirEstoqueNovo extends javax.swing.JFrame {
             textPreco.setText(textPreco.getText().replace(',', '.'));
             preco = Double.parseDouble(textPreco.getText());
             if(preco <= 0){
-               JOptionPane.showMessageDialog(null, "O preço deve ser maior que 0!", "erro!", JOptionPane.PLAIN_MESSAGE);
+               JOptionPane.showMessageDialog(null, "O preço deve ser maior que 0!", "erro!", JOptionPane.ERROR_MESSAGE);
                return;
             }
             if(quantidade <= 0){
-                JOptionPane.showMessageDialog(null, "A quantidade deve ser maior que 0!", "erro!", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "A quantidade deve ser maior que 0!", "erro!", JOptionPane.ERROR_MESSAGE);
                return;
             }
         }
         catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Revise os dados. A quantidade deve ser inteira e o preço deve ser inteiro ou fracionário.", "erro!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Revise os dados. A quantidade deve ser inteira e o preço deve ser inteiro ou fracionário.", "erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }      
         TelaPrincipal.shopping.abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
         telaPrincipal.updateNomesLojas();
         dispose();
-        JOptionPane.showMessageDialog(null, "Produto \'" + nomeProduto + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Produto \'" + nomeProduto + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
