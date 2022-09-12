@@ -4,9 +4,12 @@
  */
 package telas;
 
+import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import trabalhotp1g17.Loja;
 import trabalhotp1g17.Pessoa;
+import trabalhotp1g17.Produto;
 
 /**
  *
@@ -219,7 +222,26 @@ public class TelaComprar extends javax.swing.JFrame {
             dispose();
             return;
         }
-        // TODO
+        Loja loja = TelaPrincipal.shopping.getLoja((String) lstLojas.getSelectedItem());
+        Produto estoque = loja.getProduto((String) lstProdutos.getSelectedItem());
+        int quantidade;
+        
+        try {
+            quantidade = Integer.parseInt(fldQuantidade.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Digite um número válido.", "Erro: Comprar Produto", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Produto produto = new Produto(estoque.getNome(), estoque.getPreco(), quantidade); 
+        boolean sucesso = cliente.comprar(produto, loja, TelaPrincipal.shopping);
+        
+        if (sucesso) {
+            telaPrincipal.updateExibicao();
+            JOptionPane.showMessageDialog(this, "Compra efetuada com sucesso.\nProduto: " + produto.getNome() + "\nQuantidade: " + produto.getQuantidade() + "\nPreço: R$" + produto.getPreco() * produto.getQuantidade(), "Comprar Produto", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Não foi possível efetuar a compra.", "Erro: Comprar Produto", JOptionPane.ERROR_MESSAGE);
+        }
+        dispose();
     }//GEN-LAST:event_btnComprarActionPerformed
 
     /**

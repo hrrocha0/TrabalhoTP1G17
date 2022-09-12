@@ -1,6 +1,7 @@
 package trabalhotp1g17;
 
 import java.util.ArrayList;
+import telas.TelaPrincipal;
 
 /*
  Classe abstrata responsável pela lógica compartilhada entre ClienteEsporadico, ClienteFrequente e Funcionario.
@@ -37,26 +38,24 @@ public abstract class Pessoa {
     de compra, adiciona o produto à lista de produtos comprados e aumenta o gasto total
     no preço do produto.
      */
-    public void comprar(Produto produto, Loja loja, Shopping shopping) {
+    public boolean comprar(Produto produto, Loja loja, Shopping shopping) {
         if (!loja.isAberto()) {
             System.out.println("A loja está fechada.");
-            return;
+            return false;
         }
         if (!shopping.isAberto()) {
             System.out.println("O shopping está fechado.");
-            return;
-        }
-        if (localizacao != loja) {
-            System.out.println("A pessoa não está na loja.");
-            return;
+            return false;
         }
         if (!loja.vender(produto)) {
             System.out.println("Não foi possível efetuar a compra.");
-            return;
+            return false;
         }
         produtosComprados.add(produto);
         gastoTotal += produto.getPreco();
         System.out.println("A compra foi realizada com sucesso.");
+        
+        return true;
     }
 
     /*
