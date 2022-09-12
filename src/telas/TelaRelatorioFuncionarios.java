@@ -4,6 +4,9 @@
  */
 package telas;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import trabalhotp1g17.Estabelecimento;
@@ -18,7 +21,10 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
     /**
      * Creates new form TelaRelatorioClientes
      */
-    public TelaRelatorioFuncionarios() {
+     private final TelaPrincipal telaPrincipal;
+    
+    public TelaRelatorioFuncionarios(TelaPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
         initComponents();
         carregarTabelaFuncionarios();
         setLocationRelativeTo(null);
@@ -31,9 +37,14 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
                 return false;
             }
         };
-
-        for (String nome : TelaPrincipal.shopping.getNomesFuncionarios()) {
-            Funcionario funcionario = TelaPrincipal.shopping.getFuncionario(nome);
+        
+        if (telaPrincipal == null) {
+            tabelaFuncionarios.setModel(modelo);
+            return;
+        }
+        
+        for (String nome : telaPrincipal.getNomesFuncionarios()) {
+            Funcionario funcionario = telaPrincipal.getFuncionario(nome);
             String cpf = funcionario.getCpf();
             Loja loja = funcionario.getLoja();
             Veiculo veiculo = funcionario.getVeiculo();
@@ -44,6 +55,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
             modelo.addRow(linha);
         }
         tabelaFuncionarios.setModel(modelo);
+        botaoSalvar.setEnabled(telaPrincipal.getNomesFuncionarios().length > 0);
     }
 
     /**
@@ -60,6 +72,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
         painelDados = new javax.swing.JPanel();
         barraDeRolagem = new javax.swing.JScrollPane();
         tabelaFuncionarios = new javax.swing.JTable();
+        botaoSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,84 +86,125 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
         painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tabelaFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null}
-                },
-                new String[]{
-                        "Nome", "CPF", "Loja", "Veículo", "Localização", "Gasto Total"
-                }
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nome", "CPF", "Loja", "Veículo", "Localização", "Gasto Total"
+            }
         ) {
-            Class[] types = new Class[]{
-                    java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean[]{
-                    false, false, false, false, false, false
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return canEdit [columnIndex];
             }
         });
         barraDeRolagem.setViewportView(tabelaFuncionarios);
 
+        botaoSalvar.setText("Salvar");
+        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
         painelDados.setLayout(painelDadosLayout);
         painelDadosLayout.setHorizontalGroup(
-                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(painelDadosLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-                                .addContainerGap())
+            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoSalvar)))
+                .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
-                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(painelDadosLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                                .addContainerGap())
+            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(barraDeRolagem, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoSalvar)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
-                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(titulo)
-                                        .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap())
+            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titulo)
+                    .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
-                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(titulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        String nomeArquivo = JOptionPane.showInputDialog(this, "Digite o nome do arquivo (.csv):", "Salvar Relatório", JOptionPane.QUESTION_MESSAGE);
+        
+        if (nomeArquivo == null || telaPrincipal == null) {
+            return;
+        }
+        
+        if (!nomeArquivo.endsWith(".csv")) {
+            nomeArquivo += ".csv";
+        }
+        try {
+            FileWriter arquivo = new FileWriter(nomeArquivo);
+            for (String nome : telaPrincipal.getNomesFuncionarios()) {
+                Funcionario funcionario = telaPrincipal.getFuncionario(nome);
+                arquivo.write(funcionario.getCpf() + ", ");
+                arquivo.write(funcionario.getLoja() + ", ");
+                arquivo.write(funcionario.getVeiculo() + ", ");
+                arquivo.write(funcionario.getLocalizacao() + ", ");
+                arquivo.write(String.valueOf(funcionario.getGastoTotal()));
+                arquivo.write('\n');
+            }
+            arquivo.close();
+            JOptionPane.showMessageDialog(this, "Relatório salvo como " + nomeArquivo + ".", "Salvar Relatório",JOptionPane.PLAIN_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Não foi possível salvar o relatório em " + nomeArquivo + ".", "Erro: Salvar Relatório", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,13 +213,14 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaRelatorioFuncionarios().setVisible(true);
+                new TelaRelatorioFuncionarios(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane barraDeRolagem;
+    private javax.swing.JButton botaoSalvar;
     private javax.swing.JPanel painelDados;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JTable tabelaFuncionarios;

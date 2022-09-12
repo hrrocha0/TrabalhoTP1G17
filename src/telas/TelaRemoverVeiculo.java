@@ -17,16 +17,23 @@ public class TelaRemoverVeiculo extends javax.swing.JFrame {
     /**
      * Creates new form TelaRemoverCliente
      */
-    public TelaRemoverVeiculo() {
+    private final TelaPrincipal telaPrincipal;
+    
+    public TelaRemoverVeiculo(TelaPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
         initComponents();
         carregarListaVeiculos();
         setLocationRelativeTo(null);
     }
 
     private void carregarListaVeiculos() {
+        if (telaPrincipal == null) {
+            return;
+        }
+        
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
-        for (String placa : TelaPrincipal.shopping.getPlacasVeiculos()) {
+        for (String placa : telaPrincipal.getPlacasVeiculos()) {
             modelo.addElement(placa);
         }
         caixaVeiculo.setModel(modelo);
@@ -167,14 +174,20 @@ public class TelaRemoverVeiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
+        if (telaPrincipal == null) {
+            dispose();
+            return;
+        }
+        
         if (!caixaVeiculo.isEnabled()) {
             JOptionPane.showMessageDialog(this, "Não há veículos no shopping.", "Erro: Remover Veículo", JOptionPane.ERROR_MESSAGE);
             dispose();
             return;
         }
-        Veiculo veiculo = TelaPrincipal.shopping.getVeiculo((String) caixaVeiculo.getSelectedItem());
-        TelaPrincipal.shopping.removerVeiculo(veiculo);
+        Veiculo veiculo = telaPrincipal.getVeiculo((String) caixaVeiculo.getSelectedItem());
+        telaPrincipal.removerVeiculo(veiculo);
         JOptionPane.showMessageDialog(this, "O veículo de placa " + veiculo.getPlaca() + " foi removido com sucesso.", "Remover Veículo", JOptionPane.PLAIN_MESSAGE);
+        telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
@@ -189,7 +202,7 @@ public class TelaRemoverVeiculo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaRemoverVeiculo().setVisible(true);
+                new TelaRemoverVeiculo(null).setVisible(true);
             }
         });
     }

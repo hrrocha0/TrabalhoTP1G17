@@ -13,20 +13,25 @@ import trabalhotp1g17.Funcionario;
  * @author Admin
  */
 public class TelaRemoverFuncionario extends javax.swing.JFrame {
-
     /**
      * Creates new form TelaRemoverCliente
      */
-    public TelaRemoverFuncionario() {
+    private final TelaPrincipal telaPrincipal;
+    
+    public TelaRemoverFuncionario(TelaPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
         initComponents();
         carregarListaFuncionarios();
         setLocationRelativeTo(null);
     }
 
     private void carregarListaFuncionarios() {
+        if (telaPrincipal == null) {
+            return;
+        }  
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
-        for (String nome : TelaPrincipal.shopping.getNomesFuncionarios()) {
+        for (String nome : telaPrincipal.getNomesFuncionarios()) {
             modelo.addElement(nome);
         }
         caixaFuncionario.setModel(modelo);
@@ -167,14 +172,20 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
+        if (telaPrincipal == null) {
+            dispose();
+            return;
+        } 
+        
         if (!caixaFuncionario.isEnabled()) {
             JOptionPane.showMessageDialog(this, "Não há funcionários no shopping.", "Erro: Remover Funcionário", JOptionPane.ERROR_MESSAGE);
             dispose();
             return;
         }
-        Funcionario funcionario = TelaPrincipal.shopping.getFuncionario((String) caixaFuncionario.getSelectedItem());
-        TelaPrincipal.shopping.remove(funcionario);
+        Funcionario funcionario = telaPrincipal.getFuncionario((String) caixaFuncionario.getSelectedItem());
+        telaPrincipal.removerPessoa(funcionario);
         JOptionPane.showMessageDialog(this, "O funcionário de nome " + funcionario.getNome() + " foi removido com sucesso.", "Remover Funcionário", JOptionPane.PLAIN_MESSAGE);
+        telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
@@ -189,7 +200,7 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaRemoverFuncionario().setVisible(true);
+                new TelaRemoverFuncionario(null).setVisible(true);
             }
         });
     }

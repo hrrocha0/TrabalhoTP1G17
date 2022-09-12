@@ -59,8 +59,14 @@ public class Loja implements Estabelecimento {
     @Override
     public boolean aoSair(Pessoa pessoa) {                                      //tem que implementar ainda
         return true;    //TODO
-    }    
+    }
 
+
+    // Método toString()
+    @Override
+    public String toString() {
+        return nome;
+    }
     
     //Métodos exclusivos desta classe////////////////////////////////////////////////////////////////////////////////////
     
