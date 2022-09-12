@@ -233,8 +233,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         
         Funcionario funcionario = new Funcionario(nome, cpf, veiculo, loja);
         
-        TelaPrincipal.shopping.getLoja(nomeLoja).contratar(funcionario);
-
+        if(TelaPrincipal.shopping.getLoja(nomeLoja) != null){
+            TelaPrincipal.shopping.getLoja(nomeLoja).contratar(funcionario);
+        }
         telaPrincipal.adicionarPessoa(funcionario);
         JOptionPane.showMessageDialog(this, "O funcionário " + nome + " foi cadastrado com sucesso." , "Cadastrar Funcionário", JOptionPane.PLAIN_MESSAGE);
         telaPrincipal.updateExibicao();

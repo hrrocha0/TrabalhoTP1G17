@@ -1,14 +1,21 @@
 
 package telas;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 import trabalhotp1g17.*;        
 
 public class TelaPrincipal extends javax.swing.JFrame {
+    
+    public static String hora = "00:00";
     public static Shopping shopping = new Shopping();
     
     private final ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();
@@ -18,12 +25,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal() {
         initComponents();
-        updateExibicao();
         setLocationRelativeTo(null);            //faz a tela nascer centralizada
         
-        textStatusLoja.setText("Status: -");
-        textFuncionarios.setText("Funcionarios: -");
-        textProdutosEmEstoque.setText("Estoque: -");
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                updateData();
+                updateTickets();
+            }
+        };
+        Timer t = new Timer(1000, taskPerformer);
+        t.start();
+        updateExibicao();
+        shopping.fechar();
     }
     
     public void adicionarPessoa(Pessoa pessoa) {
@@ -141,6 +154,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             labelLocalizacaoPessoa.setEnabled(true);
             labelVeiculoPessoa.setEnabled(true);
             labelGastosPessoa.setEnabled(true);
+            labelHoraEntrada.setEnabled(true);
+            labelPermanencia.setEnabled(true);
             labelEstacionamentoPessoa.setEnabled(true);
         } else {
             listaPessoas.setEnabled(false);
@@ -175,15 +190,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             if (pessoa.getVeiculo() != null) {
                 labelVeiculoPessoa.setText("Veículo: " + pessoa.getVeiculo());
+                if(pessoa.getLocalizacao() != null){
+                    int permanencia = pessoa.getTicket().getPermanencia(hora);
+                    int horas = permanencia / 60;
+                    int minutos = permanencia % 60;
+                    labelHoraEntrada.setText("Hora de entrada: " + pessoa.getTicket().getHoraEntrada());
+                    labelPermanencia.setText("Permanência: " + horas + "h" + minutos);
+                    labelEstacionamentoPessoa.setText("Estacionamento: R$" + pessoa.getTicket().updateTicket(hora));
+                } else{
+                    labelHoraEntrada.setText("Hora de entrada: -");
+                    labelPermanencia.setText("Permanência: -");
+                    labelEstacionamentoPessoa.setText("Estacionamento: -");
+                }
             } else {
                 labelVeiculoPessoa.setText("Veículo: nenhum");
             }
             labelGastosPessoa.setText("Valor em Compras: R$" + pessoa.getGastoTotal());
-            labelEstacionamentoPessoa.setText("Estacionamento: R$" + pessoa.getValorIsencao());
         } else {
             labelLocalizacaoPessoa.setText("Localização: -");
             labelVeiculoPessoa.setText("Veículo: -");
             labelGastosPessoa.setText("Valor em Compras: -");
+            labelHoraEntrada.setText("Hora de entrada: -");
             labelEstacionamentoPessoa.setText("Estacionamento: -");
         }
     }
@@ -193,6 +220,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         carregarDadosPessoa();
         updateNomesLojas();
         updateEstacionamento();
+        updateData();
+    }
+    
+    public void updateNomesLojas(){
+        String[] nomes = shopping.getLojas(false);
+        
+        nomesLojas.removeAllItems();
+        
+        if (nomes.length > 0){
+            for(int i = 0; i < nomes.length; i++){
+                nomesLojas.addItem(nomes[i]);
+            }
+            return;
+        }
+        
+        nomesLojas.addItem("Nenhuma loja cadastrada");
+        textStatusLoja.setText("Status: -");
+        textFuncionarios.setText("Funcionarios: -");
+        textProdutosEmEstoque.setText("Estoque: -");
     }
     
     public void updateEstacionamento(){
@@ -205,6 +251,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
         VagasMotoOcupadas.setText("Ocupadas: " + vagasMoto[0]);
     }
 
+    public void updateData(){
+        hora = new SimpleDateFormat("mm:ss").format(Calendar.getInstance().getTime());
+        labelData.setText("Hora: " + hora);
+    }
+    
+    public void updateTickets(){
+        
+        Pessoa pessoa = null;
+        String msg = "";
+        String nome = "";
+        
+        if (btnClientesFrequentes.isSelected()) {
+            pessoa = clientesFrequentes.get((String) listaPessoas.getSelectedItem());
+        } else {
+            pessoa = funcionarios.get((String) listaPessoas.getSelectedItem());
+        }
+        
+        if((pessoa != null)&&(pessoa.getVeiculo() != null) && (pessoa.getTicket() != null)){
+            int permanencia = pessoa.getTicket().getPermanencia(hora);
+            int horas = permanencia / 60;
+            int minutos = permanencia % 60;
+            labelHoraEntrada.setText("Hora de entrada: " + pessoa.getTicket().getHoraEntrada());
+            labelPermanencia.setText("Permanência: " + horas + "h" + minutos);
+            labelEstacionamentoPessoa.setText("Estacionamento: R$" + pessoa.getTicket().updateTicket(hora));
+            return;
+        }
+        labelHoraEntrada.setText("Hora de entrada: -");
+        labelPermanencia.setText("Permanência: -");
+        labelEstacionamentoPessoa.setText("Estacionamento: -");
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -217,6 +294,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnAbrirShopping = new javax.swing.JButton();
         btnFecharShopping = new javax.swing.JButton();
         labelPessoas = new javax.swing.JLabel();
+        labelData = new javax.swing.JLabel();
         painelCategorias = new javax.swing.JPanel();
         painelPessoas = new javax.swing.JPanel();
         tituloPessoas = new javax.swing.JLabel();
@@ -233,28 +311,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelVeiculoPessoa = new javax.swing.JLabel();
         labelGastosPessoa = new javax.swing.JLabel();
         labelEstacionamentoPessoa = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        labelHoraEntrada = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        labelPermanencia = new javax.swing.JLabel();
+        painelEstacionamento = new javax.swing.JPanel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        labelVagasCarro = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         VagasCarroDisponiveis = new javax.swing.JLabel();
         VagasCarroOcupadas = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        labelVagasMoto = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         VagasMotoDisponiveis = new javax.swing.JLabel();
         VagasMotoOcupadas = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        painelLojas = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
-        jPanel8 = new javax.swing.JPanel();
+        painelDetalhesLojas = new javax.swing.JPanel();
         textProdutosEmEstoque = new javax.swing.JLabel();
         textStatusLoja = new javax.swing.JLabel();
         textFuncionarios = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnAbrirLoja = new javax.swing.JButton();
+        btnFecharLoja = new javax.swing.JButton();
         nomesLojas = new javax.swing.JComboBox<>();
         barraMenu = new javax.swing.JMenuBar();
         menuClientes = new javax.swing.JMenu();
@@ -316,6 +397,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelPessoas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelPessoas.setText("Pessoas dentro: 0");
 
+        labelData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelData.setText("Data: 10:46");
+
         javax.swing.GroupLayout painelShoppingLayout = new javax.swing.GroupLayout(painelShopping);
         painelShopping.setLayout(painelShoppingLayout);
         painelShoppingLayout.setHorizontalGroup(
@@ -323,13 +407,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelShoppingLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tituloShopping, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                    .addComponent(labelStatusShopping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelPessoas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tituloShopping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(painelShoppingLayout.createSequentialGroup()
+                        .addComponent(labelStatusShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelData)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnFecharShopping, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(btnAbrirShopping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAbrirShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFecharShopping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelShoppingLayout.setVerticalGroup(
@@ -337,15 +426,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelShoppingLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAbrirShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tituloShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFecharShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelShoppingLayout.createSequentialGroup()
-                        .addComponent(labelStatusShopping)
+                        .addComponent(tituloShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(labelStatusShopping)
+                                .addComponent(labelPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelData)))
+                    .addGroup(painelShoppingLayout.createSequentialGroup()
+                        .addComponent(btnAbrirShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnFecharShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -385,6 +477,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         listaPessoas.setEnabled(false);
+        listaPessoas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaPessoasActionPerformed(evt);
+            }
+        });
 
         btnEntrarNoShopping.setText("Entrar no shopping");
         btnEntrarNoShopping.setEnabled(false);
@@ -424,8 +521,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelGastosPessoa.setText("Valor em Compras: -");
         labelGastosPessoa.setEnabled(false);
 
-        labelEstacionamentoPessoa.setText("Estacionamento:");
+        labelEstacionamentoPessoa.setText("Estacionamento: -");
         labelEstacionamentoPessoa.setEnabled(false);
+
+        labelHoraEntrada.setText("Hora de entrada: -");
+        labelHoraEntrada.setEnabled(false);
+
+        labelPermanencia.setText("Permanência: -");
+        labelPermanencia.setEnabled(false);
 
         javax.swing.GroupLayout painelDadosPessoasLayout = new javax.swing.GroupLayout(painelDadosPessoas);
         painelDadosPessoas.setLayout(painelDadosPessoasLayout);
@@ -436,22 +539,38 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(painelDadosPessoasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelLocalizacaoPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelVeiculoPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelGastosPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelEstacionamentoPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelGastosPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                    .addComponent(labelEstacionamentoPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelPermanencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelHoraEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(painelDadosPessoasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelDadosPessoasLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jSeparator1)
+                    .addContainerGap()))
         );
         painelDadosPessoasLayout.setVerticalGroup(
             painelDadosPessoasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosPessoasLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(7, 7, 7)
                 .addComponent(labelLocalizacaoPessoa)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelVeiculoPessoa)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelGastosPessoa)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
+                .addComponent(labelHoraEntrada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelPermanencia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelEstacionamentoPessoa)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(painelDadosPessoasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelDadosPessoasLayout.createSequentialGroup()
+                    .addGap(79, 79, 79)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(79, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout painelPessoasLayout = new javax.swing.GroupLayout(painelPessoas);
@@ -496,32 +615,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnComprar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSairDoShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelDadosPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(220, 220, 220));
-        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        painelEstacionamento.setBackground(new java.awt.Color(220, 220, 220));
+        painelEstacionamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Estacionamento");
 
         jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel5.setEnabled(false);
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Vagas de carro");
+        labelVagasCarro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelVagasCarro.setText("Vagas de carro");
+        labelVagasCarro.setEnabled(false);
 
         VagasCarroDisponiveis.setText("Disponíveis: 200");
+        VagasCarroDisponiveis.setEnabled(false);
 
         VagasCarroOcupadas.setText("Ocupadas: 0");
+        VagasCarroOcupadas.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelVagasCarro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,30 +656,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelVagasCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VagasCarroDisponiveis)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(VagasCarroOcupadas)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addGap(0, 71, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel6.setEnabled(false);
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Vagas de moto");
+        labelVagasMoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelVagasMoto.setText("Vagas de moto");
+        labelVagasMoto.setEnabled(false);
 
         VagasMotoDisponiveis.setText("Disponíveis: 50");
+        VagasMotoDisponiveis.setEnabled(false);
 
         VagasMotoOcupadas.setText("Ocupadas: 0");
+        VagasMotoOcupadas.setEnabled(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelVagasMoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -568,7 +695,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelVagasMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -578,70 +705,73 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout painelEstacionamentoLayout = new javax.swing.GroupLayout(painelEstacionamento);
+        painelEstacionamento.setLayout(painelEstacionamentoLayout);
+        painelEstacionamentoLayout.setHorizontalGroup(
+            painelEstacionamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(painelEstacionamentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelEstacionamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(painelEstacionamentoLayout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        painelEstacionamentoLayout.setVerticalGroup(
+            painelEstacionamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelEstacionamentoLayout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelEstacionamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jPanel7.setBackground(new java.awt.Color(220, 220, 220));
-        jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        painelLojas.setBackground(new java.awt.Color(220, 220, 220));
+        painelLojas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Lojas");
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        painelDetalhesLojas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         textProdutosEmEstoque.setText("Estoque total: 0 itens, totalizando 0 peças");
+        textProdutosEmEstoque.setEnabled(false);
 
         textStatusLoja.setText("Status: fechada");
+        textStatusLoja.setEnabled(false);
 
         textFuncionarios.setText("Funcionários: 0");
+        textFuncionarios.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelDetalhesLojasLayout = new javax.swing.GroupLayout(painelDetalhesLojas);
+        painelDetalhesLojas.setLayout(painelDetalhesLojasLayout);
+        painelDetalhesLojasLayout.setHorizontalGroup(
+            painelDetalhesLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDetalhesLojasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(painelDetalhesLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelDetalhesLojasLayout.createSequentialGroup()
                         .addComponent(textFuncionarios)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
+                    .addGroup(painelDetalhesLojasLayout.createSequentialGroup()
+                        .addGroup(painelDetalhesLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelDetalhesLojasLayout.createSequentialGroup()
                                 .addComponent(textStatusLoja)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(textProdutosEmEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                            .addComponent(textProdutosEmEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        painelDetalhesLojasLayout.setVerticalGroup(
+            painelDetalhesLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDetalhesLojasLayout.createSequentialGroup()
                 .addComponent(textStatusLoja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textFuncionarios)
@@ -650,61 +780,64 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton7.setText("Abrir");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnAbrirLoja.setText("Abrir");
+        btnAbrirLoja.setEnabled(false);
+        btnAbrirLoja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnAbrirLojaActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Fechar");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnFecharLoja.setText("Fechar");
+        btnFecharLoja.setEnabled(false);
+        btnFecharLoja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnFecharLojaActionPerformed(evt);
             }
         });
 
         nomesLojas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        nomesLojas.setEnabled(false);
         nomesLojas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomesLojasActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout painelLojasLayout = new javax.swing.GroupLayout(painelLojas);
+        painelLojas.setLayout(painelLojasLayout);
+        painelLojasLayout.setHorizontalGroup(
+            painelLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator5)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(painelLojasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nomesLojas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painelLojasLayout.createSequentialGroup()
+                        .addGroup(painelLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnFecharLoja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAbrirLoja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(painelDetalhesLojas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        painelLojasLayout.setVerticalGroup(
+            painelLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLojasLayout.createSequentialGroup()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(nomesLojas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButton7)
+                .addGroup(painelLojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelLojasLayout.createSequentialGroup()
+                        .addComponent(btnAbrirLoja)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton8)
+                        .addComponent(btnFecharLoja)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelDetalhesLojas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -716,8 +849,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(painelPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(painelLojas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelEstacionamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         painelCategoriasLayout.setVerticalGroup(
             painelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -726,9 +859,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(painelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelPessoas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelCategoriasLayout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(painelLojas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(painelEstacionamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         menuClientes.setText("Clientes");
@@ -897,25 +1030,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void updateNomesLojas(){
-        String[] nomes = shopping.getLojas(false);
-        
-        nomesLojas.removeAllItems();
-        
-        if (nomes.length > 0){
-            for(int i = 0; i < nomes.length; i++){
-                nomesLojas.addItem(nomes[i]);
-            }
-            return;
-        }
-        
-        nomesLojas.addItem("Nenhuma loja cadastrada");
-        textStatusLoja.setText("Status: -");
-        textFuncionarios.setText("Funcionarios: -");
-        textProdutosEmEstoque.setText("Estoque: -");
-    }
- 
     
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         Pessoa cliente;
@@ -930,7 +1044,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaComprar(this, cliente).setVisible(true);
     }//GEN-LAST:event_btnComprarActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnAbrirLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirLojaActionPerformed
         if(nomesLojas.getItemAt(0).equals("Nenhuma loja cadastrada")){
             return;
         }
@@ -939,7 +1053,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             shopping.abrirLoja(nome);
             textStatusLoja.setText((shopping.isLojaAberta(nome))?"Status: aberta":"Status: fechada");
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnAbrirLojaActionPerformed
 
     private void menuAlterarVagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlterarVagasActionPerformed
         new AlterarVagas(this).setVisible(true);
@@ -995,7 +1109,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nomesLojasActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btnFecharLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharLojaActionPerformed
         if(nomesLojas.getItemAt(0).equals("Nenhuma loja cadastrada")){
             return;
         }
@@ -1004,7 +1118,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             shopping.fecharLoja(nome);
             textStatusLoja.setText((shopping.isLojaAberta(nome))?"Status: aberta":"Status: fechada");
         }
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btnFecharLojaActionPerformed
 
     private void menuRelatorioClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatorioClientesActionPerformed
         new TelaRelatorioClientes(this).setVisible(true);
@@ -1022,8 +1136,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         boolean sucesso = shopping.abrir();
         
         if (sucesso) {
+            JOptionPane.showMessageDialog(this, "O Shopping abriu!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             labelStatusShopping.setText("Status: aberto");
             painelCategorias.setEnabled(true);
+            btnAbrirLoja.setEnabled(true);
+            btnFecharLoja.setEnabled(true);
+            nomesLojas.setEnabled(true);
+            textStatusLoja.setEnabled(true);
+            textFuncionarios.setEnabled(true);
+            textProdutosEmEstoque.setEnabled(true);
+            VagasCarroDisponiveis.setEnabled(true);
+            VagasCarroOcupadas.setEnabled(true);
+            VagasMotoDisponiveis.setEnabled(true);
+            VagasMotoOcupadas.setEnabled(true);
+            labelVagasCarro.setEnabled(true);
+            labelVagasMoto.setEnabled(true);
         }
         updateExibicao();
     }//GEN-LAST:event_btnAbrirShoppingActionPerformed
@@ -1032,7 +1159,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         boolean sucesso = shopping.fechar();
         
         if (sucesso) {
+            JOptionPane.showMessageDialog(this, "O Shopping fechou!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             labelStatusShopping.setText("Status: fechado");
+            painelCategorias.setEnabled(false);
+            btnAbrirLoja.setEnabled(false);
+            btnFecharLoja.setEnabled(false);
+            nomesLojas.setEnabled(false);
+            textStatusLoja.setEnabled(false);
+            textFuncionarios.setEnabled(false);
+            textProdutosEmEstoque.setEnabled(false);
+            VagasCarroDisponiveis.setEnabled(false);
+            VagasCarroOcupadas.setEnabled(false);
+            VagasMotoDisponiveis.setEnabled(false);
+            VagasMotoOcupadas.setEnabled(false);
+            labelVagasCarro.setEnabled(false);
+            labelVagasMoto.setEnabled(false);
         }
         updateExibicao();
     }//GEN-LAST:event_btnFecharShoppingActionPerformed
@@ -1051,44 +1192,71 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnEntrarNoShoppingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarNoShoppingActionPerformed
         Pessoa pessoa;
-        
+        String nome = "";
+        boolean isencao = false;
         if (btnClientesEsporadicos.isSelected()) {
             pessoa = clientesEsporadicos.get(listaPessoas.getSelectedIndex());
         } else if (btnClientesFrequentes.isSelected()) {
             pessoa = clientesFrequentes.get((String) listaPessoas.getSelectedItem());
+            nome = ((ClienteFrequente)pessoa).getNome();
         } else {
             pessoa = funcionarios.get((String) listaPessoas.getSelectedItem());
+            nome = ((Funcionario)pessoa).getNome();
+            isencao = true;
         }
         if (pessoa.getLocalizacao() == null) {
             pessoa.entrar(shopping);
+            shopping.aoEntrar(pessoa);
+            updateEstacionamento();
+            if(pessoa.getVeiculo() != null){
+                pessoa.setTicket(new Ticket(hora, isencao));
+                System.out.println("A pessoa " + nome + " entrou no estacionamento. hora :" + hora);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "O cliente já está no shopping.", "Erro: Entrar no Shopping", JOptionPane.ERROR_MESSAGE);
         }
-        updateExibicao();
+        carregarDadosPessoa();
     }//GEN-LAST:event_btnEntrarNoShoppingActionPerformed
 
     private void btnSairDoShoppingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairDoShoppingActionPerformed
         Pessoa pessoa;
+        String msg = "";
+        String nome = "";
         
         if (btnClientesEsporadicos.isSelected()) {
             pessoa = clientesEsporadicos.get(listaPessoas.getSelectedIndex());
         } else if (btnClientesFrequentes.isSelected()) {
             pessoa = clientesFrequentes.get((String) listaPessoas.getSelectedItem());
+            nome = ((ClienteFrequente)pessoa).getNome();
         } else {
             pessoa = funcionarios.get((String) listaPessoas.getSelectedItem());
+            nome = ((Funcionario)pessoa).getNome();
         }
         if (pessoa.getLocalizacao() != null) {
+            msg = "O cliente " + nome + " saiu do shopping.";
+            
+            if(pessoa.getVeiculo() != null){
+                int tarifa = pessoa.getTicket().updateTicket(hora);
+                int horas = (pessoa.getTicket().getPermanencia(hora))/60;
+                int minutos = (pessoa.getTicket().getPermanencia(hora))%60;
+                msg += "\nTempo de estacionamento: " + horas + " horas e " + minutos + " minutos.\nEstacionamento: ";
+                msg += (pessoa.getTicket().isIsento())? "isento." : "R$" + tarifa;
+                JOptionPane.showMessageDialog(this, msg, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                pessoa.setTicket(null);
+            }            
             pessoa.sair(shopping);
+            shopping.aoSair(pessoa);
+            updateEstacionamento();
         } else {
             JOptionPane.showMessageDialog(this, "O cliente não está no shopping.", "Erro: Sair do Shopping", JOptionPane.ERROR_MESSAGE);
         }
-        updateExibicao();
+        carregarDadosPessoa();
     }//GEN-LAST:event_btnSairDoShoppingActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         String[] nomesLojas = shopping.getLojas(false);
         if((nomesLojas.length == 0)||(nomesLojas == null)){
-            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }
         new IncluirEstoqueNovo(this).setVisible(true);        // TODO add your handling code here:
@@ -1097,17 +1265,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
         String[] nomesLojas = shopping.getLojas(false);                                                             //primeiro vemos se temos lojas cadastradas
         if(nomesLojas.length == 0){
-            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String[] nomesLojas2 = shopping.getLojas(true);                                                                       //agora vemos se temos lojas com produtos cadastrados
         if(nomesLojas2 == null){
-            JOptionPane.showMessageDialog(null, "Nenhuma das lojas possui produtos registrados!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhuma das lojas possui produtos registrados!", "erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         new IncluirEstoqueExistente(this).setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void listaPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPessoasActionPerformed
+        carregarDadosPessoa();
+    }//GEN-LAST:event_listaPessoasActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1123,39 +1295,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel VagasMotoDisponiveis;
     private javax.swing.JLabel VagasMotoOcupadas;
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JButton btnAbrirLoja;
     private javax.swing.JButton btnAbrirShopping;
     private javax.swing.JRadioButton btnClientesEsporadicos;
     private javax.swing.JRadioButton btnClientesFrequentes;
     private javax.swing.JButton btnComprar;
     private javax.swing.JButton btnEntrarNoShopping;
+    private javax.swing.JButton btnFecharLoja;
     private javax.swing.JButton btnFecharShopping;
     private javax.swing.JRadioButton btnFuncionarios;
     private javax.swing.JButton btnSairDoShopping;
     private javax.swing.ButtonGroup btngrPessoas;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel labelData;
     private javax.swing.JLabel labelEstacionamentoPessoa;
     private javax.swing.JLabel labelGastosPessoa;
+    private javax.swing.JLabel labelHoraEntrada;
     private javax.swing.JLabel labelLocalizacaoPessoa;
+    private javax.swing.JLabel labelPermanencia;
     private javax.swing.JLabel labelPessoas;
     private javax.swing.JLabel labelStatusShopping;
+    private javax.swing.JLabel labelVagasCarro;
+    private javax.swing.JLabel labelVagasMoto;
     private javax.swing.JLabel labelVeiculoPessoa;
     private javax.swing.JComboBox<String> listaPessoas;
     private javax.swing.JMenuItem menuAlterarVagas;
@@ -1178,6 +1351,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> nomesLojas;
     private javax.swing.JPanel painelCategorias;
     private javax.swing.JPanel painelDadosPessoas;
+    private javax.swing.JPanel painelDetalhesLojas;
+    private javax.swing.JPanel painelEstacionamento;
+    private javax.swing.JPanel painelLojas;
     private javax.swing.JPanel painelPessoas;
     private javax.swing.JPanel painelShopping;
     private javax.swing.JSeparator separadorPessoas;
@@ -1187,5 +1363,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel tituloPessoas;
     private javax.swing.JLabel tituloShopping;
     // End of variables declaration//GEN-END:variables
+
 
 }

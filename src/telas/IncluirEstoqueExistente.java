@@ -169,7 +169,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
             if(!radioQuantidade.isSelected()){
                 quantidade = Integer.parseInt(inputQuantidade.getText());
                 if(quantidade <= 0){
-                    JOptionPane.showMessageDialog(null, "A quantidade deve ser maior que 0!", "erro!", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "A quantidade deve ser maior que 0!", "erro!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -177,19 +177,19 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
                 inputPreco.setText(inputPreco.getText().replace(',', '.'));
                 preco = Double.parseDouble(inputPreco.getText());
                 if(preco <= 0){
-                    JOptionPane.showMessageDialog(null, "O preço deve ser maior que 0!", "erro!", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "O preço deve ser maior que 0!", "erro!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
         }
         catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Revise os dados. A quantidade deve ser inteira e o preço deve ser inteiro ou fracionário.", "erro!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Revise os dados. A quantidade deve ser inteira e o preço deve ser inteiro ou fracionário.", "erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }          
         TelaPrincipal.shopping.abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
         telaPrincipal.updateNomesLojas();
         dispose();
-        JOptionPane.showMessageDialog(null, "Produto \'" + nomeProduto + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Produto \'" + nomeProduto + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void radioQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQuantidadeActionPerformed
