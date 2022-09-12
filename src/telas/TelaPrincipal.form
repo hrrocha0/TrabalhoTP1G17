@@ -242,14 +242,20 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="tituloShopping" pref="568" max="32767" attributes="0"/>
-                      <Component id="labelStatusShopping" max="32767" attributes="0"/>
-                      <Component id="labelPessoas" alignment="1" max="32767" attributes="0"/>
+                      <Component id="tituloShopping" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="labelStatusShopping" min="-2" pref="119" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="labelPessoas" min="-2" pref="307" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="labelData" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnFecharShopping" pref="90" max="32767" attributes="0"/>
-                      <Component id="btnAbrirShopping" max="32767" attributes="0"/>
+                      <Component id="btnAbrirShopping" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="btnFecharShopping" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -260,16 +266,21 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnAbrirShopping" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="tituloShopping" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnFecharShopping" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="labelStatusShopping" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="tituloShopping" min="-2" pref="62" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="labelStatusShopping" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelPessoas" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="labelData" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="btnAbrirShopping" min="-2" pref="42" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelPessoas" min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="btnFecharShopping" min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -317,6 +328,12 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Pessoas dentro: 0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelData">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Data: 10:46"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -605,7 +622,7 @@
                           <Component id="jLabel3" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="40" max="32767" attributes="0"/>
+                              <EmptySpace pref="45" max="32767" attributes="0"/>
                               <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -857,7 +874,7 @@
                                           <Component id="textStatusLoja" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="textProdutosEmEstoque" alignment="0" pref="280" max="32767" attributes="0"/>
+                                      <Component id="textProdutosEmEstoque" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
