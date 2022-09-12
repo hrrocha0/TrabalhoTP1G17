@@ -52,7 +52,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             return;
         }
         
-        for (String nome : TelaPrincipal.shopping.getLojas()) {
+        for (String nome : TelaPrincipal.shopping.getLojas(false)) {
             modelo.addElement(nome);
         }
         caixaLoja.setModel(modelo);

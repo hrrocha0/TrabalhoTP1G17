@@ -191,6 +191,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void updateExibicao(){
         carregarListaPessoas();
         carregarDadosPessoa();
+        updateEstacionamento();
+    }
+    
+    public void updateEstacionamento(){
         int[] vagasCarro = shopping.getVagasCarro();
         int[] vagasMoto = shopping.getVagasMoto();
         
@@ -205,6 +209,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         btngrPessoas = new javax.swing.ButtonGroup();
+        jMenuItem2 = new javax.swing.JMenuItem();
         painelShopping = new javax.swing.JPanel();
         tituloShopping = new javax.swing.JLabel();
         labelStatusShopping = new javax.swing.JLabel();
@@ -267,10 +272,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuLojas = new javax.swing.JMenu();
         menuCadastrarLoja = new javax.swing.JMenuItem();
         menuRemoverLoja = new javax.swing.JMenuItem();
-        menuAtualizarEstoque = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
         menuGerenciarFuncionarios = new javax.swing.JMenuItem();
         menuEstacionamento = new javax.swing.JMenu();
         menuAlterarVagas = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento do shopping");
@@ -849,13 +858,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuLojas.add(menuRemoverLoja);
 
-        menuAtualizarEstoque.setText("Atualizar estoque");
-        menuAtualizarEstoque.addActionListener(new java.awt.event.ActionListener() {
+        jMenu8.setText("Atualizar estoque");
+
+        jMenuItem17.setText("Adicionar novo item");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAtualizarEstoqueActionPerformed(evt);
+                jMenuItem17ActionPerformed(evt);
             }
         });
-        menuLojas.add(menuAtualizarEstoque);
+        jMenu8.add(jMenuItem17);
+
+        jMenuItem18.setText("Atualizar um item existente");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem18);
+
+        menuLojas.add(jMenu8);
 
         menuGerenciarFuncionarios.setText("Gerenciar Funcionários");
         menuGerenciarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
@@ -962,10 +983,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void menuCadastrarLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastrarLojaActionPerformed
         new NovaLoja().setVisible(true);
     }//GEN-LAST:event_menuCadastrarLojaActionPerformed
-
-    private void menuAtualizarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAtualizarEstoqueActionPerformed
-        new AtualizarEstoque().setVisible(true);
-    }//GEN-LAST:event_menuAtualizarEstoqueActionPerformed
 
     private void menuCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastrarFuncionarioActionPerformed
         new TelaCadastroFuncionario(this).setVisible(true);
@@ -1099,6 +1116,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         updateExibicao();
     }//GEN-LAST:event_btnSairDoShoppingActionPerformed
 
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        String[] nomesLojas = shopping.getLojas(false);
+        if((nomesLojas.length == 0)||(nomesLojas == null)){
+            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        new IncluirEstoqueNovo().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        String[] nomesLojas = shopping.getLojas(false);                                                             //primeiro vemos se temos lojas cadastradas
+        if(nomesLojas.length == 0){
+            JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        String[] nomesLojas2 = shopping.getLojas(true);                                                                       //agora vemos se temos lojas com produtos cadastrados
+        if(nomesLojas2 == null){
+            JOptionPane.showMessageDialog(null, "Nenhuma das lojas possui produtos registrados!", "erro!", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        
+        new IncluirEstoqueExistente().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1130,6 +1171,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1146,7 +1191,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelVeiculoPessoa;
     private javax.swing.JComboBox<String> listaPessoas;
     private javax.swing.JMenuItem menuAlterarVagas;
-    private javax.swing.JMenuItem menuAtualizarEstoque;
     private javax.swing.JMenuItem menuCadastrarCliente;
     private javax.swing.JMenuItem menuCadastrarFuncionario;
     private javax.swing.JMenuItem menuCadastrarLoja;
