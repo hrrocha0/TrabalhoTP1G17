@@ -1,7 +1,6 @@
 package trabalhotp1g17;
 
 import java.util.ArrayList;
-import telas.TelaPrincipal;
 
 /*
  Classe abstrata responsável pela lógica compartilhada entre ClienteEsporadico, ClienteFrequente e Funcionario.
@@ -13,19 +12,19 @@ public abstract class Pessoa {
     protected Veiculo veiculo;  // O veículo da pessoa
     protected Ticket ticket;    // O ticket de estacionamento
     protected double gastoTotal;    // O gasto total da pessoa em produtos
-    protected Estabelecimento localizacao;  // A localização da pessoa
+    protected boolean dentroDoShopping;  // A localização da pessoa
     protected ArrayList<Produto> produtosComprados = new ArrayList<>(); // Os produtos comprados pela pessoa
 
     // Construtor simplificado, que inicializa o objeto com valores padrão
     public Pessoa() {
-        this(null, null, null, 0.0);
+        this(null, null, false, 0.0);
     }
 
     // Construtor completo, que recebe como parâmetros a maioria dos atributos
-    public Pessoa(Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {
+    public Pessoa(Veiculo veiculo, Ticket ticket, boolean dentroDoShopping, double gastoTotal) {
         this.veiculo = veiculo;
         this.ticket = ticket;
-        this.localizacao = localizacao;
+        this.dentroDoShopping = dentroDoShopping;
         this.gastoTotal = gastoTotal;
     }
 
@@ -40,21 +39,21 @@ public abstract class Pessoa {
      */
     public boolean comprar(Produto produto, Loja loja, Shopping shopping) {
         if (!loja.isAberto()) {
-            System.out.println("A loja está fechada.");
             return false;
         }
         if (!shopping.isAberto()) {
-            System.out.println("O shopping está fechado.");
+            return false;
+        }
+        if (!dentroDoShopping) {
             return false;
         }
         if (!loja.vender(produto)) {
-            System.out.println("Não foi possível efetuar a compra.");
             return false;
         }
         produtosComprados.add(produto);
         gastoTotal += produto.getPreco();
         System.out.println("A compra foi realizada com sucesso.");
-        
+
         return true;
     }
 
@@ -63,13 +62,12 @@ public abstract class Pessoa {
      e no contrário define a localização da pessoa como o estabelecimento. Depois,
      delega a lógica para o estabelecimento e retorna true.
      */
-    public boolean entrar(Estabelecimento estabelecimento) {
-        if (localizacao == estabelecimento) {
+    public boolean entrarNoShopping() {
+        if (dentroDoShopping) {
             System.out.println("A pessoa já está no estabelecimento.");
             return false;
         }
-        localizacao = estabelecimento;
-        //estabelecimento.aoEntrar(this);
+        dentroDoShopping = true;
         System.out.println("A pessoa entrou no estabelecimento.");
         return true;
     }
@@ -79,14 +77,14 @@ public abstract class Pessoa {
      senão define a localização como nula e delega a lógica para o estabelecimento,
      retornando true.
      */
-    public void sair(Estabelecimento estabelecimento) {
-        if (localizacao != estabelecimento) {
+    public boolean sairDoShopping() {
+        if (!dentroDoShopping) {
             System.out.println("A pessoa não está no estabelecimento.");
-            return;
+            return false;
         }
-        localizacao = null;
-        //estabelecimento.aoSair(this);
+        dentroDoShopping = false;
         System.out.println("A pessoa saiu do estabelecimento.");
+        return true;
     }
 
     // Getters e Setters
@@ -115,11 +113,7 @@ public abstract class Pessoa {
         this.gastoTotal = gastoTotal;
     }
 
-    public Estabelecimento getLocalizacao() {
-        return localizacao;
-    }
-
-    public void setLocalizacao(Estabelecimento localizacao) {
-        this.localizacao = localizacao;
+    public boolean isDentroDoShopping() {
+        return dentroDoShopping;
     }
 }

@@ -20,8 +20,8 @@ public class Funcionario extends Pessoa {
         this.veiculo = veiculo;
     }
 
-    public Funcionario(String nome, String cpf, Loja loja, Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {
-        super(veiculo, ticket, localizacao, gastoTotal);
+    public Funcionario(String nome, String cpf, Loja loja, Veiculo veiculo, Ticket ticket, boolean dentroDoShopping, double gastoTotal) {
+        super(veiculo, ticket, dentroDoShopping, gastoTotal);
         this.nome = nome;
         this.cpf = cpf;
         this.loja = loja;

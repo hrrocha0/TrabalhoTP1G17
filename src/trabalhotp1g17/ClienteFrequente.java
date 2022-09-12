@@ -13,8 +13,8 @@ public class ClienteFrequente extends Pessoa {
         this.veiculo = veiculo;
     }
 
-    public ClienteFrequente(String nome, String cpf, Veiculo veiculo, Ticket ticket, Estabelecimento localizacao, double gastoTotal) {
-        super(veiculo, ticket, localizacao, gastoTotal);
+    public ClienteFrequente(String nome, String cpf, Veiculo veiculo, Ticket ticket, boolean dentroDoShopping, double gastoTotal) {
+        super(veiculo, ticket, dentroDoShopping, gastoTotal);
         this.nome = nome;
         this.cpf = cpf;
     }

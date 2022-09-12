@@ -48,20 +48,18 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
             ClienteEsporadico clienteEsporadico = telaPrincipal.getClienteEsporadico(i);
             String nome = "Cliente " + (i + 1);
             Veiculo veiculo = clienteEsporadico.getVeiculo();
-            Estabelecimento localizacao = clienteEsporadico.getLocalizacao();
             double gastoTotal = clienteEsporadico.getGastoTotal();
 
-            Object[] linha = {nome, null, veiculo, localizacao, gastoTotal};
+            Object[] linha = {nome, null, veiculo, gastoTotal};
             modelo.addRow(linha);
         }
         for (String nome : telaPrincipal.getNomesClientesFrequentes()) {
             ClienteFrequente clienteFrequente = telaPrincipal.getClienteFrequente(nome);
             String cpf = clienteFrequente.getCpf();
             Veiculo veiculo = clienteFrequente.getVeiculo();
-            Estabelecimento localizacao = clienteFrequente.getLocalizacao();
             double gastoTotal = clienteFrequente.getGastoTotal();
 
-            Object[] linha = {nome, cpf, veiculo, localizacao, gastoTotal};
+            Object[] linha = {nome, cpf, veiculo, gastoTotal};
             modelo.addRow(linha);
         }
         tabelaClientes.setModel(modelo);
@@ -98,20 +96,20 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
 
         tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "CPF", "Veículo", "Localização", "Gasto Total"
+                "Nome", "CPF", "Veículo", "Gasto Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -211,7 +209,6 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
                 arquivo.write(nome + ", ");
                 arquivo.write(clienteFrequente.getCpf() + ", ");
                 arquivo.write(clienteFrequente.getVeiculo() + ", ");
-                arquivo.write(clienteFrequente.getLocalizacao() + ", ");
                 arquivo.write(String.valueOf(clienteFrequente.getGastoTotal()));
                 arquivo.write('\n');
             }

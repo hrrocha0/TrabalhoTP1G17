@@ -48,10 +48,9 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
             String cpf = funcionario.getCpf();
             Loja loja = funcionario.getLoja();
             Veiculo veiculo = funcionario.getVeiculo();
-            Estabelecimento localizacao = funcionario.getLocalizacao();
             double gastoTotal = funcionario.getGastoTotal();
 
-            Object[] linha = {nome, cpf, loja, veiculo, localizacao, gastoTotal};
+            Object[] linha = {nome, cpf, loja, veiculo, gastoTotal};
             modelo.addRow(linha);
         }
         tabelaFuncionarios.setModel(modelo);
@@ -87,20 +86,20 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
 
         tabelaFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nome", "CPF", "Loja", "Veículo", "Localização", "Gasto Total"
+                "Nome", "CPF", "Loja", "Veículo", "Gasto Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -195,7 +194,6 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
                 arquivo.write(funcionario.getCpf() + ", ");
                 arquivo.write(funcionario.getLoja() + ", ");
                 arquivo.write(funcionario.getVeiculo() + ", ");
-                arquivo.write(funcionario.getLocalizacao() + ", ");
                 arquivo.write(String.valueOf(funcionario.getGastoTotal()));
                 arquivo.write('\n');
             }

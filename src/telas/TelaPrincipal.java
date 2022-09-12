@@ -183,14 +183,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 pessoa = funcionarios.get((String) listaPessoas.getSelectedItem());
             }
             
-            if (pessoa.getLocalizacao() != null) {
-                labelLocalizacaoPessoa.setText("Localização: " + pessoa.getLocalizacao());
+            if (pessoa.isDentroDoShopping()) {
+                labelLocalizacaoPessoa.setText("Localização: Shopping");
             } else {
                 labelLocalizacaoPessoa.setText("Localização: Fora do Shopping");
             }
             if (pessoa.getVeiculo() != null) {
                 labelVeiculoPessoa.setText("Veículo: " + pessoa.getVeiculo());
-                if(pessoa.getLocalizacao() != null){
+                if(pessoa.isDentroDoShopping()){
                     int permanencia = pessoa.getTicket().getPermanencia(hora);
                     int horas = permanencia / 60;
                     int minutos = permanencia % 60;
@@ -1204,8 +1204,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             nome = ((Funcionario)pessoa).getNome();
             isencao = true;
         }
-        if (pessoa.getLocalizacao() == null) {
-            pessoa.entrar(shopping);
+        if (!pessoa.isDentroDoShopping()) {
+            pessoa.entrarNoShopping();
             shopping.aoEntrar(pessoa);
             updateEstacionamento();
             if(pessoa.getVeiculo() != null){
@@ -1232,7 +1232,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             pessoa = funcionarios.get((String) listaPessoas.getSelectedItem());
             nome = ((Funcionario)pessoa).getNome();
         }
-        if (pessoa.getLocalizacao() != null) {
+        if (pessoa.isDentroDoShopping()) {
             msg = "O cliente " + nome + " saiu do shopping.";
             
             if(pessoa.getVeiculo() != null){
@@ -1244,7 +1244,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, msg, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 pessoa.setTicket(null);
             }            
-            pessoa.sair(shopping);
+            pessoa.sairDoShopping();
             shopping.aoSair(pessoa);
             updateEstacionamento();
         } else {
