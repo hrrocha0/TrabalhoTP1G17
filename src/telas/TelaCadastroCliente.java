@@ -4,9 +4,11 @@
  */
 package telas;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import trabalhotp1g17.ClienteEsporadico;
 import trabalhotp1g17.ClienteFrequente;
+import trabalhotp1g17.Pessoa;
 import trabalhotp1g17.Veiculo;
 
 /**
@@ -17,9 +19,28 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroCliente
      */
-    public TelaCadastroCliente() {
+    private final TelaPrincipal telaPrincipal;
+    
+    public TelaCadastroCliente(TelaPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
         initComponents();
+        carregarListaVeiculos();
         setLocationRelativeTo(null);
+    }
+    
+    private void carregarListaVeiculos() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Nenhum");
+        
+        if (telaPrincipal == null) {
+            caixaVeiculo.setModel(modelo);
+            return;
+        }
+        
+        for (String placa : telaPrincipal.getPlacasVeiculos()) {
+            modelo.addElement(placa);
+        }
+        caixaVeiculo.setModel(modelo);
     }
 
     /**
@@ -199,12 +220,23 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        if (telaPrincipal == null) {
+            dispose();
+            return;
+        }
+        
         String placa = (String) caixaVeiculo.getSelectedItem();
-        Veiculo veiculo = null; // TODO
+        Veiculo veiculo = null;
+        
+        if (!placa.equals("Nenhum")) {
+            veiculo = telaPrincipal.getVeiculo((String) caixaVeiculo.getSelectedItem());
+        } 
+        String nome;
+        Pessoa pessoa;
         
         if (botaoTipoFrequente.isSelected()) {
-            String nome = campoNome.getText();
             String cpf = campoCpf.getText();
+            nome = campoNome.getText();
             
             if (nome.isBlank() || cpf.isBlank()) {
                 JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Cliente", JOptionPane.ERROR_MESSAGE);
@@ -213,16 +245,15 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             
             // TODO: verificar se já existe cliente com o mesmo nome ou cpf.
             
-            ClienteFrequente cliente = new ClienteFrequente(nome, cpf, veiculo);
-            TelaPrincipal.shopping.add(cliente);
-            JOptionPane.showMessageDialog(this, "O cliente de nome " + nome + " foi cadastrado com sucesso.", "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
-            dispose();
+            pessoa = new ClienteFrequente(nome, cpf, veiculo);
         } else {
-            ClienteEsporadico cliente = new ClienteEsporadico(veiculo);
-            TelaPrincipal.shopping.add(cliente);
-            JOptionPane.showMessageDialog(this, "O cliente esporádico foi cadastrado com sucesso." , "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
-            dispose();
+            nome = "Cliente " + (telaPrincipal.getQtdClientesEsporadicos() + 1);
+            pessoa = new ClienteEsporadico(veiculo);
         }
+        telaPrincipal.adicionarPessoa(pessoa);
+        JOptionPane.showMessageDialog(this, "O cliente " + nome + " foi cadastrado com sucesso." , "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
+        telaPrincipal.updateExibicao();   
+        dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void botaoTipoEsporadicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTipoEsporadicoActionPerformed
@@ -250,7 +281,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroCliente().setVisible(true);
+                new TelaCadastroCliente(null).setVisible(true);
             }
         });
     }

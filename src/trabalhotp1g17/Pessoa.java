@@ -1,7 +1,6 @@
 package trabalhotp1g17;
 
 import java.util.ArrayList;
-import telas.TelaPrincipal;
 
 /*
  Classe abstrata responsável pela lógica compartilhada entre ClienteEsporadico, ClienteFrequente e Funcionario.
@@ -18,7 +17,7 @@ public abstract class Pessoa {
 
     // Construtor simplificado, que inicializa o objeto com valores padrão
     public Pessoa() {
-        this(null, null, TelaPrincipal.shopping, 0.0);
+        this(null, null, null, 0.0);
     }
 
     // Construtor completo, que recebe como parâmetros a maioria dos atributos
@@ -30,7 +29,7 @@ public abstract class Pessoa {
     }
 
     // Método abstrato que retorna o valor que a pessoa deve gastar em produtos para receber isenção
-    abstract double getValorIsencao();
+    public abstract double getValorIsencao();
 
     /*
     Retorna se a loja ou o shopping não estiveren abertos, se a localização da pessoa

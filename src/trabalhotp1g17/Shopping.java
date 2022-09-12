@@ -13,25 +13,24 @@ public class Shopping implements Estabelecimento {
     private final ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();               //listas e mapas que vão manter os registros de quem está no shopping, divididas por tipo de pessoa
     private final HashMap<String, ClienteFrequente> clientesFrequentes = new HashMap<>();
     private final HashMap<String, Funcionario> funcionarios = new HashMap<>();
-    private final HashMap<String, Veiculo> veiculos = new HashMap<>();
     private final HashMap<String, Loja> lojas = new HashMap<>();
 
     @Override
     public boolean aoEntrar(Pessoa pessoa) {
-        TipoVeiculo tipoDoVeiculo = pessoa.getVeiculo().getTipo();
-
-        if (tipoDoVeiculo == null) {
+        Veiculo veiculo = pessoa.getVeiculo();
+            
+        if (veiculo == null) {
             System.out.println("Chegou uma nova pessoa a pé.");
         } else {
             System.out.print("Chegou uma nova pessoa dirigindo");
-            if ((tipoDoVeiculo == TipoVeiculo.CARRO) && (vagasCarro[0] < vagasCarro[1])) {
+            if ((veiculo.getTipo() == TipoVeiculo.CARRO) && (vagasCarro[0] < vagasCarro[1])) {
                 System.out.println(" um carro.");
                 this.vagasCarro[0]++;
-            } else if ((tipoDoVeiculo == TipoVeiculo.MOTO) && (vagasMoto[0] < vagasMoto[1])) {
+            } else if ((veiculo.getTipo() == TipoVeiculo.MOTO) && (vagasMoto[0] < vagasMoto[1])) {
                 System.out.println(" uma moto.");
                 this.vagasMoto[0]++;
             } else {
-                System.out.println(", mas ela não pode estacionar. Não há vagas para o veículo dela (" + tipoDoVeiculo + ").");
+                System.out.println(", mas ela não pode estacionar. Não há vagas para o veículo dela (" + veiculo.getTipo() + ").");
                 return false;
             }
         }
@@ -45,17 +44,17 @@ public class Shopping implements Estabelecimento {
             System.out.println("O cliente especificado não está no shopping.");
             return false;
         }
-
-        TipoVeiculo tipoDoVeiculo = pessoa.getVeiculo().getTipo();
+        
+        Veiculo veiculo = pessoa.getVeiculo();
         System.out.print("A pessoa foi embora");
 
-        if (tipoDoVeiculo == null) {
+        if (veiculo == null) {
             System.out.println(" a pé.");
         } else {
-            if (tipoDoVeiculo == TipoVeiculo.CARRO) {
+            if (veiculo.getTipo() == TipoVeiculo.CARRO) {
                 System.out.println(" de carro.");
                 this.vagasCarro[0]--;
-            } else if (tipoDoVeiculo == TipoVeiculo.MOTO) {
+            } else if (veiculo.getTipo() == TipoVeiculo.MOTO) {
                 System.out.println(" de moto.");
                 this.vagasMoto[0]--;
             }
@@ -139,14 +138,6 @@ public class Shopping implements Estabelecimento {
         return this.funcionarios.containsKey(((Funcionario) pessoa).getNome());
     }
 
-    public void adicionarVeiculo(Veiculo veiculo) {
-        this.veiculos.put(veiculo.getPlaca(), veiculo);
-    }
-
-    public void removerVeiculo(Veiculo veiculo) {
-        this.veiculos.remove(veiculo.getPlaca());
-    }
-
     private int getTotalDePessoas() {
         return (this.clientesEsporadicos.size() + this.clientesFrequentes.size() + this.funcionarios.size());
     }
@@ -209,14 +200,6 @@ public class Shopping implements Estabelecimento {
             i++;
         }
         return nomesFuncionarios;
-    }
-
-    public Veiculo getVeiculo(String placa) {
-        return veiculos.get(placa);
-    }
-
-    public String[] getPlacasVeiculos() {
-        return veiculos.keySet().toArray(new String[0]);
     }
 
     public Loja getLoja(String nome) {

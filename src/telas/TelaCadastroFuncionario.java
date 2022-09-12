@@ -4,6 +4,7 @@
  */
 package telas;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import trabalhotp1g17.Funcionario;
 import trabalhotp1g17.Loja;
@@ -14,13 +15,47 @@ import trabalhotp1g17.Veiculo;
  * @author Admin
  */
 public class TelaCadastroFuncionario extends javax.swing.JFrame {
-
     /**
      * Creates new form TelaCadastroCliente
      */
-    public TelaCadastroFuncionario() {
+    private final TelaPrincipal telaPrincipal;
+    
+    public TelaCadastroFuncionario(TelaPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
         initComponents();
+        carregarListaVeiculos();
+        carregarListaLojas();
         setLocationRelativeTo(null);
+    }
+    
+    private void carregarListaVeiculos() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Nenhum");
+        
+        if (telaPrincipal == null) {
+            caixaVeiculo.setModel(modelo);
+            return;
+        }
+        
+        for (String placa : telaPrincipal.getPlacasVeiculos()) {
+            modelo.addElement(placa);
+        }
+        caixaVeiculo.setModel(modelo);
+    }
+    
+    private void carregarListaLojas() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Nenhuma");
+        
+        if (telaPrincipal == null) {
+            caixaLoja.setModel(modelo);
+            return;
+        }
+        
+        for (String nome : TelaPrincipal.shopping.getLojas()) {
+            modelo.addElement(nome);
+        }
+        caixaLoja.setModel(modelo);
     }
 
     /**
@@ -179,6 +214,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        if (telaPrincipal == null) {
+            dispose();
+            return;
+        }
+        
         String nome = campoNome.getText();
         String cpf = campoCpf.getText();
         
@@ -187,13 +227,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             return;
         }
         String placa = (String) caixaVeiculo.getSelectedItem();
-        Veiculo veiculo = null;
+        Veiculo veiculo = telaPrincipal.getVeiculo(placa);
         String nomeLoja = (String) caixaLoja.getSelectedItem();
         Loja loja = TelaPrincipal.shopping.getLoja(nomeLoja);
         
         Funcionario funcionario = new Funcionario(nome, cpf, veiculo, loja);
-        TelaPrincipal.shopping.add(funcionario);
-        
+        telaPrincipal.adicionarPessoa(funcionario);
+        JOptionPane.showMessageDialog(this, "O funcionário " + nome + " foi cadastrado com sucesso." , "Cadastrar Funcionário", JOptionPane.PLAIN_MESSAGE);
+        telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
      
@@ -204,7 +245,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroFuncionario().setVisible(true);
+                new TelaCadastroFuncionario(null).setVisible(true);
             }
         });
     }

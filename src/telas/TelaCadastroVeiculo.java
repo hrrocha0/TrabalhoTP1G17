@@ -17,7 +17,10 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroCliente
      */
-    public TelaCadastroVeiculo() {
+    private final TelaPrincipal telaPrincipal;
+    
+    public TelaCadastroVeiculo(TelaPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -190,6 +193,11 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        if (telaPrincipal == null) {
+            dispose();
+            return;
+        }
+        
         TipoVeiculo tipo = botaoTipoCarro.isSelected() ? TipoVeiculo.CARRO : TipoVeiculo.MOTO;
 
         String marca = campoMarca.getText();
@@ -202,8 +210,9 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         }
 
         Veiculo veiculo = new Veiculo(tipo, marca, modelo, placa);
-        TelaPrincipal.shopping.adicionarVeiculo(veiculo);
+        telaPrincipal.adicionarVeiculo(veiculo);
         JOptionPane.showMessageDialog(this, "O veículo de placa " + placa + " foi cadastrado com sucesso.", "Cadastrar Veículo", JOptionPane.PLAIN_MESSAGE);
+        telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
@@ -214,7 +223,7 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroVeiculo().setVisible(true);
+                new TelaCadastroVeiculo(null).setVisible(true);
             }
         });
     }
