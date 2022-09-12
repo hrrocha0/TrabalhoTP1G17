@@ -4,7 +4,10 @@ import trabalhotp1g17.*;
 
 public class AlterarVagas extends javax.swing.JFrame {
 
-    public AlterarVagas() {
+    private final TelaPrincipal telaPrincipal;
+    
+    public AlterarVagas(TelaPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -100,6 +103,7 @@ public class AlterarVagas extends javax.swing.JFrame {
         int vagasCarro = Integer.parseInt(inputVagasCarro.getText());
         int vagasMoto = Integer.parseInt(inputVagasMoto.getText());
         TelaPrincipal.shopping.setVagasTotais(vagasCarro, vagasMoto);
+        telaPrincipal.updateEstacionamento();
         dispose();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 

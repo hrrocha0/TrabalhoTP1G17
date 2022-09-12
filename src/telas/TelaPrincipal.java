@@ -191,6 +191,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void updateExibicao(){
         carregarListaPessoas();
         carregarDadosPessoa();
+        updateNomesLojas();
         updateEstacionamento();
     }
     
@@ -215,6 +216,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelStatusShopping = new javax.swing.JLabel();
         btnAbrirShopping = new javax.swing.JButton();
         btnFecharShopping = new javax.swing.JButton();
+        labelPessoas = new javax.swing.JLabel();
         painelCategorias = new javax.swing.JPanel();
         painelPessoas = new javax.swing.JPanel();
         tituloPessoas = new javax.swing.JLabel();
@@ -244,7 +246,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         VagasMotoDisponiveis = new javax.swing.JLabel();
         VagasMotoOcupadas = new javax.swing.JLabel();
-        btnAtualizarVagasTotais = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
@@ -254,7 +255,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         textFuncionarios = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         nomesLojas = new javax.swing.JComboBox<>();
         barraMenu = new javax.swing.JMenuBar();
         menuClientes = new javax.swing.JMenu();
@@ -275,7 +275,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
-        menuGerenciarFuncionarios = new javax.swing.JMenuItem();
         menuEstacionamento = new javax.swing.JMenu();
         menuAlterarVagas = new javax.swing.JMenuItem();
 
@@ -314,6 +313,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        labelPessoas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelPessoas.setText("Pessoas dentro: 0");
+
         javax.swing.GroupLayout painelShoppingLayout = new javax.swing.GroupLayout(painelShopping);
         painelShopping.setLayout(painelShoppingLayout);
         painelShoppingLayout.setHorizontalGroup(
@@ -322,7 +324,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tituloShopping, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                    .addComponent(labelStatusShopping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelStatusShopping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelPessoas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnFecharShopping, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
@@ -334,14 +337,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelShoppingLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAbrirShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tituloShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFecharShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelShoppingLayout.createSequentialGroup()
-                        .addComponent(tituloShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelStatusShopping)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelStatusShopping))
-                    .addGroup(painelShoppingLayout.createSequentialGroup()
-                        .addComponent(btnAbrirShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnFecharShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(labelPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -574,13 +578,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        btnAtualizarVagasTotais.setText("Atualizar");
-        btnAtualizarVagasTotais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarVagasTotaisActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -589,22 +586,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAtualizarVagasTotais))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAtualizarVagasTotais))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -644,7 +636,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(textStatusLoja)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(textProdutosEmEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(textProdutosEmEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel8Layout.setVerticalGroup(
@@ -672,13 +664,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Atualizar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         nomesLojas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         nomesLojas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -694,25 +679,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nomesLojas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -878,14 +858,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuLojas.add(jMenu8);
 
-        menuGerenciarFuncionarios.setText("Gerenciar Funcionários");
-        menuGerenciarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuGerenciarFuncionariosActionPerformed(evt);
-            }
-        });
-        menuLojas.add(menuGerenciarFuncionarios);
-
         barraMenu.add(menuLojas);
 
         menuEstacionamento.setText("Estacionamento");
@@ -926,7 +898,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void updateNomesLojas(){
+    public void updateNomesLojas(){
         String[] nomes = shopping.getLojas(false);
         
         nomesLojas.removeAllItems();
@@ -961,16 +933,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void menuAlterarVagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlterarVagasActionPerformed
-        new AlterarVagas().setVisible(true);
+        new AlterarVagas(this).setVisible(true);
     }//GEN-LAST:event_menuAlterarVagasActionPerformed
 
     private void menuRemoverLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoverLojaActionPerformed
-        new RemoverLoja().setVisible(true);
+        new RemoverLoja(this).setVisible(true);
     }//GEN-LAST:event_menuRemoverLojaActionPerformed
-
-    private void menuGerenciarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGerenciarFuncionariosActionPerformed
-        new GerenciarFuncionarios().setVisible(true);
-    }//GEN-LAST:event_menuGerenciarFuncionariosActionPerformed
 
     private void menuCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastrarClienteActionPerformed
         new TelaCadastroCliente(this).setVisible(true);
@@ -981,7 +949,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuClientesActionPerformed
 
     private void menuCadastrarLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastrarLojaActionPerformed
-        new NovaLoja().setVisible(true);
+        new NovaLoja(this).setVisible(true);
     }//GEN-LAST:event_menuCadastrarLojaActionPerformed
 
     private void menuCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastrarFuncionarioActionPerformed
@@ -1004,10 +972,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaRemoverVeiculo(this).setVisible(true);
     }//GEN-LAST:event_menuRemoverVeiculoActionPerformed
 
-    private void btnAtualizarVagasTotaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarVagasTotaisActionPerformed
-        updateEstacionamento();
-    }//GEN-LAST:event_btnAtualizarVagasTotaisActionPerformed
-
     private void nomesLojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomesLojasActionPerformed
         Loja loja = shopping.getLoja((String) nomesLojas.getSelectedItem());
         if(loja != null){
@@ -1017,14 +981,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int funcionarios = (nomes == null)? 0: nomes.length;
             
             textStatusLoja.setText("Status: " + status);
-            textFuncionarios.setText("funcionários: " + funcionarios);
+            textFuncionarios.setText("Funcionários: " + funcionarios);
             textProdutosEmEstoque.setText("Estoque total: " + estoque[0] + " itens, totalizando " + estoque[1] + " peças");
         }
     }//GEN-LAST:event_nomesLojasActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        updateNomesLojas();        
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         if(nomesLojas.getItemAt(0).equals("Nenhuma loja cadastrada")){
@@ -1055,7 +1015,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (sucesso) {
             labelStatusShopping.setText("Status: aberto");
             painelCategorias.setEnabled(true);
-            updateExibicao();
         }
     }//GEN-LAST:event_btnAbrirShoppingActionPerformed
 
@@ -1064,7 +1023,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         if (sucesso) {
             labelStatusShopping.setText("Status: fechado");
-            updateExibicao();
         }
     }//GEN-LAST:event_btnFecharShoppingActionPerformed
 
@@ -1122,7 +1080,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não há lojas cadastradas!", "erro!", JOptionPane.PLAIN_MESSAGE);
             return;
         }
-        new IncluirEstoqueNovo().setVisible(true);        // TODO add your handling code here:
+        new IncluirEstoqueNovo(this).setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
@@ -1137,7 +1095,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             return;
         }
         
-        new IncluirEstoqueExistente().setVisible(true);        // TODO add your handling code here:
+        new IncluirEstoqueExistente(this).setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     public static void main(String args[]) {
@@ -1155,7 +1113,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel VagasMotoOcupadas;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnAbrirShopping;
-    private javax.swing.JButton btnAtualizarVagasTotais;
     private javax.swing.JRadioButton btnClientesEsporadicos;
     private javax.swing.JRadioButton btnClientesFrequentes;
     private javax.swing.JButton btnComprar;
@@ -1164,7 +1121,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnFuncionarios;
     private javax.swing.JButton btnSairDoShopping;
     private javax.swing.ButtonGroup btngrPessoas;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel10;
@@ -1187,6 +1143,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelEstacionamentoPessoa;
     private javax.swing.JLabel labelGastosPessoa;
     private javax.swing.JLabel labelLocalizacaoPessoa;
+    private javax.swing.JLabel labelPessoas;
     private javax.swing.JLabel labelStatusShopping;
     private javax.swing.JLabel labelVeiculoPessoa;
     private javax.swing.JComboBox<String> listaPessoas;
@@ -1198,7 +1155,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuClientes;
     private javax.swing.JMenu menuEstacionamento;
     private javax.swing.JMenu menuFuncionarios;
-    private javax.swing.JMenuItem menuGerenciarFuncionarios;
     private javax.swing.JMenu menuLojas;
     private javax.swing.JMenuItem menuRelatorioClientes;
     private javax.swing.JMenuItem menuRelatorioFuncionarios;
