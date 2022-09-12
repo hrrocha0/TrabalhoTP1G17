@@ -152,6 +152,15 @@ public class Loja implements Estabelecimento {
         }
         return funcs;
     }
+
+    public Produto getProduto(String nome){
+        for(Produto p : produtos){
+            if(p.getNome().equals(nome)){
+                return p;
+            }
+        }
+        return null;
+    }
     
     public String[] getProdutos(){
         if (produtos.isEmpty()){
@@ -164,4 +173,22 @@ public class Loja implements Estabelecimento {
         }
         return prods;
     }
+
+    public ArrayList<Produto> getProdutos(boolean somenteItensEmEstoque){
+        
+        if(somenteItensEmEstoque){
+            ArrayList<Produto> estoque = new ArrayList<>();
+            
+            for(Produto p : produtos){
+                if (p.getQuantidade() > 0){
+                    estoque.add(p);
+                }
+            }
+            return estoque;
+        }
+        return this.produtos;
+    }
 }
+
+
+

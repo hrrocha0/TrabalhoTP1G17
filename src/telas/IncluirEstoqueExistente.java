@@ -1,6 +1,7 @@
 
 package telas;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import trabalhotp1g17.*;
 
@@ -32,9 +33,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
         }
         
         selectNomesLojas.setSelectedIndex(0);
-        
-        //System.out.println(selectNomesLojas.getItemAt(0));
-        
+
         atualizaLoja();
         atualizaListaDeProdutos();
     }
@@ -231,10 +230,10 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
     public void atualizaListaDeProdutos(){
         if(loja != null){
             selectNomesProdutos.removeAllItems();
-            nomesProdutos = loja.getProdutos();
+            ArrayList<Produto> produtos = loja.getProdutos(false);
         
-            for(int i = 0; i < nomesProdutos.length; i++){
-                selectNomesProdutos.addItem(nomesProdutos[i]);
+            for(Produto p : produtos){
+                selectNomesProdutos.addItem(p.getNome());
             }
         }
     }
