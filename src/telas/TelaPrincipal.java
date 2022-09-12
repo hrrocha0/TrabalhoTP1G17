@@ -918,7 +918,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
  
     
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
-        // TODO add your handling code here:
+        Pessoa cliente;
+        
+        if (btnClientesEsporadicos.isSelected()) {
+            cliente = clientesEsporadicos.get(listaPessoas.getSelectedIndex());
+        } else if (btnClientesFrequentes.isSelected()) {
+            cliente = clientesFrequentes.get((String) listaPessoas.getSelectedItem());
+        } else {
+            cliente = funcionarios.get((String) listaPessoas.getSelectedItem());
+        }
+        new TelaComprar(this, cliente).setVisible(true);
     }//GEN-LAST:event_btnComprarActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1016,6 +1025,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             labelStatusShopping.setText("Status: aberto");
             painelCategorias.setEnabled(true);
         }
+        updateExibicao();
     }//GEN-LAST:event_btnAbrirShoppingActionPerformed
 
     private void btnFecharShoppingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharShoppingActionPerformed
@@ -1024,6 +1034,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (sucesso) {
             labelStatusShopping.setText("Status: fechado");
         }
+        updateExibicao();
     }//GEN-LAST:event_btnFecharShoppingActionPerformed
 
     private void btnClientesFrequentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesFrequentesActionPerformed

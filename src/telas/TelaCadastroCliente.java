@@ -38,7 +38,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         }
         
         for (String placa : telaPrincipal.getPlacasVeiculos()) {
-            modelo.addElement(placa);
+            Veiculo veiculo = telaPrincipal.getVeiculo(placa);
+            modelo.addElement(placa + " (" + veiculo.getMarca() + " " + veiculo.getModelo() + ")");
         }
         caixaVeiculo.setModel(modelo);
     }
