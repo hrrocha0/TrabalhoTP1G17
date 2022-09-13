@@ -1,11 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package telas;
-
-import trabalhotp1g17.ClienteEsporadico;
-import trabalhotp1g17.ClienteFrequente;
 
 import javax.swing.*;
 import trabalhotp1g17.Pessoa;
@@ -33,8 +26,8 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         
         if (botaoClienteEsporadico.isSelected()) {
-            for (int i = 1; i <= telaPrincipal.getQtdClientesEsporadicos(); i++) {
-                modelo.addElement("Cliente " + i);
+            for (int i = 0; i < telaPrincipal.shopping.getClientesEsporadicos().size(); i++) {
+                modelo.addElement("Cliente " + telaPrincipal.shopping.getClientesEsporadicos().get(i).getID());
             }
         } else {
             for (String nome : telaPrincipal.getNomesClientesFrequentes()) {
@@ -71,7 +64,6 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         labelCliente = new javax.swing.JLabel();
         caixaCliente = new javax.swing.JComboBox<>();
         labelAviso = new javax.swing.JLabel();
-        labelInfoCE = new javax.swing.JLabel();
         botaoRemover = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
 
@@ -115,8 +107,6 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         labelAviso.setText("Atenção: Esta ação não pode ser desfeita.");
         labelAviso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        labelInfoCE.setText("Ao remover um cliente esporádico, os IDs de outros clientes esporádicos serão reajustados.");
-
         botaoRemover.setText("Remover");
         botaoRemover.setFocusable(false);
         botaoRemover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -147,21 +137,18 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
                         .addComponent(botaoRemover)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoCancelar))
-                    .addComponent(labelInfoCE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelDadosLayout.createSequentialGroup()
                         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(labelTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(caixaCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(painelDadosLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(caixaCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(painelDadosLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoClienteFrequente)
                                 .addGap(18, 18, 18)
                                 .addComponent(botaoClienteEsporadico)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 246, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
@@ -178,9 +165,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
                     .addComponent(caixaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(labelAviso)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoCE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoRemover)
                     .addComponent(botaoCancelar))
@@ -245,6 +230,8 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             pessoa = telaPrincipal.getClienteFrequente((String) caixaCliente.getSelectedItem());
         }
         telaPrincipal.removerPessoa(pessoa);
+        telaPrincipal.shopping.aoSair(pessoa);
+        telaPrincipal.shopping.remove(pessoa);
         JOptionPane.showMessageDialog(this, "O cliente " + (String) caixaCliente.getSelectedItem() + " foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();
@@ -283,7 +270,6 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> caixaCliente;
     private javax.swing.JLabel labelAviso;
     private javax.swing.JLabel labelCliente;
-    private javax.swing.JLabel labelInfoCE;
     private javax.swing.JLabel labelTipo;
     private javax.swing.JPanel painelDados;
     private javax.swing.JPanel painelPrincipal;

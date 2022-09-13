@@ -61,7 +61,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
         labelQuantidade = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Atualizar um item existente");
+        setTitle("Abastecer um item existente");
 
         jLabel1.setText("Loja:");
 
@@ -71,7 +71,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
 
         jLabel4.setText("Preço (R$):");
 
-        radioQuantidade.setText("Não desejo atualizar a quantidade");
+        radioQuantidade.setText("Não desejo ampliar a quantidade");
         radioQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioQuantidadeActionPerformed(evt);
@@ -94,7 +94,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
             }
         });
 
-        radioPreco.setText("Não desejo atualizar o preço");
+        radioPreco.setText("Não desejo alterar o preço");
         radioPreco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioPrecoActionPerformed(evt);

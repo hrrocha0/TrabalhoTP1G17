@@ -249,7 +249,8 @@ public class TelaComprar extends javax.swing.JFrame {
         boolean sucesso = cliente.comprar(produto, loja, TelaPrincipal.shopping);
         
         if (sucesso) {
-            telaPrincipal.updateExibicao();
+            telaPrincipal.carregarDadosPessoa();
+            telaPrincipal.updateDadosLoja();
             JOptionPane.showMessageDialog(this, "Compra efetuada com sucesso.\nProduto: " + produto.getNome() + "\nQuantidade: " + produto.getQuantidade() + "\nPreço: R$" + produto.getPreco() * produto.getQuantidade(), "Comprar Produto", JOptionPane.PLAIN_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Não foi possível efetuar a compra.", "Erro: Comprar Produto", JOptionPane.ERROR_MESSAGE);

@@ -8,6 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import trabalhotp1g17.Funcionario;
+import trabalhotp1g17.Loja;
 
 /**
  * @author Admin
@@ -183,7 +184,11 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
             return;
         }
         Funcionario funcionario = telaPrincipal.getFuncionario((String) caixaFuncionario.getSelectedItem());
+        Loja loja = funcionario.getLoja();
+        TelaPrincipal.shopping.getLoja(loja.getNome()).demitir(funcionario);
         telaPrincipal.removerPessoa(funcionario);
+        telaPrincipal.shopping.remove(funcionario);
+        
         JOptionPane.showMessageDialog(this, "O funcionário de nome " + funcionario.getNome() + " foi removido com sucesso.", "Remover Funcionário", JOptionPane.PLAIN_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();

@@ -250,11 +250,14 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             
             pessoa = new ClienteFrequente(nome, cpf, veiculo);
         } else {
-            nome = "Cliente " + (telaPrincipal.getQtdClientesEsporadicos() + 1);
-            pessoa = new ClienteEsporadico(veiculo);
+            int ID = telaPrincipal.IDesporadico + 1;
+            nome = ID + "";
+            pessoa = new ClienteEsporadico(veiculo, ID);
+            telaPrincipal.IDesporadico++;
         }
         telaPrincipal.adicionarPessoa(pessoa);
-        JOptionPane.showMessageDialog(this, "O cliente " + nome + " foi cadastrado com sucesso." , "Cadastrar Cliente", JOptionPane.PLAIN_MESSAGE);
+        telaPrincipal.shopping.add(pessoa);
+        JOptionPane.showMessageDialog(this, "O cliente " + nome + " foi cadastrado com sucesso." , "Cadastrar Cliente", JOptionPane.INFORMATION_MESSAGE);
         telaPrincipal.updateExibicao();   
         dispose();
     }//GEN-LAST:event_botaoCadastrarActionPerformed

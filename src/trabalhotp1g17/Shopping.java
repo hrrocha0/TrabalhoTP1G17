@@ -33,7 +33,7 @@ public class Shopping implements Estabelecimento {
                 return false;
             }
         }
-        add(pessoa);
+        pessoa.entrarNoShopping();
         return true;
     }
 
@@ -57,7 +57,7 @@ public class Shopping implements Estabelecimento {
                 this.vagasMoto[0]--;
             }
         }
-        remove(pessoa);
+        pessoa.sairDoShopping();
         return true;
     }
 
@@ -79,13 +79,16 @@ public class Shopping implements Estabelecimento {
 
     @Override
     public boolean fechar() {
-        if (getTotalDePessoas() == 0) {
+        int[] total = getTotalDePessoas(true);
+        int tot = total[0] + total[1] + total[2];
+        
+        if (tot == 0) {
             System.out.println("O Shopping fechou.");
             this.aberto = false;
             return true;
         }
 
-        System.out.println("O Shopping não pode ser fechado, ainda há " + getTotalDePessoas() + " pessoas dentro.");
+        System.out.println("O Shopping não pode ser fechado, ainda tem gente dentro.");
         return false;
     }
 
@@ -136,8 +139,33 @@ public class Shopping implements Estabelecimento {
         return this.funcionarios.containsKey(((Funcionario) pessoa).getNome());
     }
 
-    private int getTotalDePessoas() {
-        return (this.clientesEsporadicos.size() + this.clientesFrequentes.size() + this.funcionarios.size());
+    public int[] getTotalDePessoas(boolean dentroDoShopping) {
+        if(dentroDoShopping){
+            int cliEsp = 0, cliFreq = 0, func = 0;
+            
+            for (ClienteEsporadico ce : clientesEsporadicos){
+                if(ce.isDentroDoShopping()){
+                    cliEsp++;
+                }
+            }
+            
+            for (ClienteFrequente cf : clientesFrequentes.values()){
+                if(cf.isDentroDoShopping()){
+                    cliFreq++;
+                }
+            }
+            
+            for (Funcionario f : funcionarios.values()){
+                if(f.isDentroDoShopping()){
+                    func++;
+                }    
+            }
+        int[] total = {cliEsp, cliFreq, func};
+        return total;     
+        }
+        
+        int[] total = {this.clientesEsporadicos.size(), this.clientesFrequentes.size(), this.funcionarios.size()};
+        return total;
     }
 
     public boolean setVagasTotais(int vagasDeCarro, int vagasDeMoto) {
@@ -164,6 +192,10 @@ public class Shopping implements Estabelecimento {
 
     public ClienteEsporadico getClienteEsporadico(int id) {
         return clientesEsporadicos.get(id);
+    }
+    
+    public ArrayList<ClienteEsporadico> getClientesEsporadicos(){
+        return clientesEsporadicos;
     }
 
     public int getQtdClientesEsporadicos() {
@@ -270,8 +302,7 @@ public class Shopping implements Estabelecimento {
         }
         return nomesLojas;
     }
-    
-    
+      
     public String[] getLojasAbertas(boolean somenteLojasComProdutos) {
         
         if(somenteLojasComProdutos){                                            //o código faz este trecho se desejarmos saber a lista das lojas com produtos cadastrados
@@ -326,7 +357,6 @@ public class Shopping implements Estabelecimento {
             
         return nomesLojas;
     }
-    
     
     public boolean abasteceEstoqueDaLoja(String nomeLoja, Produto produto){
         lojas.get(nomeLoja).abastecer(produto);

@@ -106,23 +106,19 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="botaoCancelar" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="labelInfoCE" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="labelTipo" max="32767" attributes="0"/>
                                   <Component id="labelCliente" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="caixaCliente" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="caixaCliente" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Component id="botaoClienteFrequente" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="botaoClienteEsporadico" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="246" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -147,9 +143,7 @@
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Component id="labelAviso" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelInfoCE" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="32767" attributes="0"/>
+                      <EmptySpace pref="41" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="botaoRemover" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -211,11 +205,6 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Aten&#xe7;&#xe3;o: Esta a&#xe7;&#xe3;o n&#xe3;o pode ser desfeita."/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="labelInfoCE">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ao remover um cliente espor&#xe1;dico, os IDs de outros clientes espor&#xe1;dicos ser&#xe3;o reajustados."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="botaoRemover">
