@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="botoesTipo">
+    <Component class="javax.swing.ButtonGroup" name="btngTipo">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -56,7 +56,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="titulo" max="-2" attributes="0"/>
+                      <Component id="txtTitulo" max="-2" attributes="0"/>
                       <Component id="painelDados" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -67,7 +67,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="titulo" max="-2" attributes="0"/>
+                  <Component id="txtTitulo" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="painelDados" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="titulo">
+        <Component class="javax.swing.JLabel" name="txtTitulo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
@@ -102,29 +102,29 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelModelo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelPlaca" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelMarca" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelTipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtModelo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtPlaca" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtMarca" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTipo" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="botaoTipoCarro" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnCarro" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="botaoTipoMoto" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnMoto" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="238" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="campoMarca" max="32767" attributes="0"/>
-                                  <Component id="campoModelo" max="32767" attributes="0"/>
-                                  <Component id="campoPlaca" max="32767" attributes="0"/>
+                                  <Component id="fldMarca" max="32767" attributes="0"/>
+                                  <Component id="fldModelo" max="32767" attributes="0"/>
+                                  <Component id="fldPlaca" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="botaoCadastrar" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCadastrar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="botaoCancelar" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -136,29 +136,29 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoTipoCarro" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoTipoMoto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCarro" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnMoto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelMarca" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoMarca" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtMarca" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fldMarca" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelModelo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fldModelo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fldPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="botaoCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -166,68 +166,68 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="labelTipo">
+            <Component class="javax.swing.JLabel" name="txtTipo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Tipo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="botaoTipoCarro">
+            <Component class="javax.swing.JRadioButton" name="btnCarro">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="botoesTipo"/>
+                  <ComponentRef name="btngTipo"/>
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Carro"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="botaoTipoMoto">
+            <Component class="javax.swing.JRadioButton" name="btnMoto">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="botoesTipo"/>
+                  <ComponentRef name="btngTipo"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Moto"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelMarca">
+            <Component class="javax.swing.JLabel" name="txtMarca">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Marca:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoMarca">
+            <Component class="javax.swing.JTextField" name="fldMarca">
             </Component>
-            <Component class="javax.swing.JLabel" name="labelModelo">
+            <Component class="javax.swing.JLabel" name="txtModelo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modelo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoModelo">
+            <Component class="javax.swing.JTextField" name="fldModelo">
             </Component>
-            <Component class="javax.swing.JLabel" name="labelPlaca">
+            <Component class="javax.swing.JLabel" name="txtPlaca">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Placa:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoPlaca">
+            <Component class="javax.swing.JTextField" name="fldPlaca">
             </Component>
-            <Component class="javax.swing.JButton" name="botaoCadastrar">
+            <Component class="javax.swing.JButton" name="btnCadastrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="botaoCancelar">
+            <Component class="javax.swing.JButton" name="btnCancelar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

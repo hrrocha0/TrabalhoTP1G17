@@ -44,7 +44,7 @@ public abstract class Pessoa {
         if (!shopping.isAberto()) {
             return false;
         }
-        if (!dentroDoShopping) {
+        if ( !dentroDoShopping || !loja.vender(produto)) {
             return false;
         }
         if (!loja.vender(produto)) {
@@ -53,11 +53,9 @@ public abstract class Pessoa {
         produtosComprados.add(produto);
         gastoTotal += (produto.getPreco()*produto.getQuantidade());
 
-        if (gastoTotal >= getValorIsencao()) {
+        if (ticket != null && gastoTotal >= getValorIsencao()) {
             ticket.setIsento(true);
         }
-        System.out.println("A compra foi realizada com sucesso.");
-
         return true;
     }
 
@@ -67,12 +65,9 @@ public abstract class Pessoa {
      delega a lógica para o estabelecimento e retorna true.
      */
     public void entrarNoShopping() {
-        if (dentroDoShopping) {
-            System.out.println("A pessoa já está no estabelecimento.");
-            return;
+        if (!dentroDoShopping) {
+            dentroDoShopping = true;
         }
-        dentroDoShopping = true;
-        System.out.println("A pessoa entrou no estabelecimento.");
     }
 
     /*
@@ -81,13 +76,10 @@ public abstract class Pessoa {
      retornando true.
      */
     public void sairDoShopping() {
-        if (!dentroDoShopping) {
-            System.out.println("A pessoa não está no estabelecimento.");
-            return;
+        if (dentroDoShopping) {
+            dentroDoShopping = false;
+            gastoTotal = 0.00;
         }
-        dentroDoShopping = false;
-        System.out.println("A pessoa saiu do estabelecimento.");
-        this.gastoTotal = 0.00;
     }
 
     // Getters e Setters

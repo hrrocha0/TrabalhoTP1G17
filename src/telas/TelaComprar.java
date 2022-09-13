@@ -1,7 +1,5 @@
-
 package telas;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -9,25 +7,29 @@ import trabalhotp1g17.Loja;
 import trabalhotp1g17.Pessoa;
 import trabalhotp1g17.Produto;
 
-
+// Tela responsável por registrar a compra de um produto por uma pessoa.
 public class TelaComprar extends javax.swing.JFrame {
-    private final TelaPrincipal telaPrincipal;
-    private final Pessoa cliente;
+    private final TelaPrincipal telaPrincipal;  // Referência da tela principal
+    private final Pessoa cliente;   // O cliente que irá comprar o produto
+    private Loja loja;  // A loja que vende o produto
     
-    private String[] nomesLojas;
-    private String[] nomesProdutos;
-    private Loja loja;
+    // Construtor
     
     public TelaComprar(TelaPrincipal telaPrincipal, Pessoa cliente) {
         this.telaPrincipal = telaPrincipal;
         this.cliente = cliente;
         initComponents();
         carregarListaLojas();
-        lstLojas.setSelectedIndex(0);
-        atualizaListaDeProdutos();
+        selectLoja.setSelectedIndex(0);
+        carregarListaProdutos();
         setLocationRelativeTo(null);
     }
     
+    /*
+    Atualiza a exibição da lista de lojas, adicionando como elementos
+    os nomes das lojas. Após definir o modelo da lista, habilita e desabilita
+    os elementos da tela de acordo com a funcionalidade desejada.
+    */
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         
@@ -38,35 +40,33 @@ public class TelaComprar extends javax.swing.JFrame {
                 modelo.addElement(nome);
             }
         }
-        lstLojas.setModel(modelo);
-        lstLojas.setEnabled(modelo.getSize() > 0);
-        lstProdutos.setEnabled(modelo.getSize() > 0);
+        selectLoja.setModel(modelo);
+        selectLoja.setEnabled(modelo.getSize() > 0);
+        selectProduto.setEnabled(modelo.getSize() > 0);
     }
     
     private void carregarListaProdutos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        loja = TelaPrincipal.shopping.getLoja((String) lstLojas.getSelectedItem());
+        loja = TelaPrincipal.shopping.getLoja((String) selectLoja.getSelectedItem());
 
         if (loja == null) {
-            lstProdutos.setModel(modelo);
+            selectProduto.setModel(modelo);
             return;
         }
-        
         ArrayList<Produto> produtos = loja.getProdutos(true);
         String[] nomesProdutos = new String[produtos.size()];
         int i = 0;
         
         for (Produto p : produtos){
             nomesProdutos[i] = p.getNome() + " [R$ " + p.getPreco() + "; " + p.getQuantidade() + " itens]";
-        }
-        
+        }   
         if (nomesProdutos != null) {
             for (String nome : nomesProdutos) {
                 modelo.addElement(nome);
             }
         } 
-        lstProdutos.setModel(modelo);
-        lstProdutos.setEnabled(modelo.getSize() > 0);
+        selectProduto.setModel(modelo);
+        selectProduto.setEnabled(modelo.getSize() > 0);
     }
 
 
@@ -75,12 +75,12 @@ public class TelaComprar extends javax.swing.JFrame {
     private void initComponents() {
 
         painelPrincipal = new javax.swing.JPanel();
-        txtComprar = new javax.swing.JLabel();
+        txtTitulo = new javax.swing.JLabel();
         painelDados = new javax.swing.JPanel();
         txtLoja = new javax.swing.JLabel();
-        lstLojas = new javax.swing.JComboBox<>();
+        selectLoja = new javax.swing.JComboBox<>();
         txtProduto = new javax.swing.JLabel();
-        lstProdutos = new javax.swing.JComboBox<>();
+        selectProduto = new javax.swing.JComboBox<>();
         txtQuantidade = new javax.swing.JLabel();
         fldQuantidade = new javax.swing.JTextField();
         btnComprar = new javax.swing.JButton();
@@ -91,26 +91,26 @@ public class TelaComprar extends javax.swing.JFrame {
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        txtComprar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtComprar.setText("Comprar");
-        txtComprar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        txtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTitulo.setText("Comprar");
+        txtTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         txtLoja.setText("Loja (aberta):");
 
-        lstLojas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        lstLojas.setFocusable(false);
-        lstLojas.addActionListener(new java.awt.event.ActionListener() {
+        selectLoja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectLoja.setFocusable(false);
+        selectLoja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lstLojasActionPerformed(evt);
+                selectLojaActionPerformed(evt);
             }
         });
 
         txtProduto.setText("Produto (em estoque):");
 
-        lstProdutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        lstProdutos.setFocusable(false);
+        selectProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectProduto.setFocusable(false);
 
         txtQuantidade.setText("Quantidade:");
 
@@ -151,8 +151,8 @@ public class TelaComprar extends javax.swing.JFrame {
                             .addComponent(txtLoja, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lstProdutos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lstLojas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(selectProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(selectLoja, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(painelDadosLayout.createSequentialGroup()
                                 .addComponent(fldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 192, Short.MAX_VALUE)))))
@@ -163,12 +163,12 @@ public class TelaComprar extends javax.swing.JFrame {
             .addGroup(painelDadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lstLojas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectLoja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLoja))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProduto)
-                    .addComponent(lstProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selectProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtQuantidade)
@@ -187,7 +187,7 @@ public class TelaComprar extends javax.swing.JFrame {
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtComprar)
+                    .addComponent(txtTitulo)
                     .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -195,7 +195,7 @@ public class TelaComprar extends javax.swing.JFrame {
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtComprar)
+                .addComponent(txtTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -226,17 +226,15 @@ public class TelaComprar extends javax.swing.JFrame {
             dispose();
             return;
         }
-        
-        String item = lstProdutos.getItemAt(lstProdutos.getSelectedIndex());               
-        loja = TelaPrincipal.shopping.getLoja(lstLojas.getItemAt(lstLojas.getSelectedIndex()));
-        
+        String item = selectProduto.getItemAt(selectProduto.getSelectedIndex());               
+        loja = TelaPrincipal.shopping.getLoja(selectLoja.getItemAt(selectLoja.getSelectedIndex()));
         String[] nomePrecoQuantidade = item.split(" ");
         Produto estoque = loja.getProduto(nomePrecoQuantidade[0]);
-        
         int quantidade;
         
         try {
             quantidade = Integer.parseInt(fldQuantidade.getText());
+            
             if (quantidade > estoque.getQuantidade()){
                 JOptionPane.showMessageDialog(this, "O número de itens comprados deve ser\nmenor que " + estoque.getQuantidade() + " (estoque do produto \'" + estoque.getNome() + "\').", "Erro: Comprar Produto", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -245,7 +243,7 @@ public class TelaComprar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Digite um número válido.", "Erro: Comprar Produto", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Produto produto = new Produto(estoque.getNome(), estoque.getPreco(), quantidade); 
+        Produto produto = new Produto(estoque.getNome(), estoque.getPreco(), quantidade);
         boolean sucesso = cliente.comprar(produto, loja, TelaPrincipal.shopping);
         
         if (sucesso) {
@@ -258,42 +256,39 @@ public class TelaComprar extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnComprarActionPerformed
 
-    private void lstLojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstLojasActionPerformed
+    private void selectLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectLojaActionPerformed
         atualizaLoja();
         atualizaListaDeProdutos();
-    }//GEN-LAST:event_lstLojasActionPerformed
+    }//GEN-LAST:event_selectLojaActionPerformed
 
 
     public void atualizaLoja(){
-        String nomeLoja = lstLojas.getItemAt(lstLojas.getSelectedIndex());
-        System.out.println(nomeLoja);
+        String nomeLoja = (String) selectLoja.getSelectedItem();
         loja = TelaPrincipal.shopping.getLoja(nomeLoja);
     }
     
     public void atualizaListaDeProdutos(){
         if(loja != null){
-            lstProdutos.removeAllItems();
+            selectProduto.removeAllItems();
             ArrayList<Produto> produtos = loja.getProdutos(true);               //separa, dentre os produtos da loja, aqueles que possuem estoque
 
             for(Produto p : produtos){
-                lstProdutos.addItem(p.getNome() + " [R$ " + p.getPreco() + ", " + p.getQuantidade() + " itens]");
+                selectProduto.addItem(p.getNome() + " [R$ " + p.getPreco() + ", " + p.getQuantidade() + " itens]");
             }
         }
     }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnComprar;
     private javax.swing.JTextField fldQuantidade;
-    private javax.swing.JComboBox<String> lstLojas;
-    private javax.swing.JComboBox<String> lstProdutos;
     private javax.swing.JPanel painelDados;
     private javax.swing.JPanel painelPrincipal;
-    private javax.swing.JLabel txtComprar;
+    private javax.swing.JComboBox<String> selectLoja;
+    private javax.swing.JComboBox<String> selectProduto;
     private javax.swing.JLabel txtLoja;
     private javax.swing.JLabel txtProduto;
     private javax.swing.JLabel txtQuantidade;
+    private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

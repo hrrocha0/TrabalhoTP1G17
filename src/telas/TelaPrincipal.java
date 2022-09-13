@@ -14,7 +14,6 @@ import javax.swing.Timer;
 import trabalhotp1g17.*;
 
 public class TelaPrincipal extends javax.swing.JFrame {
-    
     public static int IDesporadico = 0;
     public static String hora = "00:00";
     public static Shopping shopping = new Shopping();
@@ -471,9 +470,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelShoppingLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tituloShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAbrirShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFecharShopping))
@@ -664,14 +662,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listaPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEntrarNoShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEntrarNoShopping)
                 .addGap(18, 18, 18)
                 .addComponent(btnComprar)
                 .addGap(18, 18, 18)
-                .addComponent(btnSairDoShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(painelDadosPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnSairDoShopping)
+                .addGap(18, 18, 18)
+                .addComponent(painelDadosPessoas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         painelEstacionamento.setBackground(new java.awt.Color(200, 200, 200));
@@ -836,6 +834,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnAbrirLoja.setText("Abrir");
         btnAbrirLoja.setEnabled(false);
+        btnAbrirLoja.setFocusable(false);
         btnAbrirLoja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirLojaActionPerformed(evt);
@@ -844,6 +843,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnFecharLoja.setText("Fechar");
         btnFecharLoja.setEnabled(false);
+        btnFecharLoja.setFocusable(false);
         btnFecharLoja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFecharLojaActionPerformed(evt);

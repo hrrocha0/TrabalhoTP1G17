@@ -2,11 +2,13 @@ package trabalhotp1g17;
 
 //Subclasse de Pessoa. Não possui nenhum método ou atributo adicional e tem como valor de isenção R$100,00.
 public class ClienteEsporadico extends Pessoa {
-    private final int ID;
+    private int id; // O id do cliente esporádico. É usado para listá-los e diferenciá-los
     
-    public ClienteEsporadico(Veiculo veiculo, int ID) {
+    // Construtor
+    
+    public ClienteEsporadico(Veiculo veiculo, int id) {
         this.veiculo = veiculo;
-        this.ID = ID;
+        this.id = id;
     }
 
     // Método abstrato de Pessoa
@@ -15,7 +17,9 @@ public class ClienteEsporadico extends Pessoa {
         return 100.0;
     }
     
+    // Getters e Setters
+    
     public int getID(){
-        return this.ID;
+        return this.id;
     }
 }

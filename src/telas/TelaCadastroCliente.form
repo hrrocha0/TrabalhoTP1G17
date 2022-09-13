@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="botoesTipo">
+    <Component class="javax.swing.ButtonGroup" name="btngTipo">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -56,7 +56,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="titulo" alignment="0" max="-2" attributes="0"/>
+                      <Component id="txtTitulo" alignment="0" max="-2" attributes="0"/>
                       <Component id="painelDados" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -67,7 +67,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="titulo" max="-2" attributes="0"/>
+                  <Component id="txtTitulo" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="painelDados" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="titulo">
+        <Component class="javax.swing.JLabel" name="txtTitulo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
@@ -102,28 +102,28 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="botaoCadastrar" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCadastrar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="botaoCancelar" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelVeiculo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelCpf" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelTipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtVeiculo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCpf" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTipo" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="botaoTipoFrequente" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnFrequente" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="botaoTipoEsporadico" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnEsporadico" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="campoCpf" alignment="0" pref="362" max="32767" attributes="0"/>
-                                  <Component id="campoNome" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="caixaVeiculo" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="fldCpf" alignment="0" pref="362" max="32767" attributes="0"/>
+                                  <Component id="fldNome" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="selectVeiculo" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -136,29 +136,29 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoTipoEsporadico" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoTipoFrequente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEsporadico" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnFrequente" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fldNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelCpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoCpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fldCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="caixaVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="selectVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="botaoCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -166,56 +166,56 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="labelTipo">
+            <Component class="javax.swing.JLabel" name="txtTipo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Tipo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="botaoTipoEsporadico">
+            <Component class="javax.swing.JRadioButton" name="btnEsporadico">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="botoesTipo"/>
+                  <ComponentRef name="btngTipo"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Espor&#xe1;dico"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoTipoEsporadicoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEsporadicoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="botaoTipoFrequente">
+            <Component class="javax.swing.JRadioButton" name="btnFrequente">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="botoesTipo"/>
+                  <ComponentRef name="btngTipo"/>
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Frequente"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoTipoFrequenteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFrequenteActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelNome">
+            <Component class="javax.swing.JLabel" name="txtNome">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nome:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoNome">
+            <Component class="javax.swing.JTextField" name="fldNome">
             </Component>
-            <Component class="javax.swing.JLabel" name="labelCpf">
+            <Component class="javax.swing.JLabel" name="txtCpf">
               <Properties>
                 <Property name="text" type="java.lang.String" value="CPF:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campoCpf">
+            <Component class="javax.swing.JTextField" name="fldCpf">
             </Component>
-            <Component class="javax.swing.JLabel" name="labelVeiculo">
+            <Component class="javax.swing.JLabel" name="txtVeiculo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ve&#xed;culo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="caixaVeiculo">
+            <Component class="javax.swing.JComboBox" name="selectVeiculo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
@@ -228,23 +228,23 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="botaoCadastrar">
+            <Component class="javax.swing.JButton" name="btnCadastrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="botaoCancelar">
+            <Component class="javax.swing.JButton" name="btnCancelar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

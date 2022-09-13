@@ -86,7 +86,7 @@ public class RemoverLoja extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nome = selectNomesLojas.getItemAt(selectNomesLojas.getSelectedIndex());
+        String nome = (String) selectNomesLojas.getSelectedItem();
         TelaPrincipal.shopping.remove(TelaPrincipal.shopping.getLoja(nome));
         telaPrincipal.updateNomesLojas();
         dispose();

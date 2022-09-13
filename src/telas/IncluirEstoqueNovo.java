@@ -151,7 +151,8 @@ public class IncluirEstoqueNovo extends javax.swing.JFrame {
         catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Revise os dados. A quantidade deve ser inteira e o preço deve ser inteiro ou fracionário.", "erro!", JOptionPane.ERROR_MESSAGE);
             return;
-        }      
+        }
+        nomeProduto = nomeProduto.replace(' ', '-');
         TelaPrincipal.shopping.abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
         telaPrincipal.updateNomesLojas();
         dispose();

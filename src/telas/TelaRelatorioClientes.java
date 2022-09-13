@@ -45,7 +45,7 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
 
         for (int i = 0; i < telaPrincipal.getQtdClientesEsporadicos(); i++) {
             ClienteEsporadico clienteEsporadico = telaPrincipal.getClienteEsporadico(i);
-            String nome = "Cliente " + (i + 1);
+            String nome = "Cliente " + clienteEsporadico.getID();
             Veiculo veiculo = clienteEsporadico.getVeiculo();
             double gastoTotal = clienteEsporadico.getGastoTotal();
 
