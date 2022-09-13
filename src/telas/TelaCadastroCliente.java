@@ -230,9 +230,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         Veiculo veiculo = null;
         
         if (!placa.equals("Nenhum")) {
-            String[] placaMarcaModelo = caixaVeiculo.getItemAt(caixaVeiculo.getSelectedIndex()).split(" ");
+            String[] placaMarcaModelo = ((String) caixaVeiculo.getSelectedItem()).split(" ");
             veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
-            System.out.println(veiculo.getModelo());
         } 
         String nome;
         Pessoa pessoa;
@@ -245,9 +244,10 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Cliente", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
-            // TODO: verificar se já existe cliente com o mesmo nome ou cpf.
-            
+            if (telaPrincipal.getClienteFrequente(nome) != null || telaPrincipal.getFuncionario(nome) != null) {
+                JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: Cadastrar Cliente", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             pessoa = new ClienteFrequente(nome, cpf, veiculo);
         } else {
             nome = "Cliente " + (telaPrincipal.getQtdClientesEsporadicos() + 1);

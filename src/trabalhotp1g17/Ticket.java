@@ -44,4 +44,8 @@ public class Ticket {
     public boolean isIsento(){
         return this.isento;
     }
+
+    public void setIsento(boolean isento) {
+        this.isento = isento;
+    }
 }

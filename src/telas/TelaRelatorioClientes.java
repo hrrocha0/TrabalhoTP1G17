@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableModel;
 
 import trabalhotp1g17.ClienteEsporadico;
 import trabalhotp1g17.ClienteFrequente;
-import trabalhotp1g17.Estabelecimento;
 import trabalhotp1g17.Veiculo;
 
 import java.io.FileWriter;
@@ -32,7 +31,7 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
     }
 
     private void carregarTabelaClientes() {
-        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Nome", "CPF", "Veículo", "Localização", "Gasto Total"}, 0) {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Nome", "CPF", "Veículo", "Gasto Total"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;

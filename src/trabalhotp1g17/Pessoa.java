@@ -52,6 +52,10 @@ public abstract class Pessoa {
         }
         produtosComprados.add(produto);
         gastoTotal += (produto.getPreco()*produto.getQuantidade());
+
+        if (gastoTotal >= getValorIsencao()) {
+            ticket.setIsento(true);
+        }
         System.out.println("A compra foi realizada com sucesso.");
 
         return true;
@@ -62,14 +66,13 @@ public abstract class Pessoa {
      e no contrário define a localização da pessoa como o estabelecimento. Depois,
      delega a lógica para o estabelecimento e retorna true.
      */
-    public boolean entrarNoShopping() {
+    public void entrarNoShopping() {
         if (dentroDoShopping) {
             System.out.println("A pessoa já está no estabelecimento.");
-            return false;
+            return;
         }
         dentroDoShopping = true;
         System.out.println("A pessoa entrou no estabelecimento.");
-        return true;
     }
 
     /*
@@ -77,15 +80,14 @@ public abstract class Pessoa {
      senão define a localização como nula e delega a lógica para o estabelecimento,
      retornando true.
      */
-    public boolean sairDoShopping() {
+    public void sairDoShopping() {
         if (!dentroDoShopping) {
             System.out.println("A pessoa não está no estabelecimento.");
-            return false;
+            return;
         }
         dentroDoShopping = false;
         System.out.println("A pessoa saiu do estabelecimento.");
         this.gastoTotal = 0.00;
-        return true;
     }
 
     // Getters e Setters

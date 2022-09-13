@@ -11,22 +11,22 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-import trabalhotp1g17.*;        
+import trabalhotp1g17.*;
 
 public class TelaPrincipal extends javax.swing.JFrame {
-    
+
     public static String hora = "00:00";
     public static Shopping shopping = new Shopping();
-    
+
     private final ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();
     private final HashMap<String, ClienteFrequente> clientesFrequentes = new HashMap<>();
     private final HashMap<String, Funcionario> funcionarios = new HashMap<>();
     private final HashMap<String, Veiculo> veiculos = new HashMap<>();
-    
+
     public TelaPrincipal() {
         initComponents();
         setLocationRelativeTo(null);            //faz a tela nascer centralizada
-        
+
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 updateData();
@@ -38,7 +38,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         updateExibicao();
         shopping.fechar();
     }
-    
+
     public void adicionarPessoa(Pessoa pessoa) {
         if (pessoa instanceof ClienteEsporadico) {
             clientesEsporadicos.add((ClienteEsporadico) pessoa);
@@ -48,7 +48,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             funcionarios.put(((Funcionario) pessoa).getNome(), (Funcionario) pessoa);
         }
     }
-    
+
     public void removerPessoa(Pessoa pessoa) {
         if (pessoa instanceof ClienteEsporadico) {
             clientesEsporadicos.remove((ClienteEsporadico) pessoa);
@@ -58,27 +58,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
             funcionarios.remove(((Funcionario) pessoa).getNome());
         }
     }
-    
+
     public void adicionarVeiculo(Veiculo veiculo) {
         veiculos.put(veiculo.getPlaca(), veiculo);
     }
-    
+
     public void removerVeiculo(Veiculo veiculo) {
         veiculos.remove(veiculo.getPlaca());
     }
-    
+
     public ClienteEsporadico getClienteEsporadico(int id) {
         return clientesEsporadicos.get(id);
     }
-    
+
     public int getQtdClientesEsporadicos() {
         return clientesEsporadicos.size();
     }
-    
+
     public ClienteFrequente getClienteFrequente(String nome) {
         return clientesFrequentes.get(nome);
     }
-    
+
     public String[] getNomesClientesFrequentes() {
         String[] nomesClientesFrequentes = new String[clientesFrequentes.size()];
         int i = 0;
@@ -89,11 +89,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         return nomesClientesFrequentes;
     }
-    
+
     public Funcionario getFuncionario(String nome) {
         return funcionarios.get(nome);
     }
-    
+
     public String[] getNomesFuncionarios() {
         String[] nomesFuncionarios = new String[funcionarios.size()];
         int i = 0;
@@ -104,11 +104,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         return nomesFuncionarios;
     }
-    
+
     public Veiculo getVeiculo(String placa) {
         return veiculos.get(placa);
     }
-    
+
     public String[] getPlacasVeiculos() {
         String[] placasVeiculos = new String[veiculos.size()];
         int i = 0;
@@ -119,10 +119,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         return placasVeiculos;
     }
-    
+
     private void carregarListaPessoas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         if (btnClientesEsporadicos.isSelected()) {
             for (int i = 1; i <= clientesEsporadicos.size(); i++) {
                 modelo.addElement("Cliente " + i);
@@ -137,10 +137,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         }
         listaPessoas.setModel(modelo);
-        
+
         if (modelo.getSize() > 0) {
             listaPessoas.setEnabled(true);
-            
+
             if (shopping.isAberto()) {
                 btnEntrarNoShopping.setEnabled(true);
                 btnComprar.setEnabled(true);
@@ -150,7 +150,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnComprar.setEnabled(false);
                 btnSairDoShopping.setEnabled(false);
             }
-            
+
             labelLocalizacaoPessoa.setEnabled(true);
             labelVeiculoPessoa.setEnabled(true);
             labelGastosPessoa.setEnabled(true);
@@ -159,22 +159,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
             labelEstacionamentoPessoa.setEnabled(true);
         } else {
             listaPessoas.setEnabled(false);
-            
+
             btnEntrarNoShopping.setEnabled(false);
             btnComprar.setEnabled(false);
             btnSairDoShopping.setEnabled(false);
-            
+
             labelLocalizacaoPessoa.setEnabled(false);
             labelVeiculoPessoa.setEnabled(false);
             labelGastosPessoa.setEnabled(false);
             labelEstacionamentoPessoa.setEnabled(false);
         }
     }
-    
+
     private void carregarDadosPessoa() {
         if (listaPessoas.isEnabled()) {
             Pessoa pessoa;
-            
+
             if (btnClientesEsporadicos.isSelected()) {
                 pessoa = clientesEsporadicos.get(listaPessoas.getSelectedIndex());
             } else if (btnClientesFrequentes.isSelected()) {
@@ -182,7 +182,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             } else {
                 pessoa = funcionarios.get((String) listaPessoas.getSelectedItem());
             }
-            
+
             if (pessoa.isDentroDoShopping()) {
                 labelLocalizacaoPessoa.setText("Localização: Shopping");
             } else {
@@ -214,7 +214,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             labelEstacionamentoPessoa.setText("Estacionamento: -");
         }
     }
-    
+
     public void updateExibicao(){
         carregarListaPessoas();
         carregarDadosPessoa();
@@ -222,29 +222,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
         updateEstacionamento();
         updateData();
     }
-    
+
     public void updateNomesLojas(){
         String[] nomes = shopping.getLojas(false);
-        
+
         nomesLojas.removeAllItems();
-        
+
         if (nomes.length > 0){
             for(int i = 0; i < nomes.length; i++){
                 nomesLojas.addItem(nomes[i]);
             }
             return;
         }
-        
+
         nomesLojas.addItem("Nenhuma loja cadastrada");
         textStatusLoja.setText("Status: -");
         textFuncionarios.setText("Funcionarios: -");
         textProdutosEmEstoque.setText("Estoque: -");
     }
-    
+
     public void updateEstacionamento(){
         int[] vagasCarro = shopping.getVagasCarro();
         int[] vagasMoto = shopping.getVagasMoto();
-        
+
         VagasCarroDisponiveis.setText("Disponiveis: " + (vagasCarro[1] - vagasCarro[0]));
         VagasCarroOcupadas.setText("Ocupadas: " + vagasCarro[0]);
         VagasMotoDisponiveis.setText("Disponiveis: " + (vagasMoto[1] - vagasMoto[0]));
@@ -255,19 +255,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         hora = new SimpleDateFormat("mm:ss").format(Calendar.getInstance().getTime());
         labelData.setText("Hora: " + hora);
     }
-    
+
     public void updateTickets(){
-        
-        Pessoa pessoa = null;
+
+        Pessoa pessoa;
         String msg = "";
         String nome = "";
-        
-        if (btnClientesFrequentes.isSelected()) {
+
+        if (!listaPessoas.isEnabled()) {
+            return;
+        }
+        if (btnClientesEsporadicos.isSelected()) {
+            pessoa = clientesEsporadicos.get(listaPessoas.getSelectedIndex());
+        } else if (btnClientesFrequentes.isSelected()) {
             pessoa = clientesFrequentes.get((String) listaPessoas.getSelectedItem());
         } else {
             pessoa = funcionarios.get((String) listaPessoas.getSelectedItem());
         }
-        
         if((pessoa != null)&&(pessoa.getVeiculo() != null) && (pessoa.getTicket() != null)){
             int permanencia = pessoa.getTicket().getPermanencia(hora);
             int horas = permanencia / 60;
@@ -281,7 +285,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelPermanencia.setText("Permanência: -");
         labelEstacionamentoPessoa.setText("Estacionamento: -");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -340,14 +344,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         barraMenu = new javax.swing.JMenuBar();
         menuClientes = new javax.swing.JMenu();
         menuCadastrarCliente = new javax.swing.JMenuItem();
+        menuAlterarCliente = new javax.swing.JMenuItem();
         menuRemoverCliente = new javax.swing.JMenuItem();
         menuRelatorioClientes = new javax.swing.JMenuItem();
         menuFuncionarios = new javax.swing.JMenu();
         menuCadastrarFuncionario = new javax.swing.JMenuItem();
+        btnAlterarFuncionario = new javax.swing.JMenuItem();
         menuRemoverFuncionario = new javax.swing.JMenuItem();
         menuRelatorioFuncionarios = new javax.swing.JMenuItem();
         menuVeiculos = new javax.swing.JMenu();
         menuCadastrarVeiculo = new javax.swing.JMenuItem();
+        menuAlterarVeiculo = new javax.swing.JMenuItem();
         menuRemoverVeiculo = new javax.swing.JMenuItem();
         menuRelatorioVeiculos = new javax.swing.JMenuItem();
         menuLojas = new javax.swing.JMenu();
@@ -413,8 +420,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(labelData)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelShoppingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAbrirShopping, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -565,7 +571,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(labelPermanencia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelEstacionamentoPessoa)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(painelDadosPessoasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(painelDadosPessoasLayout.createSequentialGroup()
                     .addGap(79, 79, 79)
@@ -879,6 +885,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuClientes.add(menuCadastrarCliente);
 
+        menuAlterarCliente.setText("Alterar Cliente");
+        menuAlterarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAlterarClienteActionPerformed(evt);
+            }
+        });
+        menuClientes.add(menuAlterarCliente);
+
         menuRemoverCliente.setText("Remover Cliente");
         menuRemoverCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -907,6 +921,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuFuncionarios.add(menuCadastrarFuncionario);
 
+        btnAlterarFuncionario.setText("Alterar Funcionário");
+        btnAlterarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarFuncionarioActionPerformed(evt);
+            }
+        });
+        menuFuncionarios.add(btnAlterarFuncionario);
+
         menuRemoverFuncionario.setText("Remover Funcionário");
         menuRemoverFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -934,6 +956,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menuVeiculos.add(menuCadastrarVeiculo);
+
+        menuAlterarVeiculo.setText("Alterar Veícullo");
+        menuAlterarVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAlterarVeiculoActionPerformed(evt);
+            }
+        });
+        menuVeiculos.add(menuAlterarVeiculo);
 
         menuRemoverVeiculo.setText("Remover Veículo");
         menuRemoverVeiculo.addActionListener(new java.awt.event.ActionListener() {
@@ -1030,11 +1060,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
-        
+
         Pessoa cliente;
-        
+
         if (btnClientesEsporadicos.isSelected()) {
             cliente = clientesEsporadicos.get(listaPessoas.getSelectedIndex());
         } else if (btnClientesFrequentes.isSelected()) {
@@ -1042,17 +1072,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } else {
             cliente = funcionarios.get((String) listaPessoas.getSelectedItem());
         }
-        
+
         if(!cliente.isDentroDoShopping()){
             JOptionPane.showMessageDialog(this, "O cliente não pode comprar nada\nporque ele não está no shopping.", "Erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        if(this.shopping.getLojasAbertas(true) == null){
+
+        if(shopping.getLojasAbertas(true) == null){
             JOptionPane.showMessageDialog(this, "Não há lojas abertas com estoque no shopping!", "Erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         new TelaComprar(this, cliente).setVisible(true);
     }//GEN-LAST:event_btnComprarActionPerformed
 
@@ -1114,7 +1144,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             String status = (loja.isAberto())?"aberta":"fechada";
             String[] nomes = loja.getFuncionarios();
             int funcionarios = (nomes == null)? 0: nomes.length;
-            
+
             textStatusLoja.setText("Status: " + status);
             textFuncionarios.setText("Funcionários: " + funcionarios);
             textProdutosEmEstoque.setText("Estoque total: " + estoque[0] + " itens, totalizando " + estoque[1] + " peças");
@@ -1146,7 +1176,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnAbrirShoppingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirShoppingActionPerformed
         boolean sucesso = shopping.abrir();
-        
+
         if (sucesso) {
             JOptionPane.showMessageDialog(this, "O Shopping abriu!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             labelStatusShopping.setText("Status: aberto");
@@ -1169,7 +1199,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnFecharShoppingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharShoppingActionPerformed
         boolean sucesso = shopping.fechar();
-        
+
         if (sucesso) {
             JOptionPane.showMessageDialog(this, "O Shopping fechou!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             labelStatusShopping.setText("Status: fechado");
@@ -1220,6 +1250,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             pessoa.entrarNoShopping();
             shopping.aoEntrar(pessoa);
             updateEstacionamento();
+
             if(pessoa.getVeiculo() != null){
                 pessoa.setTicket(new Ticket(hora, isencao));
                 System.out.println("A pessoa " + nome + " entrou no estacionamento. hora :" + hora);
@@ -1234,7 +1265,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Pessoa pessoa;
         String msg = "";
         String nome = "";
-        
+
         if (btnClientesEsporadicos.isSelected()) {
             pessoa = clientesEsporadicos.get(listaPessoas.getSelectedIndex());
         } else if (btnClientesFrequentes.isSelected()) {
@@ -1246,7 +1277,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         if (pessoa.isDentroDoShopping()) {
             msg = "O cliente " + nome + " saiu do shopping.";
-            
+
             if(pessoa.getVeiculo() != null){
                 int tarifa = pessoa.getTicket().updateTicket(hora);
                 int horas = (pessoa.getTicket().getPermanencia(hora))/60;
@@ -1255,7 +1286,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 msg += (pessoa.getTicket().isIsento())? "isento." : "R$" + tarifa;
                 JOptionPane.showMessageDialog(this, msg, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 pessoa.setTicket(null);
-            }            
+            }
             pessoa.sairDoShopping();
             shopping.aoSair(pessoa);
             updateEstacionamento();
@@ -1285,13 +1316,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nenhuma das lojas possui produtos registrados!", "erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         new IncluirEstoqueExistente(this).setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void listaPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPessoasActionPerformed
         carregarDadosPessoa();
     }//GEN-LAST:event_listaPessoasActionPerformed
+
+    private void menuAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlterarClienteActionPerformed
+        new TelaAlterarCliente(this).setVisible(true);
+    }//GEN-LAST:event_menuAlterarClienteActionPerformed
+
+    private void btnAlterarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarFuncionarioActionPerformed
+        new TelaAlterarFuncionario(this).setVisible(true);
+    }//GEN-LAST:event_btnAlterarFuncionarioActionPerformed
+
+    private void menuAlterarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlterarVeiculoActionPerformed
+        new TelaAlterarVeiculo(this).setVisible(true);
+    }//GEN-LAST:event_menuAlterarVeiculoActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1309,6 +1352,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnAbrirLoja;
     private javax.swing.JButton btnAbrirShopping;
+    private javax.swing.JMenuItem btnAlterarFuncionario;
     private javax.swing.JRadioButton btnClientesEsporadicos;
     private javax.swing.JRadioButton btnClientesFrequentes;
     private javax.swing.JButton btnComprar;
@@ -1343,7 +1387,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelVagasMoto;
     private javax.swing.JLabel labelVeiculoPessoa;
     private javax.swing.JComboBox<String> listaPessoas;
+    private javax.swing.JMenuItem menuAlterarCliente;
     private javax.swing.JMenuItem menuAlterarVagas;
+    private javax.swing.JMenuItem menuAlterarVeiculo;
     private javax.swing.JMenuItem menuCadastrarCliente;
     private javax.swing.JMenuItem menuCadastrarFuncionario;
     private javax.swing.JMenuItem menuCadastrarLoja;

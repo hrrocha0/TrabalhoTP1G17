@@ -9,7 +9,6 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import trabalhotp1g17.Estabelecimento;
 import trabalhotp1g17.Funcionario;
 import trabalhotp1g17.Loja;
 import trabalhotp1g17.Veiculo;
@@ -31,7 +30,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
     }
 
     private void carregarTabelaFuncionarios() {
-        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Nome", "CPF", "Loja", "Veículo", "Localização", "Gasto Total"}, 0) {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Nome", "CPF", "Loja", "Veículo", "Gasto Total"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
