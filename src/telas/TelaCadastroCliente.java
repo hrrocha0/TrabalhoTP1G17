@@ -230,7 +230,9 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         Veiculo veiculo = null;
         
         if (!placa.equals("Nenhum")) {
-            veiculo = telaPrincipal.getVeiculo((String) caixaVeiculo.getSelectedItem());
+            String[] placaMarcaModelo = caixaVeiculo.getItemAt(caixaVeiculo.getSelectedIndex()).split(" ");
+            veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
+            System.out.println(veiculo.getModelo());
         } 
         String nome;
         Pessoa pessoa;

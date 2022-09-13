@@ -33,6 +33,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
         }
         
         selectNomesLojas.setSelectedIndex(0);
+        selectNomesProdutos.setSelectedIndex(0);
 
         atualizaLoja();
         atualizaListaDeProdutos();
@@ -56,6 +57,8 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
         selectNomesProdutos = new javax.swing.JComboBox<>();
         radioPreco = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        labelPreco = new javax.swing.JLabel();
+        labelQuantidade = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Atualizar um item existente");
@@ -85,6 +88,11 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
         });
 
         selectNomesProdutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectNomesProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectNomesProdutosActionPerformed(evt);
+            }
+        });
 
         radioPreco.setText("Não desejo atualizar o preço");
         radioPreco.addActionListener(new java.awt.event.ActionListener() {
@@ -100,35 +108,48 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
             }
         });
 
+        labelPreco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelPreco.setText("Preço: R$0.0");
+        labelPreco.setToolTipText("");
+
+        labelQuantidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelQuantidade.setText("Quantidade: 0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(selectNomesLojas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(selectNomesProdutos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inputQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inputPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(radioQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(radioPreco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(radioQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(radioPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(123, 123, 123)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(selectNomesLojas, 0, 299, Short.MAX_VALUE)
+                            .addComponent(selectNomesProdutos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelPreco)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,7 +162,11 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(selectNomesProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPreco)
+                    .addComponent(labelQuantidade))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(inputQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,7 +178,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
                     .addComponent(radioPreco))
                 .addGap(26, 26, 26)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -162,8 +187,10 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nomeLoja = selectNomesLojas.getItemAt(selectNomesLojas.getSelectedIndex());
         String nomeProduto = selectNomesProdutos.getItemAt(selectNomesProdutos.getSelectedIndex());
+
+        Produto p = loja.getProduto(nomeProduto);
         int quantidade = 0;
-        double preco = 0;
+        double preco = p.getPreco();
         
         try{
             if(!radioQuantidade.isSelected()){
@@ -189,7 +216,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
         TelaPrincipal.shopping.abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
         telaPrincipal.updateNomesLojas();
         dispose();
-        JOptionPane.showMessageDialog(null, "Produto \'" + nomeProduto + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Produto \'" + nomeLoja + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void radioQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQuantidadeActionPerformed
@@ -221,6 +248,17 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
             atualizaListaDeProdutos();// TODO add your handling code here:
     }//GEN-LAST:event_selectNomesLojasActionPerformed
 
+    private void selectNomesProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectNomesProdutosActionPerformed
+        if(loja != null){
+            String nomeProduto = selectNomesProdutos.getItemAt(selectNomesProdutos.getSelectedIndex());
+            Produto p = loja.getProduto(nomeProduto);
+            if(p != null){
+                labelPreco.setText("Preço: R$" + p.getPreco());
+                labelQuantidade.setText("Quantidade: " + p.getQuantidade() + " itens");
+            }
+        }
+    }//GEN-LAST:event_selectNomesProdutosActionPerformed
+
     public void atualizaLoja(){
         String nomeLoja = selectNomesLojas.getItemAt(selectNomesLojas.getSelectedIndex());
         System.out.println(nomeLoja);
@@ -235,10 +273,15 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
             for(Produto p : produtos){
                 selectNomesProdutos.addItem(p.getNome());
             }
+            
+            String nomeProduto = selectNomesProdutos.getItemAt(0);
+            
+            Produto p = loja.getProduto(nomeProduto);
+            labelPreco.setText("Preço: R$" + p.getPreco());
+            labelQuantidade.setText("Quantidade: " + p.getQuantidade() + " itens");
         }
     }
-    
-    
+     
     
     
     
@@ -250,6 +293,8 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel labelPreco;
+    private javax.swing.JLabel labelQuantidade;
     private javax.swing.JRadioButton radioPreco;
     private javax.swing.JRadioButton radioQuantidade;
     private javax.swing.JComboBox<String> selectNomesLojas;

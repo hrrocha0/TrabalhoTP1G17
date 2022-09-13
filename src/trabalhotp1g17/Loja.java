@@ -51,17 +51,6 @@ public class Loja implements Estabelecimento {
         return true;
     }
 
-    @Override
-    public boolean aoEntrar(Pessoa pessoa) {                                    //tem que implementar ainda
-        return true;  //TODO
-    }
-
-    @Override
-    public boolean aoSair(Pessoa pessoa) {                                      //tem que implementar ainda
-        return true;    //TODO
-    }
-
-
     // Método toString()
     @Override
     public String toString() {

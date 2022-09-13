@@ -51,7 +51,7 @@ public abstract class Pessoa {
             return false;
         }
         produtosComprados.add(produto);
-        gastoTotal += produto.getPreco();
+        gastoTotal += (produto.getPreco()*produto.getQuantidade());
         System.out.println("A compra foi realizada com sucesso.");
 
         return true;
@@ -84,6 +84,7 @@ public abstract class Pessoa {
         }
         dentroDoShopping = false;
         System.out.println("A pessoa saiu do estabelecimento.");
+        this.gastoTotal = 0.00;
         return true;
     }
 

@@ -15,7 +15,6 @@ public class Shopping implements Estabelecimento {
     private final HashMap<String, Funcionario> funcionarios = new HashMap<>();
     private final HashMap<String, Loja> lojas = new HashMap<>();
 
-    @Override
     public boolean aoEntrar(Pessoa pessoa) {
         Veiculo veiculo = pessoa.getVeiculo();
             
@@ -38,7 +37,6 @@ public class Shopping implements Estabelecimento {
         return true;
     }
 
-    @Override
     public boolean aoSair(Pessoa pessoa) {
         if (!contains(pessoa)) {
             System.out.println("O cliente especificado não está no shopping.");
@@ -103,8 +101,8 @@ public class Shopping implements Estabelecimento {
         lojas.put(loja.getNome(), loja);
     }
 
-    public boolean remove(Loja loja) {
-        return lojas.remove(loja.getNome()) != null;
+    public void remove(Loja loja) {
+        lojas.remove(loja.getNome());
     }
 
     public void add(Pessoa pessoa) {                                            //efetivamente adiciona a pessoa ao contingente inserido no shopping
@@ -270,6 +268,62 @@ public class Shopping implements Estabelecimento {
             nomesLojas[i] = nome;
             i++;
         }
+        return nomesLojas;
+    }
+    
+    
+    public String[] getLojasAbertas(boolean somenteLojasComProdutos) {
+        
+        if(somenteLojasComProdutos){                                            //o código faz este trecho se desejarmos saber a lista das lojas com produtos cadastrados
+            int i = 0;
+            String[] lojasComProdutos = new String[lojas.size()];
+            
+            System.out.print("Verificando quais lojas tem produtos... ");
+            for(String nome: lojas.keySet()){
+                Loja loja = lojas.get(nome);
+                int[] estoque = loja.getEstoque();
+                
+                if((estoque[1] > 0)&&(loja.isAberto())){                                              //se há produtos cadastrados na loja, sendo inspecionada
+                    System.out.print("loja " + nome + " esta aberta e tem produtos em estoque! ");       
+                    lojasComProdutos[i] = nome;                                 //adiciona o nome da loja em questão ao arrayList de lojas que possuem produtos
+                    i++;
+                }
+            }                                                                   //o vetor final pode ter elementos null se nem todas as lojas tiverem produtos cadastrados
+                        
+            System.out.println("");
+            if(i == 0){                                                         //se i = 0, nenhuma loja dentre as cadastradas tem produtos registrados no estoque
+                System.out.println("Nenhuma loja tem produtos.");
+                return null;
+            }
+                      
+            String[] nomesLojas = new String[i];                                //se chagamos até aqui, criamos um novo vetor com apenas o tamanho correspondente ao número de lojas com produtos
+            for(int j = 0; j < i; j++){                                         //e populamos esse vetor com as informações obtidas na passagem mais acima
+                nomesLojas[j] = lojasComProdutos[j];
+                System.out.println("loja " + nomesLojas[j] + " incluida");
+            }
+            return nomesLojas;                                                  //o vetor final contém o nome SOMENTE das lojas que possuem produtos já cadastrados
+        }
+        
+        String[] nomes = new String[lojas.size()];
+        int i = 0;
+
+        for (String nome : lojas.keySet()) {
+            Loja loja = lojas.get(nome);
+            
+            if(loja.isAberto()){
+                nomes[i] = nome;
+                i++;
+            }
+        }
+        
+        String[] nomesLojas = new String[i];
+        
+        i = 0;
+        for(String s : nomes){
+            nomesLojas[i] = s;
+            i++;
+        }
+            
         return nomesLojas;
     }
     

@@ -205,7 +205,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             } else {
                 labelVeiculoPessoa.setText("Veículo: nenhum");
             }
-            labelGastosPessoa.setText("Valor em Compras: R$" + pessoa.getGastoTotal());
+            labelGastosPessoa.setText("Valor em Compras: R$" + (int)pessoa.getGastoTotal());
         } else {
             labelLocalizacaoPessoa.setText("Localização: -");
             labelVeiculoPessoa.setText("Veículo: -");
@@ -1032,6 +1032,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
+        
         Pessoa cliente;
         
         if (btnClientesEsporadicos.isSelected()) {
@@ -1041,6 +1042,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } else {
             cliente = funcionarios.get((String) listaPessoas.getSelectedItem());
         }
+        
+        if(!cliente.isDentroDoShopping()){
+            JOptionPane.showMessageDialog(this, "O cliente não pode comprar nada\nporque ele não está no shopping.", "Erro!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(this.shopping.getLojasAbertas(true) == null){
+            JOptionPane.showMessageDialog(this, "Não há lojas abertas com estoque no shopping!", "Erro!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         new TelaComprar(this, cliente).setVisible(true);
     }//GEN-LAST:event_btnComprarActionPerformed
 
