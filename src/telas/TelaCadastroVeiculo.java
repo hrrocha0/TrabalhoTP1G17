@@ -203,12 +203,16 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         String marca = campoMarca.getText();
         String modelo = campoModelo.getText();
         String placa = campoPlaca.getText();
-
+        
         if (marca.isBlank() || modelo.isBlank() || placa.isBlank()) {
             JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Veículo", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        if (telaPrincipal.getVeiculo(placa) != null) {
+            JOptionPane.showMessageDialog(this, "Já existe um veículo registrado com essa placa.", "Erro: Cadastrar Veículo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        placa = placa.replace(' ','-');
         Veiculo veiculo = new Veiculo(tipo, marca, modelo, placa);
         telaPrincipal.adicionarVeiculo(veiculo);
         JOptionPane.showMessageDialog(this, "O veículo de placa " + placa + " foi cadastrado com sucesso.", "Cadastrar Veículo", JOptionPane.PLAIN_MESSAGE);

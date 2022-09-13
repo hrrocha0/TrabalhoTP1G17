@@ -226,6 +226,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Funcionário", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (telaPrincipal.getClienteFrequente(nome) != null || telaPrincipal.getFuncionario(nome) != null) {
+            JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: Cadastrar Cliente", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String placa = (String) caixaVeiculo.getSelectedItem();
         Veiculo veiculo = telaPrincipal.getVeiculo(placa);
         String nomeLoja = (String) caixaLoja.getSelectedItem();
