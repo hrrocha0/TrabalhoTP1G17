@@ -29,14 +29,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         modelo.addElement("Nenhum");
         
         if (telaPrincipal == null) {
-            caixaVeiculo.setModel(modelo);
+            selectVeiculo.setModel(modelo);
             return;
         }
         
         for (String placa : telaPrincipal.getPlacasVeiculos()) {
             modelo.addElement(placa);
         }
-        caixaVeiculo.setModel(modelo);
+        selectVeiculo.setModel(modelo);
     }
     
     // Atualiza a exibição da lista de lojas, adicionando como elementos os nomes das lojas.
@@ -45,14 +45,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         modelo.addElement("Nenhuma");
         
         if (telaPrincipal == null) {
-            caixaLoja.setModel(modelo);
+            selectLoja.setModel(modelo);
             return;
         }
         
         for (String nome : TelaPrincipal.shopping.getLojas(false)) {
             modelo.addElement(nome);
         }
-        caixaLoja.setModel(modelo);
+        selectLoja.setModel(modelo);
     }
 
     @SuppressWarnings("unchecked")
@@ -60,18 +60,18 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private void initComponents() {
 
         painelPrincipal = new javax.swing.JPanel();
-        titulo = new javax.swing.JLabel();
+        txtTitulo = new javax.swing.JLabel();
         painelDados = new javax.swing.JPanel();
-        labelNome = new javax.swing.JLabel();
-        campoNome = new javax.swing.JTextField();
-        labelCpf = new javax.swing.JLabel();
-        campoCpf = new javax.swing.JTextField();
-        labelVeiculo = new javax.swing.JLabel();
-        caixaVeiculo = new javax.swing.JComboBox<>();
-        labelLoja = new javax.swing.JLabel();
-        caixaLoja = new javax.swing.JComboBox<>();
-        botaoCadastrar = new javax.swing.JButton();
-        botaoCancelar = new javax.swing.JButton();
+        txtNome = new javax.swing.JLabel();
+        fldNome = new javax.swing.JTextField();
+        txtCpf = new javax.swing.JLabel();
+        fldCpf = new javax.swing.JTextField();
+        txtVeiculo = new javax.swing.JLabel();
+        selectVeiculo = new javax.swing.JComboBox<>();
+        txtLoja = new javax.swing.JLabel();
+        selectLoja = new javax.swing.JComboBox<>();
+        btnCadastrar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Funcionário");
@@ -79,38 +79,38 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        titulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titulo.setText("Cadastrar Funcionário");
-        titulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        txtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTitulo.setText("Cadastrar Funcionário");
+        txtTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         painelDados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        labelNome.setText("Nome:");
+        txtNome.setText("Nome:");
 
-        labelCpf.setText("CPF:");
+        txtCpf.setText("CPF:");
 
-        labelVeiculo.setText("Veículo:");
+        txtVeiculo.setText("Veículo:");
 
-        caixaVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
+        selectVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
 
-        labelLoja.setText("Loja:");
+        txtLoja.setText("Loja:");
 
-        caixaLoja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
+        selectLoja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
 
-        botaoCadastrar.setText("Cadastrar");
-        botaoCadastrar.setFocusable(false);
-        botaoCadastrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setFocusable(false);
+        btnCadastrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
-        botaoCancelar.setText("Cancelar");
-        botaoCancelar.setFocusable(false);
-        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setFocusable(false);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCancelarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -123,21 +123,21 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelDadosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botaoCadastrar)
+                        .addComponent(btnCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCancelar))
+                        .addComponent(btnCancelar))
                     .addGroup(painelDadosLayout.createSequentialGroup()
                         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelVeiculo)
-                            .addComponent(labelLoja)
-                            .addComponent(labelCpf)
-                            .addComponent(labelNome))
+                            .addComponent(txtVeiculo)
+                            .addComponent(txtLoja)
+                            .addComponent(txtCpf)
+                            .addComponent(txtNome))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                            .addComponent(campoNome)
-                            .addComponent(caixaVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(caixaLoja, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(fldCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                            .addComponent(fldNome)
+                            .addComponent(selectVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(selectLoja, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
@@ -145,24 +145,24 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             .addGroup(painelDadosLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNome)
-                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNome)
+                    .addComponent(fldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCpf)
-                    .addComponent(campoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpf)
+                    .addComponent(fldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelVeiculo)
-                    .addComponent(caixaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtVeiculo)
+                    .addComponent(selectVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelLoja)
-                    .addComponent(caixaLoja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLoja)
+                    .addComponent(selectLoja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCadastrar)
-                    .addComponent(botaoCancelar))
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -173,7 +173,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo)
+                    .addComponent(txtTitulo)
                     .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -181,7 +181,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(titulo)
+                .addComponent(txtTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -201,18 +201,18 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
-    }//GEN-LAST:event_botaoCancelarActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if (telaPrincipal == null) {
             dispose();
             return;
         }
         
-        String nome = campoNome.getText();
-        String cpf = campoCpf.getText();
+        String nome = fldNome.getText();
+        String cpf = fldCpf.getText();
         
         if (nome.isBlank() || cpf.isBlank()) {
             JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Funcionário", JOptionPane.ERROR_MESSAGE);
@@ -222,9 +222,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: Cadastrar Cliente", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String placa = (String) caixaVeiculo.getSelectedItem();
+        String placa = (String) selectVeiculo.getSelectedItem();
         Veiculo veiculo = telaPrincipal.getVeiculo(placa);
-        String nomeLoja = (String) caixaLoja.getSelectedItem();
+        String nomeLoja = (String) selectLoja.getSelectedItem();
         Loja loja = TelaPrincipal.shopping.getLoja(nomeLoja);
         
         Funcionario funcionario = new Funcionario(nome, cpf, veiculo, loja);
@@ -237,7 +237,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "O funcionário " + nome + " foi cadastrado com sucesso." , "Cadastrar Funcionário", JOptionPane.PLAIN_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();
-    }//GEN-LAST:event_botaoCadastrarActionPerformed
+    }//GEN-LAST:event_btnCadastrarActionPerformed
      
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -248,18 +248,18 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCadastrar;
-    private javax.swing.JButton botaoCancelar;
-    private javax.swing.JComboBox<String> caixaLoja;
-    private javax.swing.JComboBox<String> caixaVeiculo;
-    private javax.swing.JTextField campoCpf;
-    private javax.swing.JTextField campoNome;
-    private javax.swing.JLabel labelCpf;
-    private javax.swing.JLabel labelLoja;
-    private javax.swing.JLabel labelNome;
-    private javax.swing.JLabel labelVeiculo;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JTextField fldCpf;
+    private javax.swing.JTextField fldNome;
     private javax.swing.JPanel painelDados;
     private javax.swing.JPanel painelPrincipal;
-    private javax.swing.JLabel titulo;
+    private javax.swing.JComboBox<String> selectLoja;
+    private javax.swing.JComboBox<String> selectVeiculo;
+    private javax.swing.JLabel txtCpf;
+    private javax.swing.JLabel txtLoja;
+    private javax.swing.JLabel txtNome;
+    private javax.swing.JLabel txtTitulo;
+    private javax.swing.JLabel txtVeiculo;
     // End of variables declaration//GEN-END:variables
 }
