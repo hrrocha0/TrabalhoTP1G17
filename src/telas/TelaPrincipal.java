@@ -636,7 +636,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(labelPermanencia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelEstacionamentoPessoa)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(painelDadosPessoasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(painelDadosPessoasLayout.createSequentialGroup()
                     .addGap(79, 79, 79)
@@ -848,7 +848,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(textFuncionarios)
                 .addGap(12, 12, 12)
                 .addComponent(textProdutosEmEstoque)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         btnAbrirLoja.setText("Abrir");
@@ -1129,8 +1129,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(painelShopping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(painelCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1316,14 +1315,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             isencao = true;
         }
         if (!pessoa.isDentroDoShopping()) {
-            pessoa.entrarNoShopping();
-            shopping.aoEntrar(pessoa);
-            updateEstacionamento();
-
+            boolean sucesso = shopping.aoEntrar(pessoa);
+            
+            if (!sucesso) {
+                JOptionPane.showMessageDialog(this, "Não há vagas disponíveis para o veículo deste cliente.", "Erro: Entrar no Shopping", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             if(pessoa.getVeiculo() != null){
                 pessoa.setTicket(new Ticket(hora, isencao));
                 System.out.println("A pessoa " + nome + " entrou no estacionamento. hora :" + hora);
             }
+            updateEstacionamento();
         } else {
             JOptionPane.showMessageDialog(this, "O cliente já está no shopping.", "Erro: Entrar no Shopping", JOptionPane.ERROR_MESSAGE);
         }
@@ -1358,7 +1360,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, msg, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 pessoa.setTicket(null);
             }
-            pessoa.sairDoShopping();
             shopping.aoSair(pessoa);
             updateEstacionamento();
         } else {

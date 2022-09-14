@@ -2,6 +2,8 @@
 package telas;
 import trabalhotp1g17.*;
 
+import javax.swing.*;
+
 public class AlterarVagas extends javax.swing.JFrame {
 
     private final TelaPrincipal telaPrincipal;
@@ -100,11 +102,29 @@ public class AlterarVagas extends javax.swing.JFrame {
     }//GEN-LAST:event_inputVagasMotoActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        int vagasCarro = Integer.parseInt(inputVagasCarro.getText());
-        int vagasMoto = Integer.parseInt(inputVagasMoto.getText());
-        telaPrincipal.getShopping().setVagasTotais(vagasCarro, vagasMoto);
-        telaPrincipal.updateEstacionamento();
-        dispose();
+        try {
+            int vagasCarro = Integer.parseInt(inputVagasCarro.getText());
+            int vagasMoto = Integer.parseInt(inputVagasMoto.getText());
+            Shopping shopping = telaPrincipal.getShopping();
+            
+            if (shopping == null) {
+                dispose();
+                return;
+            }
+            if (vagasCarro < shopping.getVagasCarro()[0]) {
+                JOptionPane.showMessageDialog(null, "A quantidade nova de vagas de carro não pode ser menor do que a quantidade de vagas ocupadas.", "erro!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (vagasMoto < shopping.getVagasMoto()[0]) {
+                JOptionPane.showMessageDialog(null, "A quantidade nova de vagas de carro não pode ser menor do que a quantidade de vagas ocupadas.", "erro!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            telaPrincipal.getShopping().setVagasTotais(vagasCarro, vagasMoto);
+            telaPrincipal.updateEstacionamento();
+            dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Revise os dados. A quantidade deve ser inteira", "erro!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
 
