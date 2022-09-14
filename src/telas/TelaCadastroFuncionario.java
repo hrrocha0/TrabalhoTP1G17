@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 
 import trabalhotp1g17.Funcionario;
 import trabalhotp1g17.Loja;
-import trabalhotp1g17.Shopping;
 import trabalhotp1g17.Veiculo;
 
 // Tela responsável por cadastrar funcionários no sistema.
@@ -28,6 +27,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     */
     private void carregarListaVeiculos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        
         modelo.addElement("Nenhum");
 
         if (telaPrincipal == null) {
@@ -48,7 +48,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     // Atualiza a exibição da lista de lojas, adicionando como elementos os nomes das lojas.
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-
+        
         modelo.addElement("Nenhuma");
 
         if (telaPrincipal == null) {

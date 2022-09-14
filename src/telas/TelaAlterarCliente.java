@@ -100,13 +100,13 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
     */
     private void carregarListaVeiculos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        
+        modelo.addElement("Nenhum");
 
         if (!selectVeiculo.isEnabled()) {
             selectVeiculo.setModel(modelo);
             return;
         }
-        modelo.addElement("Nenhum");
-
         if (telaPrincipal == null) {
             selectVeiculo.setModel(modelo);
             return;
