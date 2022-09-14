@@ -14,7 +14,7 @@ import javax.swing.Timer;
 import trabalhotp1g17.*;
 
 public class TelaPrincipal extends javax.swing.JFrame {
-    public static int IDesporadico = 0;
+    public static int idEsporadico = 0;
     public static String hora = "00:00";
     public static Shopping shopping = new Shopping();
 
@@ -125,7 +125,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         if (btnClientesEsporadicos.isSelected()) {
             for (int i = 0; i < clientesEsporadicos.size(); i++) {
-                modelo.addElement("Cliente " + clientesEsporadicos.get(i).getID());
+                modelo.addElement("Cliente " + clientesEsporadicos.get(i).getId());
             }
         } else if (btnClientesFrequentes.isSelected()) {
             for (String nome : clientesFrequentes.keySet()) {
@@ -172,7 +172,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             labelEstacionamentoPessoa.setEnabled(false);
         }
     }
-    
+
     public void carregarDadosPessoa() {
         if (listaPessoas.isEnabled()) {
             Pessoa pessoa;
@@ -243,7 +243,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         textFuncionarios.setText("Funcionarios: -");
         textProdutosEmEstoque.setText("Estoque: -");
     }
-    
+
     public void updateDadosLoja(){
         Loja loja = shopping.getLoja((String) nomesLojas.getSelectedItem());
         if(loja != null){
@@ -251,13 +251,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             String status = (loja.isAberto())?"aberta":"fechada";
             String[] nomes = loja.getFuncionarios();
             int funcionarios = (nomes == null)? 0: nomes.length;
-            
+
             textStatusLoja.setText("Status: " + status);
             textFuncionarios.setText("Funcionários: " + funcionarios);
             textProdutosEmEstoque.setText("Estoque total: " + estoque[0] + " itens, totalizando " + estoque[1] + " peças");
         }
     }
-    
+
     public void updateEstacionamento(){
         int[] vagasCarro = shopping.getVagasCarro();
         int[] vagasMoto = shopping.getVagasMoto();
@@ -274,22 +274,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void updateTickets(){
-        
+
         Pessoa pessoa = null;
         String nome = "";
-        
+
         if (btnClientesEsporadicos.isSelected() && (!clientesEsporadicos.isEmpty()) && (listaPessoas.getItemCount() > 0)) {
             nome = listaPessoas.getItemAt(listaPessoas.getSelectedIndex());
             String[] nomeID = nome.split(" ");
             int ID = Integer.parseInt(nomeID[1]);
-            
+
             for (ClienteEsporadico ce : clientesEsporadicos){
-                if(ce.getID() == ID){
+                if(ce.getId() == ID){
                     pessoa = ce;
                     break;
                 }
             }
-            
+
         } else if (btnClientesFrequentes.isSelected()) {
             pessoa = clientesFrequentes.get((String) listaPessoas.getSelectedItem());
         } else {
@@ -308,12 +308,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         labelPermanencia.setText("Permanência: -");
         labelEstacionamentoPessoa.setText("Estacionamento: -");
     }
-    
+
     public void updateQuantidadeDePessoas(){
         int[] total = shopping.getTotalDePessoas(true);
         labelPessoas.setText("Pessoas dentro: " + (total[0] + total[1] + total[2]) + " [ " + total[0] + ", " + total[1] + ", " + total[2] + " ]");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -389,6 +389,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuLojas = new javax.swing.JMenu();
         menuCadastrarLoja = new javax.swing.JMenuItem();
         menuRemoverLoja = new javax.swing.JMenuItem();
+        menuGerenciarFuncionarios = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
@@ -1049,7 +1050,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuLojas.add(menuRemoverLoja);
 
-        jMenu8.setText("Atualizar estoque");
+        menuGerenciarFuncionarios.setText("Gerenciar Funcionários");
+        menuGerenciarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuGerenciarFuncionariosActionPerformed(evt);
+            }
+        });
+        menuLojas.add(menuGerenciarFuncionarios);
+
+        jMenu8.setText("Atualizar Estoque");
 
         jMenuItem17.setText("Registrar novo item");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
@@ -1131,7 +1140,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             return;
         }
 
-        new TelaComprar(this, cliente).setVisible(true);
+        new TelaComprarProduto(this, cliente).setVisible(true);
     }//GEN-LAST:event_btnComprarActionPerformed
 
     private void btnAbrirLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirLojaActionPerformed
@@ -1311,7 +1320,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         if (btnClientesEsporadicos.isSelected()) {
             pessoa = clientesEsporadicos.get(listaPessoas.getSelectedIndex());
-            nome = ((ClienteEsporadico)pessoa).getID() + "";
+            nome = ((ClienteEsporadico)pessoa).getId() + "";
         } else if (btnClientesFrequentes.isSelected()) {
             pessoa = clientesFrequentes.get((String) listaPessoas.getSelectedItem());
             nome = ((ClienteFrequente)pessoa).getNome();
@@ -1381,6 +1390,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaAlterarVeiculo(this).setVisible(true);
     }//GEN-LAST:event_menuAlterarVeiculoActionPerformed
 
+    private void menuGerenciarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGerenciarFuncionariosActionPerformed
+        new TelaGerenciarFuncionarios(this).setVisible(true);
+    }//GEN-LAST:event_menuGerenciarFuncionariosActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1443,6 +1456,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuClientes;
     private javax.swing.JMenu menuEstacionamento;
     private javax.swing.JMenu menuFuncionarios;
+    private javax.swing.JMenuItem menuGerenciarFuncionarios;
     private javax.swing.JMenu menuLojas;
     private javax.swing.JMenuItem menuRelatorioClientes;
     private javax.swing.JMenuItem menuRelatorioFuncionarios;

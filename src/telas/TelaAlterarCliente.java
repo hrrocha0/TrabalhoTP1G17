@@ -11,22 +11,22 @@ Clientes não podem ser alterados enquanto dentro do shopping.
 */
 public class TelaAlterarCliente extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal;  // Referência da tela principal
-    
+
     // Construtor
-    
+
     public TelaAlterarCliente(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
         initComponents();
         atualizarExibicao();
         setLocationRelativeTo(null);
     }
-    
+
     // Atualiza a exibição das listas de clientes e de veículos
     private void atualizarExibicao() {
         carregarListaClientes();
         carregarListaVeiculos();
     }
-    
+
     /*
     Atualiza a exibição da lista de clientes, adicionando como elementos
     os IDs dos clientes esporádicos, na forma 'Cliente ID', ou os nomes
@@ -36,14 +36,14 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
     */
     private void carregarListaClientes() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         if (telaPrincipal == null) {
             selectCliente.setModel(modelo);
             return;
         }
         if (btnEsporadico.isSelected()) {
             for (int i = 0; i < telaPrincipal.getQtdClientesEsporadicos(); i++) {
-                modelo.addElement("Cliente " + telaPrincipal.getClienteEsporadico(i).getID());
+                modelo.addElement("Cliente " + telaPrincipal.getClienteEsporadico(i).getId());
             }
         } else if (btnFrequente.isSelected()) {
             for (String nome : telaPrincipal.getNomesClientesFrequentes()) {
@@ -51,11 +51,11 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
             }
         }
         selectCliente.setModel(modelo);
-        
+
         if (modelo.getSize() > 0) {
             txtCliente.setEnabled(true);
             selectCliente.setEnabled(true);
-                
+
             fldNome.setEnabled(btnFrequente.isSelected());
             fldCpf.setEnabled(btnFrequente.isSelected());
             txtNome.setEnabled(btnFrequente.isSelected());
@@ -77,11 +77,11 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
             fldCpf.setEnabled(false);
             txtNome.setEnabled(false);
             txtCpf.setEnabled(false);
-                
+
             btnAlterarNome.setEnabled(false);
             btnAlterarCpf.setEnabled(false);
             btnAlterarVeiculo.setEnabled(false);
-            
+
             btnAlterarNome.setSelected(false);
             btnAlterarCpf.setSelected(false);
             btnAlterarVeiculo.setSelected(false);
@@ -92,26 +92,27 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
             btnSalvar.setEnabled(false);
         }
     }
-    
+
     /*
     Atualiza a exibição da lista de veículos, adicionando como elementos
     as informações do veículo, na forma 'PLACA (MARCA MODELO)'.
     */
     private void carregarListaVeiculos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         if (!selectVeiculo.isEnabled()) {
             selectVeiculo.setModel(modelo);
             return;
         }
         modelo.addElement("Nenhum");
-        
+
         if (telaPrincipal == null) {
             selectVeiculo.setModel(modelo);
             return;
         }
         for (String placa : telaPrincipal.getPlacasVeiculos()) {
             Veiculo veiculo = telaPrincipal.getVeiculo(placa);
+
             modelo.addElement(placa + " (" + veiculo.getMarca() + " " + veiculo.getModelo() + ")");
         }
         selectVeiculo.setModel(modelo);
@@ -143,7 +144,7 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastrar Cliente");
+        setTitle("Alterar Cliente");
 
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -338,13 +339,13 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (telaPrincipal == null) {
             dispose();
             return;
         }
-        
+
         String placa = (String) selectVeiculo.getSelectedItem();
         Pessoa cliente;
         Veiculo veiculo = null;
@@ -352,43 +353,43 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
         if (!placa.equals("Nenhum")) {
             String[] placaMarcaModelo = selectVeiculo.getItemAt(selectVeiculo.getSelectedIndex()).split(" ");
             veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
-        } 
-        
+        }
+
         if (btnFrequente.isSelected()) {
             cliente = telaPrincipal.getClienteFrequente((String) selectCliente.getSelectedItem());
             String nome = fldNome.getText();
             String cpf = fldCpf.getText();
-            
+
             if (cliente.isDentroDoShopping()) {
-                JOptionPane.showMessageDialog(this, "O cliente deve estar fora do shopping para ser alterado.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "O cliente deve estar fora do shopping para ser alterado.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 dispose();
                 return;
             }
             if (btnAlterarNome.isSelected()) {
                 if (nome.isBlank()) {
-                    JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 if (telaPrincipal.getClienteFrequente(nome) != null || telaPrincipal.getFuncionario(nome) != null) {
-                    JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 telaPrincipal.removerPessoa(cliente);
                 ((ClienteFrequente) cliente).setNome(nome);
-                telaPrincipal.adicionarPessoa(cliente); 
+                telaPrincipal.adicionarPessoa(cliente);
             }
             if (btnAlterarCpf.isSelected()) {
                 if (cpf.isBlank()) {
-                    JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ((ClienteFrequente) cliente).setCpf(cpf);
             }
         } else {
             cliente = telaPrincipal.getClienteEsporadico(selectCliente.getSelectedIndex());
-            
+
             if (cliente.isDentroDoShopping()) {
-                JOptionPane.showMessageDialog(this, "O cliente deve estar fora do shopping para ser alterado.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "O cliente deve estar fora do shopping para ser alterado.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 dispose();
                 return;
             }
@@ -396,11 +397,11 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
         if (btnAlterarVeiculo.isSelected()) {
             cliente.setVeiculo(veiculo);
         }
-        JOptionPane.showMessageDialog(this, "Cliente alterado com sucesso.", "Alterar Cliente", JOptionPane.PLAIN_MESSAGE);
-        telaPrincipal.updateExibicao();   
+        JOptionPane.showMessageDialog(this, "Cliente alterado com sucesso.", getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
-    
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -412,7 +413,7 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
     private void btnFrequenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrequenteActionPerformed
         atualizarExibicao();
     }//GEN-LAST:event_btnFrequenteActionPerformed
-    
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

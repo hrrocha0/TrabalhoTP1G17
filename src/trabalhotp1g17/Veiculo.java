@@ -18,9 +18,9 @@ public class Veiculo {
         this.modelo = modelo;
         this.placa = placa;
     }
-    
+
     // Método toString()
-    
+
     @Override
     public String toString() {
         return placa;

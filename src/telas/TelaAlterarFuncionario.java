@@ -11,23 +11,23 @@ dentro do shopping.
 */
 public class TelaAlterarFuncionario extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal; // Referência da tela principal
-    
+
     // Construtor
-    
+
     public TelaAlterarFuncionario(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
         initComponents();
         atualizarExibicao();
         setLocationRelativeTo(null);
     }
-    
+
     // Atualiza a exibição das listas de funcionários, veículos e lojas
     private void atualizarExibicao() {
         carregarListaFuncionarios();
         carregarListaVeiculos();
         carregarListaLojas();
     }
-    
+
     /*
     Atualiza a exibição da lista de clientes, adicionando como elementos
     os nomes dos funcionários. Após definir o modelo da lista, habilita e 
@@ -35,15 +35,15 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
     */
     private void carregarListaFuncionarios() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        for (String nome: telaPrincipal.getNomesFuncionarios()) {
+        for (String nome : telaPrincipal.getNomesFuncionarios()) {
             modelo.addElement(nome);
         }
         selectFuncionario.setModel(modelo);
-        
+
         if (modelo.getSize() > 0) {
             txtFuncionario.setEnabled(true);
             selectFuncionario.setEnabled(true);
-                
+
             fldNome.setEnabled(true);
             fldCpf.setEnabled(true);
             txtNome.setEnabled(true);
@@ -68,11 +68,11 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
             fldCpf.setEnabled(false);
             txtNome.setEnabled(false);
             txtCpf.setEnabled(false);
-                
+
             btnAlterarNome.setEnabled(false);
             btnAlterarCpf.setEnabled(false);
             btnAlterarVeiculo.setEnabled(false);
-            
+
             btnAlterarNome.setSelected(false);
             btnAlterarCpf.setSelected(false);
             btnAlterarVeiculo.setSelected(false);
@@ -86,20 +86,20 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
             btnSalvar.setEnabled(false);
         }
     }
-    
+
     /*
     Atualiza a exibição da lista de veículos, adicionando como elementos
     as informações do veículo, na forma 'PLACA (MARCA MODELO)'.
     */
     private void carregarListaVeiculos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         if (!selectVeiculo.isEnabled()) {
             selectVeiculo.setModel(modelo);
             return;
         }
         modelo.addElement("Nenhum");
-        
+
         if (telaPrincipal == null) {
             selectVeiculo.setModel(modelo);
             return;
@@ -110,17 +110,17 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
         }
         selectVeiculo.setModel(modelo);
     }
-    
+
     // Atualiza a exibição da lista de lojas, adicionando como elementos os nomes das lojas.
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         if (!selectLoja.isEnabled()) {
             selectLoja.setModel(modelo);
             return;
         }
         modelo.addElement("Nenhuma");
-        
+
         if (telaPrincipal == null) {
             selectLoja.setModel(modelo);
             return;
@@ -130,7 +130,7 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
         }
         selectLoja.setModel(modelo);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -156,7 +156,7 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastrar Cliente");
+        setTitle("Alterar Funcionário");
 
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -338,21 +338,21 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (telaPrincipal == null) {
             dispose();
             return;
         }
-        
+
         Funcionario funcionario = telaPrincipal.getFuncionario((String) selectFuncionario.getSelectedItem());
         String placa = (String) selectVeiculo.getSelectedItem();
         Veiculo veiculo = null;
         String nomeLoja = (String) selectLoja.getSelectedItem();
         Loja loja = null;
-        
+
         if (funcionario.isDentroDoShopping()) {
-            JOptionPane.showMessageDialog(this, "O funcionário deve estar fora do shopping para ser alterado.", "Erro: Alterar Funcionário", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "O funcionário deve estar fora do shopping para ser alterado.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
             dispose();
             return;
         }
@@ -365,23 +365,23 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
         }
         String nome = fldNome.getText();
         String cpf = fldCpf.getText();
-            
+
         if (btnAlterarNome.isSelected()) {
             if (nome.isBlank()) {
-                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (telaPrincipal.getClienteFrequente(nome) != null || telaPrincipal.getFuncionario(nome) != null) {
-                JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: Alterar Funcionário", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             telaPrincipal.removerPessoa(funcionario);
             funcionario.setNome(nome);
-            telaPrincipal.adicionarPessoa(funcionario); 
+            telaPrincipal.adicionarPessoa(funcionario);
         }
         if (btnAlterarCpf.isSelected()) {
             if (cpf.isBlank()) {
-                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             funcionario.setCpf(cpf);
@@ -400,8 +400,8 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
                 funcionario.setLoja(loja);
             }
         }
-        JOptionPane.showMessageDialog(this, "Funcionário alterado com sucesso.", "Alterar Funcionário", JOptionPane.PLAIN_MESSAGE);
-        telaPrincipal.updateExibicao();   
+        JOptionPane.showMessageDialog(this, "Funcionário alterado com sucesso.", getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 

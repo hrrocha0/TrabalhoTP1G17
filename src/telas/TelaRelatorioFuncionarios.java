@@ -14,19 +14,19 @@ Tela responsável por gerar o relatório de funcionários, que contém informaç
 sobre tais e podem ser salvos em um arquivo.
 */
 public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
-     private final TelaPrincipal telaPrincipal; // Referência da tela principal
-    
+    private final TelaPrincipal telaPrincipal; // Referência da tela principal
+
     // Construtor 
-    
+
     public TelaRelatorioFuncionarios(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
         initComponents();
         carregarTabelaFuncionarios();
         setLocationRelativeTo(null);
     }
-    
+
     /*
-    Carrega a tabela dos funcionários, mostrando suas informações. As informações 
+    Carrega a tabela dos funcionários, mostrando suas informações. As informações
     mostradas são: nome, CPF, loja, veículo e gasto em produtos. 
     */
     private void carregarTabelaFuncionarios() {
@@ -36,7 +36,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
                 return false;
             }
         };
-        
+
         if (telaPrincipal == null) {
             tblFuncionarios.setModel(modelo);
             return;
@@ -67,6 +67,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Relatório de Funcionários");
 
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -172,7 +173,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nomeArquivo = JOptionPane.showInputDialog(this, "Digite o nome do arquivo (.csv):", "Salvar Relatório", JOptionPane.QUESTION_MESSAGE);
-        
+
         if (nomeArquivo == null || telaPrincipal == null) {
             return;
         }
@@ -181,9 +182,10 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
         }
         try {
             FileWriter arquivo = new FileWriter(nomeArquivo);
-            
+
             for (String nome : telaPrincipal.getNomesFuncionarios()) {
                 Funcionario funcionario = telaPrincipal.getFuncionario(nome);
+
                 arquivo.write(funcionario.getCpf() + ", ");
                 arquivo.write(funcionario.getLoja() + ", ");
                 arquivo.write(funcionario.getVeiculo() + ", ");
@@ -191,7 +193,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
                 arquivo.write('\n');
             }
             arquivo.close();
-            JOptionPane.showMessageDialog(this, "Relatório salvo como " + nomeArquivo + ".", "Salvar Relatório",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Relatório salvo como " + nomeArquivo + ".", "Salvar Relatório", JOptionPane.PLAIN_MESSAGE);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Não foi possível salvar o relatório em " + nomeArquivo + ".", "Erro: Salvar Relatório", JOptionPane.ERROR_MESSAGE);
         }

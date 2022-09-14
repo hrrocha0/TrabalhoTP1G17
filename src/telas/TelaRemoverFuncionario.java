@@ -9,16 +9,16 @@ import trabalhotp1g17.Loja;
 // Tela responsável por remover um funcionário do sistema.
 public class TelaRemoverFuncionario extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal;  // Referência da tela principal
-    
+
     // Construtor
-    
+
     public TelaRemoverFuncionario(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
         initComponents();
         carregarListaFuncionarios();
         setLocationRelativeTo(null);
     }
-    
+
     /*
     Atualiza a exibição da lista de clientes, adicionando como elementos
     os nomes dos funcionários. Após definir o modelo da lista, habilita e 
@@ -27,7 +27,7 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
     private void carregarListaFuncionarios() {
         if (telaPrincipal == null) {
             return;
-        }  
+        }
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
         for (String nome : telaPrincipal.getNomesFuncionarios()) {
@@ -58,6 +58,7 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Remover Funcionário");
 
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -169,7 +170,7 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         if (telaPrincipal == null) {
             dispose();
             return;
-        } 
+        }
         if (!selectFuncionario.isEnabled()) {
             JOptionPane.showMessageDialog(this, "Não há funcionários no shopping.", "Erro: Remover Funcionário", JOptionPane.ERROR_MESSAGE);
             dispose();
@@ -177,7 +178,7 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         }
         Funcionario funcionario = telaPrincipal.getFuncionario((String) selectFuncionario.getSelectedItem());
         Loja loja = funcionario.getLoja();
-        
+
         TelaPrincipal.shopping.getLoja(loja.getNome()).demitir(funcionario);
         telaPrincipal.removerPessoa(funcionario);
         TelaPrincipal.shopping.remove(funcionario);

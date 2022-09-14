@@ -3,6 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Gerenciar Funcion&#xe1;rios"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -23,10 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="painelPrincipal" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="painelPrincipal" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -54,8 +52,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtTitulo" alignment="0" max="-2" attributes="0"/>
-                      <Component id="painelDados" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtTitulo" min="-2" max="-2" attributes="0"/>
+                      <Component id="painelDados" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -65,10 +63,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtTitulo" max="-2" attributes="0"/>
+                  <Component id="txtTitulo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="painelDados" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -79,15 +77,14 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Comprar"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Gerenciar Funcion&#xe1;rios"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="painelDados">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-                <BevelBorder/>
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
               </Border>
             </Property>
           </Properties>
@@ -98,27 +95,24 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="btnComprar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtFuncionario" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtLoja" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="selectFuncionario" max="32767" attributes="0"/>
+                                  <Component id="selectLoja" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtQuantidade" max="32767" attributes="0"/>
-                                  <Component id="txtProduto" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtLoja" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="selectProduto" max="32767" attributes="0"/>
-                                  <Component id="selectLoja" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="fldQuantidade" min="-2" pref="67" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="192" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="btnIniciarTrabalho" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnFinalizarTrabalho" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnSair" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -130,23 +124,19 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="selectLoja" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtLoja" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="selectLoja" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="selectProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="selectFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="fldQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnComprar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnIniciarTrabalho" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnFinalizarTrabalho" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSair" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -156,19 +146,16 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="txtLoja">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Loja (aberta):"/>
+                <Property name="text" type="java.lang.String" value="Loja:"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="selectLoja">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -178,53 +165,51 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="txtProduto">
+            <Component class="javax.swing.JLabel" name="txtFuncionario">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Produto (em estoque):"/>
+                <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio:"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="selectProduto">
+            <Component class="javax.swing.JComboBox" name="selectFuncionario">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="txtQuantidade">
+            <Component class="javax.swing.JButton" name="btnIniciarTrabalho">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Quantidade:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="fldQuantidade">
-              <Properties>
-                <Property name="columns" type="int" value="2"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnComprar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Comprar"/>
+                <Property name="text" type="java.lang.String" value="Iniciar Trabalho"/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnComprarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarTrabalhoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnCancelar">
+            <Component class="javax.swing.JButton" name="btnFinalizarTrabalho">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cancelar"/>
+                <Property name="text" type="java.lang.String" value="Finalizar Trabalho"/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFinalizarTrabalhoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnSair">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sair"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

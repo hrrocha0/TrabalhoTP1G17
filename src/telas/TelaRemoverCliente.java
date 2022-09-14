@@ -1,21 +1,22 @@
 package telas;
 
 import javax.swing.*;
+
 import trabalhotp1g17.Pessoa;
 
 // Tela responsável por remover um cliente do sistema
 public class TelaRemoverCliente extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal;  // Referência da tela principal
-    
+
     // Construtor
-    
+
     public TelaRemoverCliente(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
         initComponents();
         carregarListaClientes();
         setLocationRelativeTo(null);
     }
-    
+
     /*
     Atualiza a exibição da lista de clientes, adicionando como elementos
     os IDs dos clientes esporádicos, na forma 'Cliente ID', ou os nomes
@@ -28,10 +29,10 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             return;
         }
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         if (btnEsporadico.isSelected()) {
             for (int i = 0; i < telaPrincipal.getQtdClientesEsporadicos(); i++) {
-                modelo.addElement("Cliente " + telaPrincipal.getClienteEsporadico(i).getID());
+                modelo.addElement("Cliente " + telaPrincipal.getClienteEsporadico(i).getId());
             }
         } else {
             for (String nome : telaPrincipal.getNomesClientesFrequentes()) {
@@ -48,7 +49,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             selectCliente.setEnabled(false);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,6 +68,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Remover Cliente");
 
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -221,7 +223,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             return;
         }
         Pessoa pessoa;
-        
+
         if (btnEsporadico.isSelected()) {
             pessoa = telaPrincipal.getClienteEsporadico(selectCliente.getSelectedIndex());
         } else {

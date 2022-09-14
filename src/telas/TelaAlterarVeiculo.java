@@ -11,47 +11,47 @@ enquanto dentro do shopping.
 */
 public class TelaAlterarVeiculo extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal;  // Referência da tela principal
-    
+
     // Construtor
-    
+
     public TelaAlterarVeiculo(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
         initComponents();
         atualizarExibicao();
         setLocationRelativeTo(null);
     }
-    
+
     // Atualiza a exibição da lista de veículos
     private void atualizarExibicao() {
         carregarListaVeiculos();
     }
-    
+
     /*
     Atualiza a exibição da lista de veículos, adicionando como elementos
     as informações do veículo, na forma 'PLACA (MARCA MODELO)'. Após definir 
     o modelo da lista, habilita e desabilita os elementos da tela de acordo 
     com a funcionalidade desejada.
-    */ 
+    */
     private void carregarListaVeiculos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         if (telaPrincipal == null) {
             selectVeiculo.setModel(modelo);
             return;
         }
         for (String placa : telaPrincipal.getPlacasVeiculos()) {
-                Veiculo veiculo = telaPrincipal.getVeiculo(placa);
-                modelo.addElement(placa + " (" + veiculo.getMarca() + " " + veiculo.getModelo() + ")");
+            Veiculo veiculo = telaPrincipal.getVeiculo(placa);
+            modelo.addElement(placa + " (" + veiculo.getMarca() + " " + veiculo.getModelo() + ")");
         }
         selectVeiculo.setModel(modelo);
-        
+
         if (modelo.getSize() > 0) {
             txtVeiculo.setEnabled(true);
             selectVeiculo.setEnabled(true);
-            
+
             btnCarro.setEnabled(true);
             btnMoto.setEnabled(true);
-                
+
             fldMarca.setEnabled(true);
             fldModelo.setEnabled(true);
             fldPlaca.setEnabled(true);
@@ -59,17 +59,17 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
             txtMarca.setEnabled(true);
             txtModelo.setEnabled(true);
             txtPlaca.setEnabled(true);
-            
+
             btnAlterarTipo.setEnabled(true);
             btnAlterarMarca.setEnabled(true);
             btnAlterarModelo.setEnabled(true);
             btnAlterarPlaca.setEnabled(true);
-            
+
             btnSalvar.setEnabled(true);
         } else {
             txtVeiculo.setEnabled(false);
             selectVeiculo.setEnabled(false);
-            
+
             btnCarro.setEnabled(false);
             btnMoto.setEnabled(false);
 
@@ -80,12 +80,12 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
             txtMarca.setEnabled(false);
             txtModelo.setEnabled(false);
             txtPlaca.setEnabled(false);
-            
+
             btnAlterarTipo.setEnabled(false);
             btnAlterarMarca.setEnabled(false);
             btnAlterarModelo.setEnabled(false);
             btnAlterarPlaca.setEnabled(false);
-            
+
             btnAlterarTipo.setSelected(false);
             btnAlterarMarca.setSelected(false);
             btnAlterarModelo.setSelected(false);
@@ -122,7 +122,7 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastrar Cliente");
+        setTitle("Alterar Veículo");
 
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -325,7 +325,7 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (telaPrincipal == null) {
             dispose();
@@ -333,48 +333,48 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
         }
         String[] placaMarcaModelo = ((String) selectVeiculo.getSelectedItem()).split(" ");
         Veiculo veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
-        
+
         String marca = fldMarca.getText();
         String modelo = fldModelo.getText();
         String placa = fldPlaca.getText();
-        
+
         if (btnAlterarTipo.isSelected()) {
             if (btnCarro.isSelected()) {
                 veiculo.setTipo(TipoVeiculo.CARRO);
             } else {
                 veiculo.setTipo(TipoVeiculo.MOTO);
             }
-        }  
+        }
         if (btnAlterarMarca.isSelected()) {
             if (marca.isBlank()) {
-                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             veiculo.setMarca(marca);
         }
         if (btnAlterarModelo.isSelected()) {
             if (modelo.isBlank()) {
-                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             veiculo.setModelo(modelo);
         }
         if (btnAlterarPlaca.isSelected()) {
             if (placa.isBlank()) {
-                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Alterar Cliente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (telaPrincipal.getVeiculo(placa) != null) {
-                JOptionPane.showMessageDialog(this, "Já existe um veículo registrado com essa placa.", "Erro: Alterar Veículo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Já existe um veículo registrado com essa placa.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            placa = placa.replace(' ','-');
+            placa = placa.replace(' ', '-');
             telaPrincipal.removerVeiculo(veiculo);
             veiculo.setPlaca(placa);
-            telaPrincipal.adicionarVeiculo(veiculo); 
+            telaPrincipal.adicionarVeiculo(veiculo);
         }
-        JOptionPane.showMessageDialog(this, "Veículo alterado com sucesso.", "Alterar Veículo", JOptionPane.PLAIN_MESSAGE);
-        telaPrincipal.updateExibicao();   
+        JOptionPane.showMessageDialog(this, "Veículo alterado com sucesso.", getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -389,12 +389,8 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
     private void btnCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarroActionPerformed
         atualizarExibicao();
     }//GEN-LAST:event_btnCarroActionPerformed
-    
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaAlterarVeiculo(null).setVisible(true);

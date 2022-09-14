@@ -38,20 +38,11 @@ public abstract class Pessoa {
     no preço do produto.
      */
     public boolean comprar(Produto produto, Loja loja, Shopping shopping) {
-        if (!loja.isAberto()) {
-            return false;
-        }
-        if (!shopping.isAberto()) {
-            return false;
-        }
-        if ( !dentroDoShopping || !loja.vender(produto)) {
-            return false;
-        }
-        if (!loja.vender(produto)) {
+        if (!loja.isAberto() || !shopping.isAberto() || !dentroDoShopping || !loja.vender(produto)) {
             return false;
         }
         produtosComprados.add(produto);
-        gastoTotal += (produto.getPreco()*produto.getQuantidade());
+        gastoTotal += (produto.getPreco() * produto.getQuantidade());
 
         if (ticket != null && gastoTotal >= getValorIsencao()) {
             ticket.setIsento(true);

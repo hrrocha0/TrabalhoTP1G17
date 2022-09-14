@@ -3,19 +3,20 @@ package telas;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+
 import trabalhotp1g17.Loja;
 import trabalhotp1g17.Pessoa;
 import trabalhotp1g17.Produto;
 
 // Tela responsável por registrar a compra de um produto por uma pessoa.
-public class TelaComprar extends javax.swing.JFrame {
+public class TelaComprarProduto extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal;  // Referência da tela principal
     private final Pessoa cliente;   // O cliente que irá comprar o produto
     private Loja loja;  // A loja que vende o produto
-    
+
     // Construtor
-    
-    public TelaComprar(TelaPrincipal telaPrincipal, Pessoa cliente) {
+
+    public TelaComprarProduto(TelaPrincipal telaPrincipal, Pessoa cliente) {
         this.telaPrincipal = telaPrincipal;
         this.cliente = cliente;
         initComponents();
@@ -24,7 +25,7 @@ public class TelaComprar extends javax.swing.JFrame {
         carregarListaProdutos();
         setLocationRelativeTo(null);
     }
-    
+
     /*
     Atualiza a exibição da lista de lojas, adicionando como elementos
     os nomes das lojas. Após definir o modelo da lista, habilita e desabilita
@@ -32,9 +33,9 @@ public class TelaComprar extends javax.swing.JFrame {
     */
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
+
         String[] nomesLojas = TelaPrincipal.shopping.getLojasAbertas(true);
-        
+
         if (nomesLojas != null) {
             for (String nome : nomesLojas) {
                 modelo.addElement(nome);
@@ -44,7 +45,7 @@ public class TelaComprar extends javax.swing.JFrame {
         selectLoja.setEnabled(modelo.getSize() > 0);
         selectProduto.setEnabled(modelo.getSize() > 0);
     }
-    
+
     private void carregarListaProdutos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         loja = TelaPrincipal.shopping.getLoja((String) selectLoja.getSelectedItem());
@@ -56,15 +57,13 @@ public class TelaComprar extends javax.swing.JFrame {
         ArrayList<Produto> produtos = loja.getProdutos(true);
         String[] nomesProdutos = new String[produtos.size()];
         int i = 0;
-        
-        for (Produto p : produtos){
+
+        for (Produto p : produtos) {
             nomesProdutos[i] = p.getNome() + " [R$ " + p.getPreco() + "; " + p.getQuantidade() + " itens]";
-        }   
-        if (nomesProdutos != null) {
-            for (String nome : nomesProdutos) {
-                modelo.addElement(nome);
-            }
-        } 
+        }
+        for (String nome : nomesProdutos) {
+            modelo.addElement(nome);
+        }
         selectProduto.setModel(modelo);
         selectProduto.setEnabled(modelo.getSize() > 0);
     }
@@ -87,6 +86,7 @@ public class TelaComprar extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Comprar Produto");
 
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -226,32 +226,32 @@ public class TelaComprar extends javax.swing.JFrame {
             dispose();
             return;
         }
-        String item = selectProduto.getItemAt(selectProduto.getSelectedIndex());               
+        String item = selectProduto.getItemAt(selectProduto.getSelectedIndex());
         loja = TelaPrincipal.shopping.getLoja(selectLoja.getItemAt(selectLoja.getSelectedIndex()));
         String[] nomePrecoQuantidade = item.split(" ");
         Produto estoque = loja.getProduto(nomePrecoQuantidade[0]);
         int quantidade;
-        
+
         try {
             quantidade = Integer.parseInt(fldQuantidade.getText());
-            
-            if (quantidade > estoque.getQuantidade()){
-                JOptionPane.showMessageDialog(this, "O número de itens comprados deve ser\nmenor que " + estoque.getQuantidade() + " (estoque do produto \'" + estoque.getNome() + "\').", "Erro: Comprar Produto", JOptionPane.ERROR_MESSAGE);
+
+            if (quantidade > estoque.getQuantidade()) {
+                JOptionPane.showMessageDialog(this, "O número de itens comprados deve ser\nmenor que " + estoque.getQuantidade() + " (estoque do produto '" + estoque.getNome() + "').", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Digite um número válido.", "Erro: Comprar Produto", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Digite um número válido.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
             return;
         }
         Produto produto = new Produto(estoque.getNome(), estoque.getPreco(), quantidade);
         boolean sucesso = cliente.comprar(produto, loja, TelaPrincipal.shopping);
-        
+
         if (sucesso) {
             telaPrincipal.carregarDadosPessoa();
             telaPrincipal.updateDadosLoja();
-            JOptionPane.showMessageDialog(this, "Compra efetuada com sucesso.\nProduto: " + produto.getNome() + "\nQuantidade: " + produto.getQuantidade() + "\nPreço: R$" + produto.getPreco() * produto.getQuantidade(), "Comprar Produto", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Compra efetuada com sucesso.\nProduto: " + produto.getNome() + "\nQuantidade: " + produto.getQuantidade() + "\nPreço: R$" + produto.getPreco() * produto.getQuantidade(), getTitle(), JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Não foi possível efetuar a compra.", "Erro: Comprar Produto", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Não foi possível efetuar a compra.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
         }
         dispose();
     }//GEN-LAST:event_btnComprarActionPerformed
@@ -262,18 +262,18 @@ public class TelaComprar extends javax.swing.JFrame {
     }//GEN-LAST:event_selectLojaActionPerformed
 
 
-    public void atualizaLoja(){
+    public void atualizaLoja() {
         String nomeLoja = (String) selectLoja.getSelectedItem();
         loja = TelaPrincipal.shopping.getLoja(nomeLoja);
     }
-    
-    public void atualizaListaDeProdutos(){
-        if(loja != null){
+
+    public void atualizaListaDeProdutos() {
+        if (loja != null) {
             selectProduto.removeAllItems();
             ArrayList<Produto> produtos = loja.getProdutos(true);               //separa, dentre os produtos da loja, aqueles que possuem estoque
 
-            for(Produto p : produtos){
-                selectProduto.addItem(p.getNome() + " [R$ " + p.getPreco() + ", " + p.getQuantidade() + " itens]");
+            for (Produto produto : produtos) {
+                selectProduto.addItem(produto.getNome() + " [R$ " + produto.getPreco() + ", " + produto.getQuantidade() + " itens]");
             }
         }
     }

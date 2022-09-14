@@ -69,11 +69,9 @@ public class Funcionario extends Pessoa {
      */
     public boolean iniciarTrabalho() {
         if (trabalhando) {
-            System.out.println("O funcionário " + nome + " já está trabalhando");
             return false;
         }
         trabalhando = true;
-        System.out.println("O funcionário " + nome + " começou a trabalhar.");
         return true;
     }
 
@@ -83,11 +81,9 @@ public class Funcionario extends Pessoa {
     */
     public boolean finalizarTrabalho() {
         if (!trabalhando) {
-            System.out.println("O funcionário " + nome + " não está trabalhando.");
             return false;
         }
         trabalhando = false;
-        System.out.println("O funcionário " + nome + " terminou de trabalhar.");
         return true;
     }
 }

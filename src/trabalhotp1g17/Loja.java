@@ -129,9 +129,9 @@ public class Loja implements Estabelecimento {
     }
 
     public String[] getFuncionarios(){                          //retorna array com os nomes dos funcionarios
-        if (funcionarios.isEmpty()){
+        /*if (funcionarios.isEmpty()){
             return null;
-        }
+        }*/
 
         String[] funcs = new String[funcionarios.size()];
         for(int i = 0; i < funcionarios.size(); i++){

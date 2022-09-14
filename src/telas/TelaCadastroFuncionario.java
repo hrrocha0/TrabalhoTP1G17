@@ -2,6 +2,7 @@ package telas;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+
 import trabalhotp1g17.Funcionario;
 import trabalhotp1g17.Loja;
 import trabalhotp1g17.Veiculo;
@@ -9,9 +10,9 @@ import trabalhotp1g17.Veiculo;
 // Tela responsável por cadastrar funcionários no sistema.
 public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal;  // Referência da tela principal
-    
+
     // Construtor
-    
+
     public TelaCadastroFuncionario(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
         initComponents();
@@ -19,7 +20,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         carregarListaLojas();
         setLocationRelativeTo(null);
     }
-    
+
     /*
     Atualiza a exibição da lista de veículos, adicionando como elementos
     as informações do veículo, na forma 'PLACA (MARCA MODELO)'.
@@ -27,28 +28,28 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private void carregarListaVeiculos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Nenhum");
-        
+
         if (telaPrincipal == null) {
             selectVeiculo.setModel(modelo);
             return;
         }
-        
+
         for (String placa : telaPrincipal.getPlacasVeiculos()) {
             modelo.addElement(placa);
         }
         selectVeiculo.setModel(modelo);
     }
-    
+
     // Atualiza a exibição da lista de lojas, adicionando como elementos os nomes das lojas.
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Nenhuma");
-        
+
         if (telaPrincipal == null) {
             selectLoja.setModel(modelo);
             return;
         }
-        
+
         for (String nome : TelaPrincipal.shopping.getLojas(false)) {
             modelo.addElement(nome);
         }
@@ -91,11 +92,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         txtVeiculo.setText("Veículo:");
 
-        selectVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
+        selectVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Nenhum"}));
 
         txtLoja.setText("Loja:");
 
-        selectLoja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
+        selectLoja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Nenhum"}));
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.setFocusable(false);
@@ -117,85 +118,85 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
         painelDados.setLayout(painelDadosLayout);
         painelDadosLayout.setHorizontalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(painelDadosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar))
-                    .addGroup(painelDadosLayout.createSequentialGroup()
-                        .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtVeiculo)
-                            .addComponent(txtLoja)
-                            .addComponent(txtCpf)
-                            .addComponent(txtNome))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fldCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                            .addComponent(fldNome)
-                            .addComponent(selectVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(selectLoja, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(btnCadastrar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnCancelar))
+                                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(txtVeiculo)
+                                                        .addComponent(txtLoja)
+                                                        .addComponent(txtCpf)
+                                                        .addComponent(txtNome))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(fldCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                                                        .addComponent(fldNome)
+                                                        .addComponent(selectVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(selectLoja, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addContainerGap())
         );
         painelDadosLayout.setVerticalGroup(
-            painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDadosLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNome)
-                    .addComponent(fldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCpf)
-                    .addComponent(fldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtVeiculo)
-                    .addComponent(selectVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtLoja)
-                    .addComponent(selectLoja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar)
-                    .addComponent(btnCancelar))
-                .addContainerGap())
+                painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtNome)
+                                        .addComponent(fldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtCpf)
+                                        .addComponent(fldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtVeiculo)
+                                        .addComponent(selectVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtLoja)
+                                        .addComponent(selectLoja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnCadastrar)
+                                        .addComponent(btnCancelar))
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTitulo)
-                    .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtTitulo)
+                                        .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
-            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txtTitulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(painelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -210,35 +211,34 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             dispose();
             return;
         }
-        
         String nome = fldNome.getText();
         String cpf = fldCpf.getText();
-        
+
         if (nome.isBlank() || cpf.isBlank()) {
-            JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: Cadastrar Funcionário", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Verifique se os campos foram preenchidos corretamente.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (telaPrincipal.getClienteFrequente(nome) != null || telaPrincipal.getFuncionario(nome) != null) {
-            JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: Cadastrar Cliente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
             return;
         }
         String placa = (String) selectVeiculo.getSelectedItem();
         Veiculo veiculo = telaPrincipal.getVeiculo(placa);
         String nomeLoja = (String) selectLoja.getSelectedItem();
         Loja loja = TelaPrincipal.shopping.getLoja(nomeLoja);
-        
+
         Funcionario funcionario = new Funcionario(nome, cpf, veiculo, loja);
-        
-        if(TelaPrincipal.shopping.getLoja(nomeLoja) != null){
+
+        if (TelaPrincipal.shopping.getLoja(nomeLoja) != null) {
             TelaPrincipal.shopping.getLoja(nomeLoja).contratar(funcionario);
         }
         telaPrincipal.adicionarPessoa(funcionario);
         TelaPrincipal.shopping.add(funcionario);
-        JOptionPane.showMessageDialog(this, "O funcionário " + nome + " foi cadastrado com sucesso." , "Cadastrar Funcionário", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, "O funcionário " + nome + " foi cadastrado com sucesso.", getTitle(), JOptionPane.INFORMATION_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_btnCadastrarActionPerformed
-     
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -47,7 +47,7 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
         }
         for (int i = 0; i < telaPrincipal.getQtdClientesEsporadicos(); i++) {
             ClienteEsporadico clienteEsporadico = telaPrincipal.getClienteEsporadico(i);
-            String nome = "Cliente " + clienteEsporadico.getID();
+            String nome = "Cliente " + clienteEsporadico.getId();
             Veiculo veiculo = clienteEsporadico.getVeiculo();
             double gastoTotal = clienteEsporadico.getGastoTotal();
 
@@ -80,6 +80,7 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
         txtAviso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Relatório de Clientes");
 
         painelPrincipal.setBackground(new java.awt.Color(220, 220, 220));
         painelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
