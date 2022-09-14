@@ -18,9 +18,9 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         this.telaPrincipal = telaPrincipal;
-        nomesLojas = TelaPrincipal.shopping.getLojas(true);
+        nomesLojas = telaPrincipal.getShopping().getLojas(true);
         System.out.print(nomesLojas.length + " lojas com produtos cadastrados: ");
-        loja = TelaPrincipal.shopping.getLoja(nomesLojas[0]);
+        loja = telaPrincipal.getShopping().getLoja(nomesLojas[0]);
         
         for(String s : nomesLojas){
             System.out.print(s + " ");
@@ -213,7 +213,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Revise os dados. A quantidade deve ser inteira e o preço deve ser inteiro ou fracionário.", "erro!", JOptionPane.ERROR_MESSAGE);
             return;
         }          
-        TelaPrincipal.shopping.abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
+        telaPrincipal.getShopping().abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
         telaPrincipal.updateNomesLojas();
         dispose();
         JOptionPane.showMessageDialog(null, "Produto \'" + nomeLoja + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
@@ -262,7 +262,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
     public void atualizaLoja(){
         String nomeLoja = selectNomesLojas.getItemAt(selectNomesLojas.getSelectedIndex());
         System.out.println(nomeLoja);
-        loja = TelaPrincipal.shopping.getLoja(nomeLoja);
+        loja = telaPrincipal.getShopping().getLoja(nomeLoja);
     }
     
     public void atualizaListaDeProdutos(){

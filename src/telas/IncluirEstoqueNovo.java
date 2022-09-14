@@ -23,10 +23,11 @@ public class IncluirEstoqueNovo extends javax.swing.JFrame {
         setLocationRelativeTo(null);            //faz a tela nascer centralizada
         
         this.telaPrincipal = telaPrincipal;
-        nomesLojas = TelaPrincipal.shopping.getLojas(false);
+        nomesLojas = telaPrincipal.getShopping().getLojas(false);
         selectNomesLojas.removeAllItems();
-        for(int i = 0; i < nomesLojas.length; i++){
-            selectNomesLojas.addItem(nomesLojas[i]);
+
+        for (String nomeLoja : nomesLojas) {
+            selectNomesLojas.addItem(nomeLoja);
         }
     }
 
@@ -153,10 +154,10 @@ public class IncluirEstoqueNovo extends javax.swing.JFrame {
             return;
         }
         nomeProduto = nomeProduto.replace(' ', '-');
-        TelaPrincipal.shopping.abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
+        telaPrincipal.getShopping().abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
         telaPrincipal.updateNomesLojas();
         dispose();
-        JOptionPane.showMessageDialog(null, "Produto \'" + nomeProduto + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Produto '" + nomeProduto + "' adicionado com sucesso ao estoque da loja '" + nomeLoja + "'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

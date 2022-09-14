@@ -34,7 +34,7 @@ public class TelaComprarProduto extends javax.swing.JFrame {
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
-        String[] nomesLojas = TelaPrincipal.shopping.getLojasAbertas(true);
+        String[] nomesLojas = telaPrincipal.getShopping().getLojasAbertas(true);
 
         if (nomesLojas != null) {
             for (String nome : nomesLojas) {
@@ -48,7 +48,7 @@ public class TelaComprarProduto extends javax.swing.JFrame {
 
     private void carregarListaProdutos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        loja = TelaPrincipal.shopping.getLoja((String) selectLoja.getSelectedItem());
+        loja = telaPrincipal.getShopping().getLoja((String) selectLoja.getSelectedItem());
 
         if (loja == null) {
             selectProduto.setModel(modelo);
@@ -227,7 +227,7 @@ public class TelaComprarProduto extends javax.swing.JFrame {
             return;
         }
         String item = selectProduto.getItemAt(selectProduto.getSelectedIndex());
-        loja = TelaPrincipal.shopping.getLoja(selectLoja.getItemAt(selectLoja.getSelectedIndex()));
+        loja = telaPrincipal.getShopping().getLoja(selectLoja.getItemAt(selectLoja.getSelectedIndex()));
         String[] nomePrecoQuantidade = item.split(" ");
         Produto estoque = loja.getProduto(nomePrecoQuantidade[0]);
         int quantidade;
@@ -244,7 +244,7 @@ public class TelaComprarProduto extends javax.swing.JFrame {
             return;
         }
         Produto produto = new Produto(estoque.getNome(), estoque.getPreco(), quantidade);
-        boolean sucesso = cliente.comprar(produto, loja, TelaPrincipal.shopping);
+        boolean sucesso = cliente.comprar(produto, loja, telaPrincipal.getShopping());
 
         if (sucesso) {
             telaPrincipal.carregarDadosPessoa();
@@ -264,7 +264,7 @@ public class TelaComprarProduto extends javax.swing.JFrame {
 
     public void atualizaLoja() {
         String nomeLoja = (String) selectLoja.getSelectedItem();
-        loja = TelaPrincipal.shopping.getLoja(nomeLoja);
+        loja = telaPrincipal.getShopping().getLoja(nomeLoja);
     }
 
     public void atualizaListaDeProdutos() {

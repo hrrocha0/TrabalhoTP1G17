@@ -128,7 +128,7 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
             selectLoja.setModel(modelo);
             return;
         }
-        for (String nome : TelaPrincipal.shopping.getLojas(false)) {
+        for (String nome : telaPrincipal.getShopping().getLojas(false)) {
             modelo.addElement(nome);
         }
         selectLoja.setModel(modelo);
@@ -363,7 +363,7 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
             veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
         }
         if (!nomeLoja.equals("Nenhuma")) {
-            loja = TelaPrincipal.shopping.getLoja(nomeLoja);
+            loja = telaPrincipal.getShopping().getLoja(nomeLoja);
         }
         String nome = fldNome.getText();
         String cpf = fldCpf.getText();

@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 import trabalhotp1g17.Funcionario;
 import trabalhotp1g17.Loja;
+import trabalhotp1g17.Shopping;
 import trabalhotp1g17.Veiculo;
 
 // Tela responsável por cadastrar funcionários no sistema.
@@ -54,7 +55,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             selectLoja.setModel(modelo);
             return;
         }
-        for (String nome : TelaPrincipal.shopping.getLojas(false)) {
+        for (String nome : telaPrincipal.getShopping().getLojas(false)) {
             modelo.addElement(nome);
         }
         selectLoja.setModel(modelo);
@@ -229,17 +230,17 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         String[] placaMarcaModelo = ((String) selectVeiculo.getSelectedItem()).split(" ");
         Veiculo veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
         String nomeLoja = (String) selectLoja.getSelectedItem();
-        Loja loja = TelaPrincipal.shopping.getLoja(nomeLoja);
+        Loja loja = telaPrincipal.getShopping().getLoja(nomeLoja);
         Funcionario funcionario = new Funcionario(nome, cpf, veiculo, loja);
         
         if (veiculo != null) {
             veiculo.setDono(funcionario);
         }
-        if (TelaPrincipal.shopping.getLoja(nomeLoja) != null) {
-            TelaPrincipal.shopping.getLoja(nomeLoja).contratar(funcionario);
+        if (loja != null) {
+            loja.contratar(funcionario);
         }
         telaPrincipal.adicionarPessoa(funcionario);
-        TelaPrincipal.shopping.add(funcionario);
+        telaPrincipal.getShopping().add(funcionario);
         JOptionPane.showMessageDialog(this, "O funcionário " + nome + " foi cadastrado com sucesso.", getTitle(), JOptionPane.INFORMATION_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();

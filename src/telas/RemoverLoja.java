@@ -16,10 +16,11 @@ public class RemoverLoja extends javax.swing.JFrame {
         setLocationRelativeTo(null);            //faz a tela nascer centralizada
     
         this.telaPrincipal = telaPrincipal;
-        nomesLojas = TelaPrincipal.shopping.getLojas(false);
+        nomesLojas = telaPrincipal.getShopping().getLojas(false);
         selectNomesLojas.removeAllItems();
-        for(int i = 0; i < nomesLojas.length; i++){
-            selectNomesLojas.addItem(nomesLojas[i]);
+
+        for (String nomeLoja : nomesLojas) {
+            selectNomesLojas.addItem(nomeLoja);
         }
     }
 
@@ -90,14 +91,14 @@ public class RemoverLoja extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nome = (String) selectNomesLojas.getSelectedItem();
-        Loja loja = TelaPrincipal.shopping.getLoja(nome);
+        Loja loja = telaPrincipal.getShopping().getLoja(nome);
 
         for (String nomeFuncionario : loja.getFuncionarios()) {
             Funcionario funcionario = telaPrincipal.getFuncionario(nomeFuncionario);
 
             loja.demitir(funcionario);
         }
-        TelaPrincipal.shopping.remove(TelaPrincipal.shopping.getLoja(nome));
+        telaPrincipal.getShopping().remove(telaPrincipal.getShopping().getLoja(nome));
         telaPrincipal.updateNomesLojas();
         dispose();
         JOptionPane.showMessageDialog(null, "Loja '" + nome  + "' removida com sucesso!", "Sucesso!", JOptionPane.PLAIN_MESSAGE);

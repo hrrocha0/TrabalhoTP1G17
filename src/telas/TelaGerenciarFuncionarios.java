@@ -26,7 +26,7 @@ public class TelaGerenciarFuncionarios extends javax.swing.JFrame {
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
-        for (String nome : TelaPrincipal.shopping.getLojas(false)) {
+        for (String nome : telaPrincipal.getShopping().getLojas(false)) {
             modelo.addElement(nome);
         }
         boolean temElementos = modelo.getSize() > 0;
@@ -47,7 +47,7 @@ public class TelaGerenciarFuncionarios extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
         if (selectLoja.isEnabled()) {
-            Loja loja = TelaPrincipal.shopping.getLoja((String) selectLoja.getSelectedItem());
+            Loja loja = telaPrincipal.getShopping().getLoja((String) selectLoja.getSelectedItem());
 
             for (String nome : loja.getFuncionarios()) {
                 modelo.addElement(nome);
@@ -219,7 +219,7 @@ public class TelaGerenciarFuncionarios extends javax.swing.JFrame {
         if (!selectLoja.isEnabled() || !selectFuncionario.isEnabled()) {
             return;
         }
-        Loja loja = TelaPrincipal.shopping.getLoja((String) selectLoja.getSelectedItem());
+        Loja loja = telaPrincipal.getShopping().getLoja((String) selectLoja.getSelectedItem());
         
         if (!loja.isAberto()) {
             JOptionPane.showMessageDialog(this, "A loja " + loja.getNome() + " está fechada.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);

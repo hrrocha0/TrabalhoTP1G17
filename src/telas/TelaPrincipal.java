@@ -14,9 +14,9 @@ import javax.swing.Timer;
 import trabalhotp1g17.*;
 
 public class TelaPrincipal extends javax.swing.JFrame {
-    public static int idEsporadico = 0;
-    public static String hora = "00:00";
-    public static Shopping shopping = new Shopping();
+    private int idEsporadico = 0;
+    private String hora = "00:00";
+    private Shopping shopping = new Shopping();
 
     private final ArrayList<ClienteEsporadico> clientesEsporadicos = new ArrayList<>();
     private final HashMap<String, ClienteFrequente> clientesFrequentes = new HashMap<>();
@@ -184,7 +184,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             } else {
                 pessoa = funcionarios.get((String) listaPessoas.getSelectedItem());
             }
-
             if (pessoa.isDentroDoShopping()) {
                 labelLocalizacaoPessoa.setText("Localização: Shopping");
             } else {
@@ -274,7 +273,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void updateTickets(){
-
         Pessoa pessoa = null;
         String nome = "";
 
@@ -312,6 +310,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void updateQuantidadeDePessoas(){
         int[] total = shopping.getTotalDePessoas(true);
         labelPessoas.setText("Pessoas dentro: " + (total[0] + total[1] + total[2]) + " [ " + total[0] + ", " + total[1] + ", " + total[2] + " ]");
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public int getIdEsporadico() {
+        return idEsporadico;
+    }
+
+    public void setIdEsporadico(int idEsporadico) {
+        this.idEsporadico = idEsporadico;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     @SuppressWarnings("unchecked")
@@ -1481,6 +1499,4 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel tituloPessoas;
     private javax.swing.JLabel tituloShopping;
     // End of variables declaration//GEN-END:variables
-
-
 }

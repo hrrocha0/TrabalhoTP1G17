@@ -102,7 +102,7 @@ public class AlterarVagas extends javax.swing.JFrame {
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         int vagasCarro = Integer.parseInt(inputVagasCarro.getText());
         int vagasMoto = Integer.parseInt(inputVagasMoto.getText());
-        TelaPrincipal.shopping.setVagasTotais(vagasCarro, vagasMoto);
+        telaPrincipal.getShopping().setVagasTotais(vagasCarro, vagasMoto);
         telaPrincipal.updateEstacionamento();
         dispose();
     }//GEN-LAST:event_btnAtualizarActionPerformed

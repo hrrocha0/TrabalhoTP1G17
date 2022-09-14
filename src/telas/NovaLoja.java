@@ -111,7 +111,7 @@ public class NovaLoja extends javax.swing.JFrame {
     private void btnCadastrarLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarLojaActionPerformed
         String nomeLoja = textNomeLoja.getText();
         TipoLoja tipo = (radioLoja.isSelected())? TipoLoja.PRODUTOS : TipoLoja.RESTAURANTE;
-        TelaPrincipal.shopping.add(new Loja(nomeLoja, tipo));
+        telaPrincipal.getShopping().add(new Loja(nomeLoja, tipo));
         telaPrincipal.updateNomesLojas();
         dispose();
         JOptionPane.showMessageDialog(null, "Loja \'" + nomeLoja + "\' cadastrada ao shopping!", "sucesso!", JOptionPane.PLAIN_MESSAGE);

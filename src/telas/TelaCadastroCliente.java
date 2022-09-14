@@ -243,17 +243,17 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             }
             pessoa = new ClienteFrequente(nome, cpf, veiculo);
         } else {
-            int id = TelaPrincipal.idEsporadico + 1;
+            int id = telaPrincipal.getIdEsporadico() + 1;
 
             nome = "Cliente " + id;
             pessoa = new ClienteEsporadico(veiculo, id);
-            TelaPrincipal.idEsporadico++;
+            telaPrincipal.setIdEsporadico(id);
         }
         if (veiculo != null) {
             veiculo.setDono(pessoa);
         }
         telaPrincipal.adicionarPessoa(pessoa);
-        TelaPrincipal.shopping.add(pessoa);
+        telaPrincipal.getShopping().add(pessoa);
         JOptionPane.showMessageDialog(this, "O cliente " + nome + " foi cadastrado com sucesso.", getTitle(), JOptionPane.INFORMATION_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();

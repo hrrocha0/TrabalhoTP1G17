@@ -3,6 +3,7 @@ package telas;
 import javax.swing.*;
 
 import trabalhotp1g17.Pessoa;
+import trabalhotp1g17.Shopping;
 
 // Tela responsável por remover um cliente do sistema
 public class TelaRemoverCliente extends javax.swing.JFrame {
@@ -219,6 +220,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             return;
         }
         Pessoa pessoa;
+        Shopping shopping = telaPrincipal.getShopping();
 
         if (btnEsporadico.isSelected()) {
             pessoa = telaPrincipal.getClienteEsporadico(selectCliente.getSelectedIndex());
@@ -226,8 +228,8 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             pessoa = telaPrincipal.getClienteFrequente((String) selectCliente.getSelectedItem());
         }
         telaPrincipal.removerPessoa(pessoa);
-        TelaPrincipal.shopping.aoSair(pessoa);
-        TelaPrincipal.shopping.remove(pessoa);
+        telaPrincipal.getShopping().aoSair(pessoa);
+        telaPrincipal.getShopping().remove(pessoa);
         JOptionPane.showMessageDialog(this, "O cliente " + selectCliente.getSelectedItem() + " foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();
