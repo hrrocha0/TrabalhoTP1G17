@@ -35,7 +35,10 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         }
         for (String placa : telaPrincipal.getPlacasVeiculos()) {
             Veiculo veiculo = telaPrincipal.getVeiculo(placa);
-            modelo.addElement(placa + " (" + veiculo.getMarca() + " " + veiculo.getModelo() + ")");
+
+            if (veiculo.getDono() == null) {
+                modelo.addElement(placa + " (" + veiculo.getMarca() + " " + veiculo.getModelo() + ")");
+            }
         }
         selectVeiculo.setModel(modelo);
     }
@@ -216,7 +219,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             dispose();
             return;
         }
-
         String placa = (String) selectVeiculo.getSelectedItem();
         Veiculo veiculo = null;
 
@@ -242,9 +244,13 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             pessoa = new ClienteFrequente(nome, cpf, veiculo);
         } else {
             int id = TelaPrincipal.idEsporadico + 1;
+
             nome = "Cliente " + id;
             pessoa = new ClienteEsporadico(veiculo, id);
             TelaPrincipal.idEsporadico++;
+        }
+        if (veiculo != null) {
+            veiculo.setDono(pessoa);
         }
         telaPrincipal.adicionarPessoa(pessoa);
         TelaPrincipal.shopping.add(pessoa);

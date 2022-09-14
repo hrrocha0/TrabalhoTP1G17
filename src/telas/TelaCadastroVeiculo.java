@@ -184,9 +184,7 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
             dispose();
             return;
         }
-
         TipoVeiculo tipo = btnCarro.isSelected() ? TipoVeiculo.CARRO : TipoVeiculo.MOTO;
-
         String marca = fldMarca.getText();
         String modelo = fldModelo.getText();
         String placa = fldPlaca.getText();
@@ -201,6 +199,7 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
         }
         placa = placa.replace(' ', '-');
         Veiculo veiculo = new Veiculo(tipo, marca, modelo, placa);
+
         telaPrincipal.adicionarVeiculo(veiculo);
         JOptionPane.showMessageDialog(this, "O veículo de placa " + placa + " foi cadastrado com sucesso.", getTitle(), JOptionPane.INFORMATION_MESSAGE);
         telaPrincipal.updateExibicao();

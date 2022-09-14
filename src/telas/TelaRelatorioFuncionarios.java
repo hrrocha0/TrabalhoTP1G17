@@ -11,7 +11,7 @@ import trabalhotp1g17.Veiculo;
 
 /*
 Tela responsável por gerar o relatório de funcionários, que contém informações
-sobre tais e podem ser salvos em um arquivo.
+sobre tais e podem ser salvos num arquivo.
 */
 public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal; // Referência da tela principal
@@ -26,7 +26,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
     }
 
     /*
-    Carrega a tabela dos funcionários, mostrando suas informações. As informações
+    Carrega a tabela dos funcionários, mostrando as suas informações. As informações
     mostradas são: nome, CPF, loja, veículo e gasto em produtos. 
     */
     private void carregarTabelaFuncionarios() {

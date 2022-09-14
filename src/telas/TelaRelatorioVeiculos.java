@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 /*
 Tela responsável por gerar o relatório de veículos, que contém informações
-sobre tais e podem ser salvos em um arquivo.
+sobre tais e podem ser salvos num arquivo.
 */
 public class TelaRelatorioVeiculos extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal;  // Referência da tela principal
@@ -26,7 +26,7 @@ public class TelaRelatorioVeiculos extends javax.swing.JFrame {
     }
 
     /*
-    Carrega a tabela dos funcionários, mostrando suas informações. As informações 
+    Carrega a tabela dos funcionários, mostrando as suas informações. As informações
     mostradas são: placa, tipo do veículo, marca e modelo. 
     */
     private void carregarTabelaVeiculos() {
@@ -184,6 +184,7 @@ public class TelaRelatorioVeiculos extends javax.swing.JFrame {
 
             for (String placa : telaPrincipal.getPlacasVeiculos()) {
                 Veiculo veiculo = telaPrincipal.getVeiculo(placa);
+
                 arquivo.write(placa + ", ");
                 arquivo.write(veiculo.getTipo() + ", ");
                 arquivo.write(veiculo.getMarca() + ", ");

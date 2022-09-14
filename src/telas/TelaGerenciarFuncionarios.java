@@ -5,8 +5,11 @@ import javax.swing.*;
 import trabalhotp1g17.Funcionario;
 import trabalhotp1g17.Loja;
 
+// Tela responsável por iniciar e finalizar o trabalho de um funcionário.
 public class TelaGerenciarFuncionarios extends javax.swing.JFrame {
-    private final TelaPrincipal telaPrincipal;
+    private final TelaPrincipal telaPrincipal;  // Referência da tela principal
+
+    // Construtor
 
     public TelaGerenciarFuncionarios(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
@@ -15,6 +18,11 @@ public class TelaGerenciarFuncionarios extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    /*
+    Atualiza a exibição da lista de lojas, adicionando como elementos
+    os nomes das lojas. Após definir o modelo da lista, habilita e desabilita
+    os elementos da tela conforme a funcionalidade desejada.
+    */
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
@@ -30,6 +38,11 @@ public class TelaGerenciarFuncionarios extends javax.swing.JFrame {
         carregarListaFuncionarios();
     }
 
+    /*
+    Atualiza a exibição da lista de funcionários, adicionando como elementos
+    os nomes dos funcionários. Após definir o modelo da lista, habilita e desabilita
+    os elementos da tela conforme a funcionalidade desejada.
+    */
     private void carregarListaFuncionarios() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 

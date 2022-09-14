@@ -9,6 +9,7 @@ public class Veiculo {
     private String marca;       // A marca do veículo
     private String modelo;      // O modelo do veículo
     private String placa;       // A placa do veículo
+    private Pessoa dono;        // O dono do veículo
 
     // Construtor
 
@@ -58,5 +59,13 @@ public class Veiculo {
 
     public void setPlaca(String placa) {
         this.placa = placa;
+    }
+
+    public Pessoa getDono() {
+        return dono;
+    }
+
+    public void setDono(Pessoa dono) {
+        this.dono = dono;
     }
 }

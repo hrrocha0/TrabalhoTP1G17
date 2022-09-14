@@ -1,5 +1,8 @@
 package telas;
 
+import trabalhotp1g17.Funcionario;
+import trabalhotp1g17.Loja;
+
 import javax.swing.JOptionPane;
 
 
@@ -87,10 +90,17 @@ public class RemoverLoja extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nome = (String) selectNomesLojas.getSelectedItem();
+        Loja loja = TelaPrincipal.shopping.getLoja(nome);
+
+        for (String nomeFuncionario : loja.getFuncionarios()) {
+            Funcionario funcionario = telaPrincipal.getFuncionario(nomeFuncionario);
+
+            loja.demitir(funcionario);
+        }
         TelaPrincipal.shopping.remove(TelaPrincipal.shopping.getLoja(nome));
         telaPrincipal.updateNomesLojas();
         dispose();
-        JOptionPane.showMessageDialog(null, "Loja \'" + nome  + "\' removida com sucesso!", "Sucesso!", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Loja '" + nome  + "' removida com sucesso!", "Sucesso!", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

@@ -3,6 +3,7 @@ package telas;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
+import trabalhotp1g17.Pessoa;
 import trabalhotp1g17.Veiculo;
 
 // Tela responsável por remover um veículo do sistema
@@ -21,8 +22,8 @@ public class TelaRemoverVeiculo extends javax.swing.JFrame {
     /*
     Atualiza a exibição da lista de veículos, adicionando como elementos
     as informações do veículo, na forma 'PLACA (MARCA MODELO)'. Após definir 
-    o modelo da lista, habilita e desabilita os elementos da tela de acordo 
-    com a funcionalidade desejada.
+    o modelo da lista, habilita e desabilita os elementos da tela conforme
+    a funcionalidade desejada.
     */
     private void carregarListaVeiculos() {
         if (telaPrincipal == null) {
@@ -172,17 +173,26 @@ public class TelaRemoverVeiculo extends javax.swing.JFrame {
             dispose();
             return;
         }
-
         if (!caixaVeiculo.isEnabled()) {
-            JOptionPane.showMessageDialog(this, "Não há veículos no shopping.", "Erro: Remover Veículo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Não há veículos no shopping.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
             dispose();
             return;
         }
         String[] placaMarcaModelo = ((String) caixaVeiculo.getSelectedItem()).split(" ");
         Veiculo veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
+        Pessoa dono = veiculo.getDono();
 
+        if (dono != null) {
+            int resultado = JOptionPane.showConfirmDialog(this, "O veículo de placa " + veiculo.getPlaca() + " possui um dono. Deseja continuar mesmo assim?", getTitle(), JOptionPane.YES_NO_OPTION);
+
+            if (resultado == 1) {
+                dispose();
+                return;
+            }
+            dono.setVeiculo(null);
+        }
         telaPrincipal.removerVeiculo(veiculo);
-        JOptionPane.showMessageDialog(this, "O veículo de placa " + veiculo.getPlaca() + " foi removido com sucesso.", "Remover Veículo", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, "O veículo de placa " + veiculo.getPlaca() + " foi removido com sucesso.", getTitle(), JOptionPane.PLAIN_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_botaoRemoverActionPerformed

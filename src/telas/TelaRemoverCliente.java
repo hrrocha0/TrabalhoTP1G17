@@ -20,8 +20,8 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
     /*
     Atualiza a exibição da lista de clientes, adicionando como elementos
     os IDs dos clientes esporádicos, na forma 'Cliente ID', ou os nomes
-    dos clientes frequentes, de acordo com o botão selecionado. Após definir
-    o modelo da lista, habilita e desabilita os elementos da tela de acordo com
+    dos clientes frequentes, segundo o botão selecionado. Após definir
+    o modelo da lista, habilita e desabilita os elementos da tela conforme
     a funcionalidade desejada.
     */
     private void carregarListaClientes() {
@@ -40,14 +40,10 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             }
         }
         selectCliente.setModel(modelo);
+        boolean temElementos = modelo.getSize() > 0;
 
-        if (modelo.getSize() > 0) {
-            txtCliente.setEnabled(true);
-            selectCliente.setEnabled(true);
-        } else {
-            txtCliente.setEnabled(false);
-            selectCliente.setEnabled(false);
-        }
+        txtCliente.setEnabled(temElementos);
+        selectCliente.setEnabled(temElementos);
     }
 
     @SuppressWarnings("unchecked")
@@ -232,7 +228,7 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
         telaPrincipal.removerPessoa(pessoa);
         TelaPrincipal.shopping.aoSair(pessoa);
         TelaPrincipal.shopping.remove(pessoa);
-        JOptionPane.showMessageDialog(this, "O cliente " + (String) selectCliente.getSelectedItem() + " foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, "O cliente " + selectCliente.getSelectedItem() + " foi removido com sucesso.", "Remover Cliente", JOptionPane.PLAIN_MESSAGE);
         telaPrincipal.updateExibicao();
         dispose();
     }//GEN-LAST:event_btnRemoverActionPerformed

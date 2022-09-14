@@ -6,8 +6,8 @@ import javax.swing.*;
 
 /*
 Tela responsável por alterar as informações de veículos,
-sendo elas seus tipos, placas, marcas e modelos. Veículos não podem ser alterados 
-enquanto dentro do shopping.
+sendo elas os seus tipos, placas, marcas e modelos. Veículos não podem ser alterados
+enquanto no shopping.
 */
 public class TelaAlterarVeiculo extends javax.swing.JFrame {
     private final TelaPrincipal telaPrincipal;  // Referência da tela principal
@@ -29,8 +29,8 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
     /*
     Atualiza a exibição da lista de veículos, adicionando como elementos
     as informações do veículo, na forma 'PLACA (MARCA MODELO)'. Após definir 
-    o modelo da lista, habilita e desabilita os elementos da tela de acordo 
-    com a funcionalidade desejada.
+    o modelo da lista, habilita e desabilita os elementos da tela conforme
+    a funcionalidade desejada.
     */
     private void carregarListaVeiculos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
@@ -41,6 +41,7 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
         }
         for (String placa : telaPrincipal.getPlacasVeiculos()) {
             Veiculo veiculo = telaPrincipal.getVeiculo(placa);
+
             modelo.addElement(placa + " (" + veiculo.getMarca() + " " + veiculo.getModelo() + ")");
         }
         selectVeiculo.setModel(modelo);
@@ -333,7 +334,6 @@ public class TelaAlterarVeiculo extends javax.swing.JFrame {
         }
         String[] placaMarcaModelo = ((String) selectVeiculo.getSelectedItem()).split(" ");
         Veiculo veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
-
         String marca = fldMarca.getText();
         String modelo = fldModelo.getText();
         String placa = fldPlaca.getText();

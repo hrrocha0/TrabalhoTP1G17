@@ -35,7 +35,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         }
 
         for (String placa : telaPrincipal.getPlacasVeiculos()) {
-            modelo.addElement(placa);
+            Veiculo veiculo = telaPrincipal.getVeiculo(placa);
+
+            if (veiculo.getDono() == null) {
+                modelo.addElement(placa + " (" + veiculo.getMarca() + " " + veiculo.getModelo() + ")");
+            }
         }
         selectVeiculo.setModel(modelo);
     }
@@ -43,13 +47,13 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     // Atualiza a exibição da lista de lojas, adicionando como elementos os nomes das lojas.
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+
         modelo.addElement("Nenhuma");
 
         if (telaPrincipal == null) {
             selectLoja.setModel(modelo);
             return;
         }
-
         for (String nome : TelaPrincipal.shopping.getLojas(false)) {
             modelo.addElement(nome);
         }
@@ -222,13 +226,15 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Já existe uma pessoa registrada com esse nome.", "Erro: " + getTitle(), JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String placa = (String) selectVeiculo.getSelectedItem();
-        Veiculo veiculo = telaPrincipal.getVeiculo(placa);
+        String[] placaMarcaModelo = ((String) selectVeiculo.getSelectedItem()).split(" ");
+        Veiculo veiculo = telaPrincipal.getVeiculo(placaMarcaModelo[0]);
         String nomeLoja = (String) selectLoja.getSelectedItem();
         Loja loja = TelaPrincipal.shopping.getLoja(nomeLoja);
-
         Funcionario funcionario = new Funcionario(nome, cpf, veiculo, loja);
-
+        
+        if (veiculo != null) {
+            veiculo.setDono(funcionario);
+        }
         if (TelaPrincipal.shopping.getLoja(nomeLoja) != null) {
             TelaPrincipal.shopping.getLoja(nomeLoja).contratar(funcionario);
         }

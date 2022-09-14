@@ -22,7 +22,7 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
     /*
     Atualiza a exibição da lista de clientes, adicionando como elementos
     os nomes dos funcionários. Após definir o modelo da lista, habilita e 
-    desabilita os elementos da tela de acordo com a funcionalidade desejada.
+    desabilita os elementos da tela conforme a funcionalidade desejada.
     */
     private void carregarListaFuncionarios() {
         if (telaPrincipal == null) {
@@ -178,8 +178,10 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         }
         Funcionario funcionario = telaPrincipal.getFuncionario((String) selectFuncionario.getSelectedItem());
         Loja loja = funcionario.getLoja();
-
-        TelaPrincipal.shopping.getLoja(loja.getNome()).demitir(funcionario);
+        
+        if (loja != null) {
+            TelaPrincipal.shopping.getLoja(loja.getNome()).demitir(funcionario);
+        }
         telaPrincipal.removerPessoa(funcionario);
         TelaPrincipal.shopping.remove(funcionario);
         JOptionPane.showMessageDialog(this, "O funcionário de nome " + funcionario.getNome() + " foi removido com sucesso.", "Remover Funcionário", JOptionPane.PLAIN_MESSAGE);

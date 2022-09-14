@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /*
 Tela responsável por gerar o relatório de clientes, que contém informações
-sobre tais e podem ser salvos em um arquivo. Dados de clientes esporádicos não 
+sobre tais e podem ser salvos num arquivo. Dados de clientes esporádicos não
 são salvos no arquivo.
 */
 public class TelaRelatorioClientes extends javax.swing.JFrame {
@@ -203,6 +203,7 @@ public class TelaRelatorioClientes extends javax.swing.JFrame {
             
             for (String nome : telaPrincipal.getNomesClientesFrequentes()) {
                 ClienteFrequente clienteFrequente = telaPrincipal.getClienteFrequente(nome);
+
                 arquivo.write(nome + ", ");
                 arquivo.write(clienteFrequente.getCpf() + ", ");
                 arquivo.write(clienteFrequente.getVeiculo() + ", ");

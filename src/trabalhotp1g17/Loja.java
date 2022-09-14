@@ -71,6 +71,7 @@ public class Loja implements Estabelecimento {
             System.out.println("A loja " + this.nome + "não possui esta pessoa no quadro de funcionários");
             return false;
         }
+        f.setLoja(null);
         this.funcionarios.remove(f);
         return true;
     }
