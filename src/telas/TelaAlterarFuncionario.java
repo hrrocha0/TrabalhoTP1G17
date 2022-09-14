@@ -93,6 +93,7 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
     */
     private void carregarListaVeiculos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        
         modelo.addElement("Nenhum");
 
         if (!selectVeiculo.isEnabled()) {
@@ -116,6 +117,7 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
     // Atualiza a exibição da lista de lojas, adicionando como elementos os nomes das lojas.
     private void carregarListaLojas() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        
         modelo.addElement("Nenhuma");
         
         if (!selectLoja.isEnabled()) {
