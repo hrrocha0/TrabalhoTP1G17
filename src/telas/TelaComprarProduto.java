@@ -20,10 +20,15 @@ public class TelaComprarProduto extends javax.swing.JFrame {
         this.telaPrincipal = telaPrincipal;
         this.cliente = cliente;
         initComponents();
+        setLocationRelativeTo(null);
+        
         carregarListaLojas();
         selectLoja.setSelectedIndex(0);
-        carregarListaProdutos();
-        setLocationRelativeTo(null);
+        
+        atualizaLoja();
+        atualizaListaDeProdutos();
+        
+        //carregarListaProdutos(); 
     }
 
     /*
@@ -260,7 +265,6 @@ public class TelaComprarProduto extends javax.swing.JFrame {
         atualizaLoja();
         atualizaListaDeProdutos();
     }//GEN-LAST:event_selectLojaActionPerformed
-
 
     public void atualizaLoja() {
         String nomeLoja = (String) selectLoja.getSelectedItem();
