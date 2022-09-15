@@ -111,10 +111,15 @@ public class NovaLoja extends javax.swing.JFrame {
     private void btnCadastrarLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarLojaActionPerformed
         String nomeLoja = textNomeLoja.getText();
         TipoLoja tipo = (radioLoja.isSelected())? TipoLoja.PRODUTOS : TipoLoja.RESTAURANTE;
+
+        if (nomeLoja.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Revise os dados. O nome não pode ser vazio.", "erro!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         telaPrincipal.getShopping().add(new Loja(nomeLoja, tipo));
         telaPrincipal.updateNomesLojas();
         dispose();
-        JOptionPane.showMessageDialog(null, "Loja \'" + nomeLoja + "\' cadastrada ao shopping!", "sucesso!", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Loja '" + nomeLoja + "' cadastrada ao shopping!", "sucesso!", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btnCadastrarLojaActionPerformed
 
     private void radioRestauranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioRestauranteActionPerformed

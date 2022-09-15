@@ -216,7 +216,7 @@ public class IncluirEstoqueExistente extends javax.swing.JFrame {
         telaPrincipal.getShopping().abasteceEstoqueDaLoja(nomeLoja, new Produto(nomeProduto, preco, quantidade));
         telaPrincipal.updateNomesLojas();
         dispose();
-        JOptionPane.showMessageDialog(null, "Produto \'" + nomeLoja + "\' adicionado com sucesso ao estoque da loja \'" + nomeLoja + "\'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Produto '" + nomeLoja + "' adicionado com sucesso ao estoque da loja '" + nomeLoja + "\'", "sucesso!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void radioQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQuantidadeActionPerformed
