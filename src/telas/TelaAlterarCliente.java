@@ -396,6 +396,9 @@ public class TelaAlterarCliente extends javax.swing.JFrame {
             }
         }
         if (btnAlterarVeiculo.isSelected()) {
+            if (cliente.getVeiculo() != null) {
+                cliente.getVeiculo().setDono(null);
+            }
             cliente.setVeiculo(veiculo);
             veiculo.setDono(cliente);
         }

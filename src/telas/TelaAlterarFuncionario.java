@@ -389,6 +389,9 @@ public class TelaAlterarFuncionario extends javax.swing.JFrame {
             funcionario.setCpf(cpf);
         }
         if (btnAlterarVeiculo.isSelected()) {
+            if (funcionario.getVeiculo() != null) {
+                funcionario.getVeiculo().setDono(null);
+            }
             funcionario.setVeiculo(veiculo);
             veiculo.setDono(funcionario);
         }
