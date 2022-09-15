@@ -197,7 +197,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     int minutos = permanencia % 60;
                     labelHoraEntrada.setText("Hora de entrada: " + pessoa.getTicket().getHoraEntrada());
                     labelPermanencia.setText("Permanência: " + horas + "h" + minutos);
-                    labelEstacionamentoPessoa.setText("Estacionamento: R$" + pessoa.getTicket().updateTicket(hora));
+                    
+                    if (pessoa.getTicket().isIsento()) {
+                        labelEstacionamentoPessoa.setText("Estacionamento: isento");
+                    } else {
+                        labelEstacionamentoPessoa.setText("Estacionamento: R$" + pessoa.getTicket().updateTicket(hora));
+                    }
                 } else{
                     labelHoraEntrada.setText("Hora de entrada: -");
                     labelPermanencia.setText("Permanência: -");
@@ -299,7 +304,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int minutos = permanencia % 60;
             labelHoraEntrada.setText("Hora de entrada: " + pessoa.getTicket().getHoraEntrada());
             labelPermanencia.setText("Permanência: " + horas + "h" + minutos);
-            labelEstacionamentoPessoa.setText("Estacionamento: R$" + pessoa.getTicket().updateTicket(hora));
+            
+            if (pessoa.getTicket().isIsento()) {
+                labelEstacionamentoPessoa.setText("Estacionamento: isento");
+            } else {
+                labelEstacionamentoPessoa.setText("Estacionamento: R$" + pessoa.getTicket().updateTicket(hora));
+            }
             return;
         }
         labelHoraEntrada.setText("Hora de entrada: -");

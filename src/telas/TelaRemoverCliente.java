@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import trabalhotp1g17.Pessoa;
 import trabalhotp1g17.Shopping;
+import trabalhotp1g17.Veiculo;
 
 // Tela responsável por remover um cliente do sistema
 public class TelaRemoverCliente extends javax.swing.JFrame {
@@ -220,12 +221,16 @@ public class TelaRemoverCliente extends javax.swing.JFrame {
             return;
         }
         Pessoa pessoa;
-        Shopping shopping = telaPrincipal.getShopping();
 
         if (btnEsporadico.isSelected()) {
             pessoa = telaPrincipal.getClienteEsporadico(selectCliente.getSelectedIndex());
         } else {
             pessoa = telaPrincipal.getClienteFrequente((String) selectCliente.getSelectedItem());
+        }
+        Veiculo veiculo = pessoa.getVeiculo();
+                
+        if (veiculo != null) {
+            veiculo.setDono(null);
         }
         telaPrincipal.removerPessoa(pessoa);
         telaPrincipal.getShopping().aoSair(pessoa);

@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import trabalhotp1g17.Funcionario;
 import trabalhotp1g17.Loja;
 import trabalhotp1g17.Shopping;
+import trabalhotp1g17.Veiculo;
 
 // Tela responsável por remover um funcionário do sistema.
 public class TelaRemoverFuncionario extends javax.swing.JFrame {
@@ -179,9 +180,13 @@ public class TelaRemoverFuncionario extends javax.swing.JFrame {
         }
         Funcionario funcionario = telaPrincipal.getFuncionario((String) selectFuncionario.getSelectedItem());
         Loja loja = funcionario.getLoja();
+        Veiculo veiculo = funcionario.getVeiculo();
         
         if (loja != null) {
             loja.demitir(funcionario);
+        }
+        if (veiculo != null) {
+            veiculo.setDono(null);
         }
         telaPrincipal.removerPessoa(funcionario);
         telaPrincipal.getShopping().remove(funcionario);
