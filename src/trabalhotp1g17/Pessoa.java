@@ -42,8 +42,10 @@ public abstract class Pessoa {
             return false;
         }
         produtosComprados.add(produto);
-        gastoTotal += (produto.getPreco() * produto.getQuantidade());
 
+        if (loja.getTipo() == TipoLoja.PRODUTOS) {
+            gastoTotal += (produto.getPreco() * produto.getQuantidade());
+        }
         if (ticket != null && gastoTotal >= getValorIsencao()) {
             ticket.setIsento(true);
         }

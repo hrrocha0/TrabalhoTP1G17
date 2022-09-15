@@ -163,7 +163,6 @@ public class Loja implements Estabelecimento {
     }
 
     public ArrayList<Produto> getProdutos(boolean somenteItensEmEstoque){
-
         if(somenteItensEmEstoque){
             ArrayList<Produto> estoque = new ArrayList<>();
 
@@ -175,6 +174,10 @@ public class Loja implements Estabelecimento {
             return estoque;
         }
         return this.produtos;
+    }
+
+    public TipoLoja getTipo() {
+        return tipo;
     }
 }
 

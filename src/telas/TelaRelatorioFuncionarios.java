@@ -186,6 +186,7 @@ public class TelaRelatorioFuncionarios extends javax.swing.JFrame {
             for (String nome : telaPrincipal.getNomesFuncionarios()) {
                 Funcionario funcionario = telaPrincipal.getFuncionario(nome);
 
+                arquivo.write(funcionario.getNome() + ", ");
                 arquivo.write(funcionario.getCpf() + ", ");
                 arquivo.write(funcionario.getLoja() + ", ");
                 arquivo.write(funcionario.getVeiculo() + ", ");
